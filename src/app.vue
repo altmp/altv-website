@@ -78,7 +78,7 @@ export default {
   }
   body::before {
     content: "";
-    background: url('/img/back.png') no-repeat center/cover;
+    background: url('img/back.png') no-repeat center/cover;
     width: 100%;
     height: 100%;
     position: fixed;
