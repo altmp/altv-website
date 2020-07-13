@@ -1,2 +1,6 @@
 dist/js/
 node_modules/
+public/js/main.*.js
+public/js/main.*.js.map
+
+public/index.html
