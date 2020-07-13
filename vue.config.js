@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/altv-website/',
+    publicPath: process.env.NODE_ENV === 'development' ? '' : '/altv-website/',
 };
