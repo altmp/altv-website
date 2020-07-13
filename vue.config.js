@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: 'altv-website',
+    publicPath: '/altv-website/',
 };
