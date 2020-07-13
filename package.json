@@ -1,0 +1,43 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "alt:V Website",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config=./configs/webpack.dev.js --open --watch --hot",
+    "build": "webpack --config=./configs/webpack.prod.js --progress --hide-modules",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "altMP Team",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.15.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^5.2.2",
+    "file-loader": "^3.0.1",
+    "file-saver": "^2.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "jszip": "^3.2.1",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "vue": "^2.6.8",
+    "vue-loader": "^15.7.0",
+    "vue-router": "^3.0.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.8",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-merge": "^4.2.1"
+  }
+}
