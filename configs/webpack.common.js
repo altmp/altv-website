@@ -6,7 +6,7 @@ module.exports = {
   entry: path.resolve(__dirname, '../src/main.js'),
   output: {
     path: path.resolve(__dirname, '../public'),
-    publicPath: '/',
+    // publicPath: '/',
     filename: 'js/[name].[hash].js'
   },
   module: {
