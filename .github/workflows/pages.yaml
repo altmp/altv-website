@@ -1,31 +1,27 @@
 name: Deploy pages
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
-      types: [closed]
+    pull_request:
+        branches: [master]
+        types: [closed]
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-node@v1
-          with:
-              node-version: 13
-        - name: Install Vue CLI
-          run: npm install -g @vue/cli
-        - name: Install NPM Packages.
-          run: npm install
-        - name: Build VUE Files
-          run: npm run build
-        #- name: Build VUE Files
-        #  run: cp CNAME ./dist/CNAME
-        - name: Deploy
-          uses: JamesIves/github-pages-deploy-action@releases/v3
-          with:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              BRANCH: gh-pages # The branch the action should deploy to.
-              FOLDER: dist # The folder the action should deploy.
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 14
+            - name: Install Vue CLI
+              run: npm install -g @vue/cli
+            - name: Install NPM Packages.
+              run: npm install
+            - name: Build VUE Files
+              run: npm run build
+            - name: Deploy
+              uses: JamesIves/github-pages-deploy-action@releases/v3
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  BRANCH: gh-pages # The branch the action should deploy to.
+                  FOLDER: dist # The folder the action should deploy.
