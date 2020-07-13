@@ -5,7 +5,7 @@
         <h1>Downloads</h1>
         <p>
           By downloading you accept our<br>
-          <a href="/terms-of-service.pdf">Terms Of Service</a> and <a href="#">Privacy Policy</a>
+          <a href="terms-of-service.pdf">Terms Of Service</a> and <a href="#">Privacy Policy</a>
         </p>
         <p class="dlMobile">
           Downloads are unavaliable from mobile devices, please visit this page from a desktop.
