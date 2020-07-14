@@ -17,7 +17,7 @@ const routes = [
         }
     },
     {
-        path: '/downloads',
+        path: '/downloads/',
         component: Downloads,
         name: 'Downloads',
         props: {
@@ -25,7 +25,7 @@ const routes = [
         }
     },
     {
-        path: '/report-violation',
+        path: '/report-violation/',
         component: ReportTos,
         name: 'Report ToS violation',
         props: {
@@ -33,7 +33,7 @@ const routes = [
         }
     },
     {
-        path: '/hosting-application',
+        path: '/hosting-application/',
         component: HostingApplication,
         name: 'Apply for hosting verification',
         props: {

@@ -3,6 +3,7 @@
 ## Project setup
 
 ```sh
+npm install -g @vue/cli
 npm install
 ```
 
