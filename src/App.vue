@@ -13,7 +13,7 @@
                 <router-link to="/downloads" v-on:click.native="closeMenuButton">downloads</router-link>
                 <a href="https://forum.altv.mp/">forums</a>
                 <a href="https://wiki.altv.mp/">wiki</a>
-                <a href="https://natives.altv.mp/">natives</a>
+                <!--<a href="https://natives.altv.mp/">natives</a>-->
                 <!--<a href="https://servers.altv.mp/">servers</a>-->
                 <button id="closebutton" @click="closeMenuButton">&times;</button>
             </div>
