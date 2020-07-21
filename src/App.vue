@@ -15,6 +15,7 @@
                 <a href="https://wiki.altv.mp/">wiki</a>
                 <!--<a href="https://natives.altv.mp/">natives</a>-->
                 <!--<a href="https://servers.altv.mp/">servers</a>-->
+                <a href="https://hub.altv.mp/">resources</a>
                 <button id="closebutton" @click="closeMenuButton">&times;</button>
             </div>
             <div class="social">
@@ -197,11 +198,12 @@ body.home::before {
 }
 .fade-enter-active,
 .fade-leave-to {
-    transition: opacity 0.3s;
+    transition: opacity .2s, transform .2s;
 }
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
+    transform: scale(.99);
 }
 .btn {
     display: inline-block;

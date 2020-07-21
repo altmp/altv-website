@@ -143,6 +143,12 @@ export default {
             this.latestServerBuild = '...';
             const target = this.serverGeneratorForm.isLinux ? 'x64_linux' : 'x64_win32';
             const branch = this.serverGeneratorForm.branch;
+            this.serverGeneratorForm.includeDataFiles = false;
+            this.serverGeneratorForm.includeNodeJS = false;
+            this.serverGeneratorForm.includeJS = false;
+            this.serverGeneratorForm.includeCsharp = false;
+            this.serverGeneratorForm.includeSampleConfig = false;
+            this.serverGeneratorForm.includeSampleResources = false;
             return axios.get(`https://cdn.altv.mp/server/${branch}/${target}/update.json`).then(serverInfo => {
                 this.latestServerBuild = serverInfo.data.latestBuildNumber;
             });
@@ -385,6 +391,7 @@ export default {
 }
 .options .os label {
     display: flex;
+    width: 90%;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
