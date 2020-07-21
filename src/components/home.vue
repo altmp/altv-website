@@ -74,6 +74,7 @@ export default {
     width: 100%;
     justify-content: space-around;
     align-items: center;
+    max-width: 1800px;
 }
 .text h1 {
     font-size: 48px;
