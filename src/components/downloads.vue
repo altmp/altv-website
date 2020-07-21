@@ -57,12 +57,13 @@
                                 <div class="check"></div>
                                 Data files
                             </label>
-                            <label>
+                            <label v-if="serverGeneratorForm.branch == 'release'">
                                 <input v-model="serverGeneratorForm.includeNodeJS" type="checkbox" name="" />
                                 <div class="check"></div>
-                                NodeJS Module (deprecated)
+                                NodeJS Module
+                                <span class="notice">Deprecated</span>
                             </label>
-                            <label>
+                            <label v-if="serverGeneratorForm.branch != 'release'">
                                 <input v-model="serverGeneratorForm.includeJS" type="checkbox" name="" />
                                 <div class="check"></div>
                                 JS Module
@@ -467,6 +468,16 @@ export default {
 }
 .options .addons input:checked + .check::before {
     opacity: 1;
+}
+.options .addons .notice {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: .4;
+    letter-spacing: .6px;
+    margin-left: 13px;
+    margin-top: 4px;
+    position: absolute;
 }
 @media screen and (max-width: 1024px) {
     .title {
