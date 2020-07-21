@@ -60,12 +60,19 @@
                             <label>
                                 <input v-model="serverGeneratorForm.includeNodeJS" type="checkbox" name="" />
                                 <div class="check"></div>
-                                NodeJS Module (deprecated)
+                                NodeJS Module
+                                <span id="disclaimer" style="padding-bottom: 2px;">(DEPRECATED)</span>
+                                <span id="disclaimer" >
+                                 ONLY RELEASE
+                                </span>
                             </label>
                             <label>
                                 <input v-model="serverGeneratorForm.includeJS" type="checkbox" name="" />
                                 <div class="check"></div>
                                 JS Module
+                                <span id="disclaimer">
+                                ONLY RC & DEV
+                                </span>
                             </label>
                             <label>
                                 <input v-model="serverGeneratorForm.includeCsharp" type="checkbox" name="" />
@@ -288,6 +295,7 @@ export default {
 </script>
 
 <style scoped>
+
 .main {
     display: flex;
     flex-direction: column;
@@ -497,5 +505,9 @@ export default {
     .dlMobile {
         display: block;
     }
+}
+
+span#disclaimer {
+    font-size: .65rem;
 }
 </style>
