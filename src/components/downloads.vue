@@ -61,7 +61,7 @@
                                 <input v-model="serverGeneratorForm.includeNodeJS" type="checkbox" name="" />
                                 <div class="check"></div>
                                 NodeJS Module
-                                <span class="notice">Deprecated</span>
+                                <!--<span class="notice">Deprecated</span>-->
                             </label>
                             <label v-if="serverGeneratorForm.branch != 'release'">
                                 <input v-model="serverGeneratorForm.includeJS" type="checkbox" name="" />
@@ -217,8 +217,8 @@ export default {
                 files.push({
                     url:
                         `https://cdn.altv.mp/js-module/${branch}/${target}/modules/js-module/` +
-                        (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : 'libnode.so'),
-                    path: 'modules/js-module/' + (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : 'libnode.so')
+                        (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : 'libnode.so.72'),
+                    path: 'modules/js-module/' + (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : 'libnode.so.72')
                 });
             }
 
