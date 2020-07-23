@@ -190,8 +190,6 @@ export default {
     }
 }
 @media screen and (max-width: 768px) {
-    .main {
-    }
     .wrapper {
         flex-direction: column;
     }
