@@ -8,7 +8,7 @@
                     <a href="terms-of-service.pdf">Terms Of Service</a> and <a href="#">Privacy Policy</a>
                 </p>
                 <p class="dlMobile">
-                    Downloads are unavaliable from mobile devices, please visit this page from a desktop.
+                    Downloads are unavailable on mobile devices, please visit this page from a desktop.
                 </p>
             </div>
             <div class="container">
@@ -89,7 +89,7 @@
                         <span v-else> {{ serverGeneratorForm.progress }}% </span>
                     </a>
                     <p class="dlMobile">
-                        Downloads are unavaliable from mobile devices, please visit this page from a desktop.
+                        Downloads are unavailable on mobile devices, please visit this page from a desktop.
                     </p>
                 </div>
             </div>
@@ -169,6 +169,7 @@
                     });
                 };
 
+                let modules = [];
                 let files = [];
                 files.push({
                     url: `https://cdn.altv.mp/server/${branch}/${target}/altv-server` +
@@ -188,6 +189,7 @@
                 }
 
                 if (this.serverGeneratorForm.includeNodeJS) {
+                    modules.push('node-module');
                     files.push({
                         url: `https://cdn.altv.mp/node-module/${branch}/${target}/modules/` +
                             (!this.serverGeneratorForm.isLinux ? 'node-module.dll' : 'libnode-module.so'),
@@ -203,6 +205,7 @@
                 }
 
                 if (this.serverGeneratorForm.includeJS) {
+                    modules.push('js-module');
                     files.push({
                         url: `https://cdn.altv.mp/js-module/${branch}/${target}/modules/js-module/` +
                             (!this.serverGeneratorForm.isLinux ? 'js-module.dll' : 'libjs-module.so'),
@@ -219,6 +222,7 @@
                 }
 
                 if (this.serverGeneratorForm.includeCsharp) {
+                    modules.push('csharp-module');
                     files.push({
                         url: `https://cdn.altv.mp/coreclr-module/${branch}/${target}/modules/` +
                             (!this.serverGeneratorForm.isLinux ? 'csharp-module.dll' :
@@ -253,7 +257,15 @@
                 }
 
                 for (const file of files) {
-                    zip.file(file.path, downloadFile(file.url), {
+                    let content;
+                    if (file.path === 'server.cfg') {
+                        content = downloadFile('https://cdn.altv.mp/others/server.cfg')
+                            .then(r => new Blob([r]).text().then(file => file.replace(/modules:\s*\[[\s\S]*?\]/gm, `modules: [${modules.join(' ')}]`)));
+                    } else {
+                        content = downloadFile(file.url);
+                    }
+
+                    zip.file(file.path, content, {
                         binary: true
                     });
                 }
@@ -285,6 +297,7 @@
                         })
                         .then(blob => {
                             this.serverGeneratorForm.isBundling = false;
+                            this.serverGeneratorForm.progress = 0;
                             saveAs(blob, 'altv-server.zip');
                         })
                         .catch(e => {
