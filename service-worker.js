@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.6ca3410a47805aa00c655f5271a30a9d.js"
+  "/precache-manifest.44906adb916c6a5ec9a2932bf0a3ce18.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "altv-websitefewf"});
+workbox.core.setCacheNameDetails({prefix: "altv-website"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
