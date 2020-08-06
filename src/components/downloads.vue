@@ -260,7 +260,7 @@
                     let content;
                     if (file.path === 'server.cfg') {
                         content = downloadFile('https://cdn.altv.mp/others/server.cfg')
-                            .then(r => new Blob([r]).text().then(file => file.replace(/modules:\s*\[[\s\S]*?\]/gm, `modules: [${modules.join('\r\n')}]`)));
+                            .then(r => new Blob([r]).text().then(file => file.replace(/modules:\s*\[[\s\S]*?\]/gm, `modules: [\n${modules.join('\n')}\n]`)));
                     } else {
                         content = downloadFile(file.url);
                     }
