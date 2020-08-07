@@ -4,16 +4,24 @@
             <div class="text">
                 <h1>alt:V Multiplayer</h1>
                 <p>
-                    alt:V is a free third-party multiplayer modification for Grand Theft Auto: V.
-                    <br />It allows you to play with your friends on dedicated servers
-                    <br />with custom gamemodes with an ultimate experience.
-                    <br />
+                    A free alternative multiplayer client for GTA:V.
+                    <br />Our client provides perfect synchronization on custom dedicated servers.
+                    <br />Play with your friends and make your own gamemodes with JS, C# and much more.
                 </p>
+                <a class="stats" href="https://altstats.net/" target="_blank">
+                    <span class="players">
+                        Players online: <i>{{ playerCount }}</i>
+                    </span>
+                    <span class="servers">
+                        Servers online: <i>{{ serverCount }}</i>
+                    </span>
+                </a>
                 <div class="sep"></div>
                 <router-link class="btn" to="/downloads">download client</router-link>
-                <span>
+                <span class="launch">
                     Before starting, unpack
-                    <i>altv.exe</i> to an empty folder
+                    <i>altv.exe</i> to an empty folder.
+                    <br />Run as administrator.
                 </span>
             </div>
             <div class="vid">
@@ -56,9 +64,34 @@
 </template>
 
 <script>
+    import {
+        getRequest
+    } from '@/utility/fetch'
+
     export default {
+        data() {
+            return {
+                playerCount: 0,
+                serverCount: 0
+            }
+        },
         beforeCreate() {
             document.body.className = 'home';
+        },
+        methods: {
+            async fetchPlayers() {
+                const data = await getRequest('https://api.altv.mp/servers/');
+
+                if (!data) {
+                    return;
+                }
+
+                this.playerCount = data.playersCount;
+                this.serverCount = data.serversCount;
+            }
+        },
+        mounted() {
+            this.fetchPlayers()
         }
     };
 </script>
@@ -89,12 +122,47 @@
     .text p {
         font-size: 15px;
         margin: 30px 0;
+        margin-bottom: 15px;
         font-weight: 400;
         letter-spacing: 0.5px;
         line-height: 25px;
         opacity: 0.7;
     }
+    
+    .text .stats {
+        margin-bottom: 30px;
+        display: inline-block;
+        text-decoration: none;
+    }
 
+    .text .stats span {
+        display: inline-block;
+        margin-right: 15px;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 13px;
+        color: rgba(255,255,255,.35);
+        transition: color .2s;
+    }
+
+    .text .stats:hover span {
+        color: rgba(255,255,255,.5);
+    }
+
+    .text .stats span i {
+        color: rgba(255,255,255,.6);
+        margin-left: 3px;
+        font-weight: 600;
+        transition: color .2s;
+    }
+
+    .text .stats:hover span i {
+        color: rgba(255,255,255,.75);
+    }
+
+    .text .stats span i {
+        font-style: normal;
+    }
     .text .sep {
         display: block;
         width: 100%;
@@ -102,17 +170,18 @@
         background: linear-gradient(to right, rgba(255, 255, 255, 0.075), rgba(0, 0, 0, 0));
         margin-bottom: 30px;
     }
-
-    .text span {
+    .text .launch {
         display: inline-block;
+        vertical-align: middle;
         margin-left: 30px;
         font-weight: 500;
         letter-spacing: 0.5px;
         font-size: 12px;
         color: rgba(255, 255, 255, 0.3);
+        line-height: 17px;
     }
 
-    .text span i {
+    .text .launch i {
         font-style: normal;
         font-weight: 600;
         color: rgba(255, 255, 255, 0.5);
@@ -169,7 +238,7 @@
             margin-bottom: 25px;
         }
 
-        .text span {
+        .text .launch {
             margin-left: 20px;
             width: 40%;
             line-height: 20px;
@@ -196,7 +265,7 @@
             margin-bottom: 20px;
         }
 
-        .text span {
+        .text .launch {
             display: block;
             margin-left: 0;
             margin-top: 20px;

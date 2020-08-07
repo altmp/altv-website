@@ -11,7 +11,7 @@
             <div :class="{ menu: true, active: isMenuActive }" id="menu">
                 <router-link to="/" v-on:click.native="closeMenuButton">home</router-link>
                 <router-link to="/downloads" v-on:click.native="closeMenuButton">downloads</router-link>
-                <a href="https://forum.altv.mp/">forums</a>
+                <a href="https://discord.gg/q3zUUEC">discord</a>
                 <a href="https://wiki.altv.mp/">wiki</a>
                 <!--<a href="https://natives.altv.mp/">natives</a>-->
                 <!--<a href="https://servers.altv.mp/">servers</a>-->
@@ -25,11 +25,17 @@
                 <a target="_blank" href="https://twitter.com/altVMP">
                     <i class="fab fa-twitter"></i>
                 </a>
+                <a target="_blank" href="https://instagram.com/altvmp/">
+                    <i class="fab fa-instagram"></i>
+                </a>
                 <a target="_blank" href="https://vk.com/altvmp">
                     <i class="fab fa-vk"></i>
                 </a>
                 <a target="_blank" href="https://www.youtube.com/c/altVMP">
                     <i class="fab fa-youtube"></i>
+                </a>
+                <a target="_blank" href="https://facebook.com/altvmp/">
+                    <i class="fab fa-facebook"></i>
                 </a>
                 <a target="_blank" href="https://www.patreon.com/altVMP">
                     <i class="fab fa-patreon"></i>
@@ -198,12 +204,12 @@ body.home::before {
 }
 .fade-enter-active,
 .fade-leave-to {
-    transition: opacity .2s, transform .2s;
+    transition: opacity 0.2s, transform 0.2s;
 }
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
-    transform: scale(.99);
+    transform: scale(0.99);
 }
 .btn {
     display: inline-block;
