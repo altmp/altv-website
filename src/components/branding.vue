@@ -39,16 +39,16 @@
                 <span></span>
             </span>
             <div class="wrapper">
-                <div class="color green">
+                <div class="color green" @click="copy('#008736', $event)">
                     #008736
                 </div>
-                <div class="color white">
+                <div class="color white" @click="copy('#F1F2F2', $event)">
                     #F1F2F2
                 </div>
-                <div class="color dark">
+                <div class="color dark" @click="copy('#2D2D2D', $event)">
                     #2D2D2D
                 </div>
-                <div class="color black">
+                <div class="color black" @click="copy('#1F1F1F', $event)">
                     #1F1F1F
                 </div>
             </div>
@@ -110,6 +110,16 @@
 
 <script>
     export default {
+        methods: {
+            copy(text, event) {
+                navigator.clipboard.writeText(text);
+
+                event.target.classList.add('copied');
+                setTimeout(() => {
+                    event.target.classList.remove('copied');
+                }, 3000);
+            }
+        },
         beforeCreate() {
             document.body.className = 'branding';
         }
@@ -233,6 +243,7 @@
     }
 
     .colors .color {
+        position: relative;
         width: 100%;
         background: green;
         border: 2px solid rgba(255, 255, 255, .1);
@@ -246,6 +257,39 @@
         font-weight: 600;
         box-sizing: border-box;
         border-radius: 8px;
+        transition: transform .2s;
+    }
+
+    .colors .color:hover {
+        transform: scale(.97);
+    }
+
+    .colors .color::before {
+        content: 'Copied';
+        display: inline-block;
+        position: absolute;
+        top: 2.5em;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 5em;
+        background: #1F1F1F;
+        color: #eee;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        padding: .5em;
+        box-sizing: border-box;
+        border-radius: 4px;
+        box-shadow: 0 4px 15px 0 rgba(0,0,0,.2);
+        transform: translateY(-20%);
+        opacity: 0;
+        transition: transform .2s, opacity .2s, backdrop-filter .2s;
+    }
+
+    .colors .color.copied::before {
+        transform: translateY(0);
+        opacity: 1;
     }
 
     .colors .color:first-of-type {
@@ -360,6 +404,24 @@
             margin: 0;
             border-radius: 0;
             border: none;
+            backdrop-filter: none;
+        }
+        .colors .color::before {
+            top: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background: rgba(0,0,0,.3);
+            backdrop-filter: blur(20px);
+            transform: translateY(0);
+            border-radius: 0;
+        }
+        .colors .color:hover {
+            transform: scale(1);
         }
         .logos .logo {
             margin: 0;
