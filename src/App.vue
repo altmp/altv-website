@@ -19,14 +19,11 @@
                 <button id="closebutton" @click="closeMenuButton">&times;</button>
             </div>
             <div class="social">
-                <a target="_blank" href="https://discord.gg/q3zUUEC">
-                    <i class="fab fa-discord"></i>
+                <a target="_blank" href="https://facebook.com/altvmp/">
+                    <i class="fab fa-facebook"></i>
                 </a>
                 <a target="_blank" href="https://twitter.com/altVMP">
                     <i class="fab fa-twitter"></i>
-                </a>
-                <a target="_blank" href="https://github.com/altmp">
-                    <i class="fab fa-github"></i>
                 </a>
                 <a target="_blank" href="https://instagram.com/altvmp/">
                     <i class="fab fa-instagram"></i>
@@ -37,8 +34,11 @@
                 <a target="_blank" href="https://www.youtube.com/c/altVMP">
                     <i class="fab fa-youtube"></i>
                 </a>
-                <a target="_blank" href="https://facebook.com/altvmp/">
-                    <i class="fab fa-facebook"></i>
+                <a target="_blank" href="https://discord.gg/q3zUUEC">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a target="_blank" href="https://github.com/altmp">
+                    <i class="fab fa-github"></i>
                 </a>
                 <a target="_blank" href="https://www.patreon.com/altVMP">
                     <i class="fab fa-patreon"></i>
