@@ -4,6 +4,8 @@ import Home from '@/components/home.vue';
 import Downloads from '@/components/downloads.vue';
 import ReportTos from '@/components/report-tos.vue';
 import HostingApplication from '@/components/hosting-application.vue';
+import Providers from '@/components/providers.vue';
+import Branding from '@/components/branding.vue';
 
 Vue.use(VueRouter);
 const routes = [
@@ -38,6 +40,22 @@ const routes = [
         name: 'Apply for hosting verification',
         props: {
             bodyClass: 'hosting-application'
+        }
+    },
+    {
+        path: '/providers/',
+        component: Providers,
+        name: 'Verified Hosting Providers',
+        props: {
+            bodyClass: 'providers'
+        }
+    },
+    {
+        path: '/branding/',
+        component: Branding,
+        name: 'Branding Guidelines',
+        props: {
+            bodyClass: 'providers'
         }
     }
 ];
