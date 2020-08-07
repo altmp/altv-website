@@ -44,17 +44,23 @@
             <a target="_blank" href="https://discord.gg/q3zUUEC">
                 <i class="fab fa-discord"></i>
             </a>
+            <a target="_blank" href="https://twitter.com/altVMP">
+                <i class="fab fa-twitter"></i>
+            </a>
             <a target="_blank" href="https://github.com/altmp">
                 <i class="fab fa-github"></i>
             </a>
-            <a target="_blank" href="https://twitter.com/altVMP">
-                <i class="fab fa-twitter"></i>
+            <a target="_blank" href="https://instagram.com/altvmp/">
+                <i class="fab fa-instagram"></i>
             </a>
             <a target="_blank" href="https://vk.com/altvmp">
                 <i class="fab fa-vk"></i>
             </a>
             <a target="_blank" href="https://www.youtube.com/c/altVMP">
                 <i class="fab fa-youtube"></i>
+            </a>
+            <a target="_blank" href="https://facebook.com/altvmp/">
+                <i class="fab fa-facebook"></i>
             </a>
             <a target="_blank" href="https://www.patreon.com/altVMP">
                 <i class="fab fa-patreon"></i>
@@ -128,7 +134,7 @@
         line-height: 25px;
         opacity: 0.7;
     }
-    
+
     .text .stats {
         margin-bottom: 30px;
         display: inline-block;
@@ -141,28 +147,29 @@
         text-transform: uppercase;
         font-weight: 500;
         font-size: 13px;
-        color: rgba(255,255,255,.35);
+        color: rgba(255, 255, 255, .35);
         transition: color .2s;
     }
 
     .text .stats:hover span {
-        color: rgba(255,255,255,.5);
+        color: rgba(255, 255, 255, .5);
     }
 
     .text .stats span i {
-        color: rgba(255,255,255,.6);
+        color: rgba(255, 255, 255, .6);
         margin-left: 3px;
         font-weight: 600;
         transition: color .2s;
     }
 
     .text .stats:hover span i {
-        color: rgba(255,255,255,.75);
+        color: rgba(255, 255, 255, .75);
     }
 
     .text .stats span i {
         font-style: normal;
     }
+
     .text .sep {
         display: block;
         width: 100%;
@@ -170,6 +177,7 @@
         background: linear-gradient(to right, rgba(255, 255, 255, 0.075), rgba(0, 0, 0, 0));
         margin-bottom: 30px;
     }
+
     .text .launch {
         display: inline-block;
         vertical-align: middle;
