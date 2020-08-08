@@ -13,20 +13,12 @@
                 <router-link to="/downloads" v-on:click.native="closeMenuButton">downloads</router-link>
                 <a href="https://discord.gg/q3zUUEC">discord</a>
                 <a href="https://wiki.altv.mp/">wiki</a>
-                <!--<a href="https://natives.altv.mp/">natives</a>-->
-                <!--<a href="https://servers.altv.mp/">servers</a>-->
                 <a href="https://hub.altv.mp/">resources</a>
                 <button id="closebutton" @click="closeMenuButton">&times;</button>
             </div>
             <div class="social">
-                <a target="_blank" href="https://discord.gg/q3zUUEC">
-                    <i class="fab fa-discord"></i>
-                </a>
                 <a target="_blank" href="https://twitter.com/altVMP">
                     <i class="fab fa-twitter"></i>
-                </a>
-                <a target="_blank" href="https://github.com/altmp">
-                    <i class="fab fa-github"></i>
                 </a>
                 <a target="_blank" href="https://instagram.com/altvmp/">
                     <i class="fab fa-instagram"></i>
@@ -36,6 +28,9 @@
                 </a>
                 <a target="_blank" href="https://www.youtube.com/c/altVMP">
                     <i class="fab fa-youtube"></i>
+                </a>
+                <a target="_blank" href="https://github.com/altmp">
+                    <i class="fab fa-github"></i>
                 </a>
                 <a target="_blank" href="https://facebook.com/altvmp/">
                     <i class="fab fa-facebook"></i>
