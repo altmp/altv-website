@@ -316,7 +316,11 @@
     .colors .color.black {
         background: #1f1f1f;
     }
-
+    .color {
+        cursor: pointer;
+    }
+    
+    
     .logos .wrapper {
         display: flex;
         justify-content: space-between;
