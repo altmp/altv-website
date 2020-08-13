@@ -54,13 +54,7 @@
                                 <div class="check"></div>
                                 Data files
                             </label>
-                            <label v-if="serverGeneratorForm.branch == 'release'">
-                                <input v-model="serverGeneratorForm.includeNodeJS" type="checkbox" name="" />
-                                <div class="check"></div>
-                                NodeJS Module
-                                <!--<span class="notice">Deprecated</span>-->
-                            </label>
-                            <label v-if="serverGeneratorForm.branch != 'release'">
+                            <label>
                                 <input v-model="serverGeneratorForm.includeJS" type="checkbox" name="" />
                                 <div class="check"></div>
                                 JS Module
