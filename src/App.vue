@@ -11,7 +11,7 @@
             <div :class="{ menu: true, active: isMenuActive }" id="menu">
                 <router-link to="/" v-on:click.native="closeMenuButton">home</router-link>
                 <router-link to="/downloads" v-on:click.native="closeMenuButton">downloads</router-link>
-                <a href="https://discord.gg/q3zUUEC">discord</a>
+                <a href="https://discord.gg/yQvKgSs">discord</a>
                 <a href="https://wiki.altv.mp/">wiki</a>
                 <a href="https://hub.altv.mp/">resources</a>
                 <button id="closebutton" @click="closeMenuButton">&times;</button>
