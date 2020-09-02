@@ -78,7 +78,7 @@
                     </div>
                     <a href="#" @click="bundleServer()" :disabled="serverGeneratorForm.isBundling" class="btn">
                         <span v-if="!serverGeneratorForm.isBundling">
-                            Download <i>Build #{{ latestServerBuild }}</i>
+                            Download <i>Build #{{ latestServerBuild < 0 ? version : latestServerBuild }}</i>
                         </span>
                         <span v-else> {{ serverGeneratorForm.progress }}% </span>
                     </a>
@@ -111,6 +111,7 @@
         data() {
             return {
                 latestServerBuild: '...',
+                version: '...',
                 serverGeneratorForm: {
                     branch: 'release',
                     isLinux: false,
@@ -134,6 +135,7 @@
         methods: {
             updateServerVersion() {
                 this.latestServerBuild = '...';
+                this.version = '...';
                 const target = this.serverGeneratorForm.isLinux ? 'x64_linux' : 'x64_win32';
                 const branch = this.serverGeneratorForm.branch;
                 this.serverGeneratorForm.includeDataFiles = false;
@@ -144,6 +146,7 @@
                 this.serverGeneratorForm.includeSampleResources = false;
                 return axios.get(`https://cdn.altv.mp/server/${branch}/${target}/update.json`).then(serverInfo => {
                     this.latestServerBuild = serverInfo.data.latestBuildNumber;
+                    this.version = serverInfo.data.version;
                 });
             },
             bundleServer: function () {
