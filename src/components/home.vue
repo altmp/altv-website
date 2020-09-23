@@ -41,7 +41,7 @@
             </p>
         </div>
         <div class="socialMobile">
-            <a target="_blank" href="https://discord.gg/q3zUUEC">
+            <a target="_blank" href="https://discord.altv.mp">
                 <i class="fab fa-discord"></i>
             </a>
             <a target="_blank" href="https://twitter.com/altVMP">
