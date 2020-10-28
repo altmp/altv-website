@@ -116,7 +116,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/robots.txt"
   },
   {
-    "revision": "8639edb70680157f2f7b12df70767f80",
+    "revision": "485f126a6ee1c9ce1ff99a1fcaa9b80b",
     "url": "/terms-of-service.pdf"
   }
 ]);
