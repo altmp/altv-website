@@ -2,16 +2,22 @@
     <div class="main">
         <div class="wrapper">
             <div class="title">
-                <h1>Server hosting providers</h1>
+                <h1>verified hosting providers</h1>
                 <p>
-                    Want to host alt:V Server at a professional provider?
-                    <br> This page provides a list of verified ones.
+		Using one of our verified alt:V hosting providers is the easiest way to host your own server 
+		</br>without the need of any server administration knowledge.
                 </p>
             </div>
             <div class="container">
-                <a class="item" href="https://www.power-host.org/">
-                    <img src="@/assets/providers/powerhost.svg" alt="">
+                <a class="item" href="https://iceline-hosting.com/altv-hosting">
+                    <img src="@/assets/providers/iceline-hosting.png" alt="">
                 </a>
+		<a class="item" href="https://www.srkhost.eu/services/altv">
+			<img src="@/assets/providers/srkhost.png" alt="">
+		</a>
+		<a class="item" href="https://zap-hosting.com/de/shop/product/cloud-gameserver/five-altv-linux/">
+			<img src="@/assets/providers/zap-hosting.png" alt="">
+		</a>
             </div>
         </div>
     </div>
