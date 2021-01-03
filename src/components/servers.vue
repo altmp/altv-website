@@ -34,20 +34,20 @@
                         <span class="checkmark"></span>
                     </label>
                 </div>
-                <table class="server">
+                <table class="server" :class="{ 'server-mobile' : isMobile()}">
                     <thead>
                         <th>Server Name</th>
                         <th class="center">&nbsp;</th>
                         <th class="center">Players</th>
-                        <th class="center">Gamemode</th>
-                        <th class="center">Language</th>
-                        <td>&nbsp;</td>
+                        <th v-if="!isMobile()" class="center">Gamemode</th>
+                        <th v-if="!isMobile()" class="center">Language</th>
+                        <td v-if="!isMobile()">&nbsp;</td>
                     </thead>
                     <tbody>
                         <tr v-for="(server, i) in getServerList" :key="i">
                             <td>
                                 <div class="serverName">{{ server.name }}</div>
-                                <div class="serverTags">
+                                <div v-if="!isMobile()" class="serverTags">
                                     <span v-for="(tag, i) in server.tags" :key="i">{{ tag }}</span>
                                 </div>
                             </td>
@@ -58,11 +58,12 @@
                                     <i v-if="server.locked" class="fa fa-lock" title="Locked server"></i>
                                 </div>
                             </td>
-                            <td class="center"><b>{{ server.players }}</b> / {{ server.maxPlayers }}</td>
-                            <td class="center">{{ server.gameMode }}</td>
+                            <td v-if="!isMobile()" class="center"><b>{{ server.players }}</b> / {{ server.maxPlayers }}</td>
+                            <td v-else class="center"><b>{{ server.players }}</b></td>
+                            <td v-if="!isMobile()" class="center">{{ server.gameMode }}</td>
                             <!-- <td class="center"><img :src="flagImage(server.language)" /></td> -->
-                            <td class="center">{{ getLanguage(server.language) }} <!-- <img :src="getFlagImage(server.language)" /> --></td>
-                            <td class="center connect">
+                            <td v-if="!isMobile()" class="center">{{ getLanguage(server.language) }} <!-- <img :src="getFlagImage(server.language)" /> --></td>
+                            <td v-if="!isMobile()" class="center connect">
                                 <a :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
                             </td>
                         </tr>
@@ -136,6 +137,14 @@ export default {
         // },
         clearInput() {
             this.filter.name = "";
+        },
+        isMobile() {
+            if( screen.width <= 760 ) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     },
     mounted() {
@@ -228,6 +237,10 @@ export default {
 
 .container {
     padding-bottom: 30px;
+}
+
+.filters > * {
+    margin-bottom: 20px;
 }
 
 .filters input {
@@ -362,6 +375,14 @@ table.server {
     box-shadow: 0px 0px 30px -10px #000;
 }
 
+table.server-mobile {
+    font-size: 12px !important;
+}
+
+table.server-mobile td:not(:first-child) {
+    white-space: nowrap;
+}
+
 table.server thead {
     line-height: 40px;
     background-color: #222222;
@@ -371,6 +392,7 @@ table.server thead {
 
 table.server thead th:first-child {
     padding-left: 10px;
+    white-space: initial;
 }
 
 table.server thead th {
@@ -393,6 +415,7 @@ table.server tr:hover {
 
 table.server tbody tr td:first-child {
     padding-left: 10px;
+    line-height: initial;
 }
 
 table.server tr .serverName {
