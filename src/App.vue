@@ -53,6 +53,9 @@
 </template>
 
 <script>
+    import '@/assets/fonts/fa.css';
+    import '@/assets/fonts/inter.css';
+
     export default {
         data() {
             return {

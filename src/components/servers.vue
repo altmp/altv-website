@@ -8,6 +8,10 @@
                 <div class="filters">
                     <input v-model="filter.name" type="text" @keyup.esc="clearInput" placeholder="Search servers by name, tags or language" />
                     
+                    <label>Show promoted servers on top
+                        <input v-model="filter.promoted" type="checkbox" id="promoted" checked>
+                        <span class="checkmark"></span>
+                    </label>
                     <label>Show empty servers
                         <input v-model="filter.empty" type="checkbox" id="empty" checked>
                         <span class="checkmark"></span>
@@ -40,7 +44,13 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="center"><div v-if="server.locked === true" class="lock"></div></td>
+                            <td class="center">
+                                <div class="icons">
+                                    <i v-if="server.verified" class="fa fa-check" title="Verified server"></i>
+                                    <i v-if="server.promoted" class="fa fa-bolt" title="Promoted server"></i>
+                                    <i v-if="server.locked" class="fa fa-lock" title="Locked server"></i>
+                                </div>
+                            </td>
                             <td class="center"><b>{{ server.players }}</b> / {{ server.maxPlayers }}</td>
                             <td class="center">{{ server.gameMode }}</td>
                             <!-- <td class="center"><img :src="flagImage(server.language)" /></td> -->
@@ -58,8 +68,8 @@
 
 <script>
 import { getRequest } from '@/utility/fetch'
-const requireFlag = require.context('@/locales/flags', false);
-const requireLang = require.context('@/locales/langs', false);
+// const requireFlag = require.context('@/locales/flags', false);
+// const requireLang = require.context('@/locales/langs', false);
 
 export default {
     data() {
@@ -67,6 +77,7 @@ export default {
             servers: [],
             filter: {
                 name: "",
+                promoted: true,
                 empty: true,
                 full: false,
                 locked: false
@@ -83,12 +94,6 @@ export default {
             }
 
             this.servers = data;
-            this.servers.sort((a, b) => {
-                if(a.promoted > b.promoted) return -1;
-                if(a.promoted < b.promoted) return 1;
-
-                return (a.players > b.players) ? -1 : 1
-            });
         },
         getLanguage(countryCode) {
             // languageNames = new Intl.DisplayNames([countryCode], {type: 'language'});
@@ -102,14 +107,14 @@ export default {
             var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
             return language.charAt(0).toUpperCase() + language.slice(1);
         },
-        getFlagImage(countryCode) {
-            const fName = `./${countryCode}.svg`;
-            if (requireFlag.keys().indexOf(fName) !== -1) {
-                return requireFlag(fName);
-            } else {
-                return requireFlag(`./unk.svg`);
-            }
-        },
+        // getFlagImage(countryCode) {
+        //     const fName = `./${countryCode}.svg`;
+        //     if (requireFlag.keys().indexOf(fName) !== -1) {
+        //         return requireFlag(fName);
+        //     } else {
+        //         return requireFlag(`./unk.svg`);
+        //     }
+        // },
         clearInput() {
             this.filter.name = "";
         }
@@ -120,6 +125,16 @@ export default {
     },
     computed: {
         getServerList: function() {
+            this.servers.sort((a, b) => {
+                if(this.filter.promoted)
+                {
+                    if(a.promoted > b.promoted) return -1;
+                    if(a.promoted < b.promoted) return 1;
+                }
+
+                return (a.players > b.players) ? -1 : 1
+            });
+
             return this.servers.filter(server => {
                 if(!server.players && !this.filter.empty) return false;
                 if((server.players === server.maxPlayers) && this.filter.full) return false;
@@ -156,26 +171,8 @@ export default {
     flex-direction: column;
 } */
 
-.lock {
-    background: gray;
-    border-radius: 3px;
-    width: 12.5px;
-    height: 10px;
-    margin-top: 0px;
-    margin-left: 0px;
-    position: relative;
-}
-
-.lock:before {
-    content: "";
-    display: block;
-    position: absolute;
-    border:3px solid gray;
-    top: -9px;
-    left: 0px;
-    width: 7.5px;
-    height: 13.5px;
-    border-radius: 17.5px 17.5px 0 0;
+.icons > * {
+    margin-right: 15px;
 }
 
 .filters {
