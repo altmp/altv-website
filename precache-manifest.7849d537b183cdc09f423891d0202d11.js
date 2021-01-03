@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "0f0c852861cd282a6e62",
-    "url": "/css/app.17a28085.css"
+    "revision": "ca6936c7b3c5a5f81ccc",
+    "url": "/css/app.df65eda4.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -36,8 +36,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/Inter-Regular.woff2"
   },
   {
+    "revision": "dbe8505cf4eb137c63b6c375e02c225e",
+    "url": "/fonts/fa.dbe8505c.woff2"
+  },
+  {
     "revision": "d216d1c0a61eeda3d55f3f10d3ff0752",
     "url": "/fonts/fonts.css"
+  },
+  {
+    "revision": "77812e2fead777db0dc806b1eaabc7fd",
+    "url": "/fonts/i400.77812e2f.woff2"
+  },
+  {
+    "revision": "900f31022873fa16552980d331bebfcc",
+    "url": "/fonts/i500.900f3102.woff2"
+  },
+  {
+    "revision": "3d011804596fb2ccde4af51830a9a7d5",
+    "url": "/fonts/i600.3d011804.woff2"
+  },
+  {
+    "revision": "741dc4163a97ffa354979f18802f6ca8",
+    "url": "/fonts/i700.741dc416.woff2"
+  },
+  {
+    "revision": "3f65bd10dd37478e619a59dfd8014224",
+    "url": "/fonts/i800.3f65bd10.woff2"
+  },
+  {
+    "revision": "9937c52ecf1224033b83886cbfb10ae6",
+    "url": "/fonts/u400.9937c52e.woff2"
   },
   {
     "revision": "0eb43950c0afd2e9c7a553916979d44c",
@@ -96,12 +124,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/v_logo.svg"
   },
   {
-    "revision": "8fae8f7f59d9e9addc74b05a98b9cbbb",
+    "revision": "d40f5ca0ac973d2e7bef297ef447b705",
     "url": "/index.html"
   },
   {
-    "revision": "0f0c852861cd282a6e62",
-    "url": "/js/app.2f3cf1bf.js"
+    "revision": "ca6936c7b3c5a5f81ccc",
+    "url": "/js/app.8eeca764.js"
   },
   {
     "revision": "3a547fa4d7b6b2cb28db",
