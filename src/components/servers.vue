@@ -21,8 +21,8 @@
                         <input v-model="filter.promoted" type="checkbox" id="promoted" checked>
                         <span class="checkmark"></span>
                     </label>
-                    <label>Show empty servers
-                        <input v-model="filter.empty" type="checkbox" id="empty" checked>
+                    <label>Hide empty servers
+                        <input v-model="filter.empty" type="checkbox" id="empty">
                         <span class="checkmark"></span>
                     </label>
                     <label>Hide full servers
@@ -74,9 +74,11 @@
 </template>
 
 <script>
-import { getRequest } from '@/utility/fetch'
+import { getRequest } from '@/utility/fetch';
+import languages from '@/utility/locales';
+
 // const requireFlag = require.context('@/locales/flags', false);
-const requireLang = require.context('@/locales/langs', false);
+// const requireLang = require.context('@/locales/langs', false);
 
 export default {
     data() {
@@ -85,7 +87,7 @@ export default {
             filter: {
                 name: "",
                 promoted: true,
-                empty: true,
+                empty: false,
                 full: false,
                 locked: false
             }
@@ -103,12 +105,24 @@ export default {
             this.servers = data;
         },
         getLanguage(countryCode) {
-            const fName = `./${countryCode}.json`;
-            if (requireLang.keys().indexOf(fName) !== -1) {
-                return requireLang(fName).name;
-            } else {
-                return countryCode;
+            for(var lang in languages) {
+                if(languages[lang]["1"] === countryCode)
+                    return languages[lang].local;
             }
+
+            return countryCode;
+            // if(countryCode in isoLangs)
+            // {
+            //     return isoLangs[countryCode].nativeName;
+            // } else {
+            //     return countryCode;
+            // }
+            // const fName = `./${countryCode}.json`;
+            // if (requireLang.keys().indexOf(fName) !== -1) {
+            //     return requireLang(fName).name;
+            // } else {
+            //     return countryCode;
+            // }
             // var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
             // return language.charAt(0).toUpperCase() + language.slice(1);
         },
@@ -142,7 +156,7 @@ export default {
             });
 
             return this.servers.filter(server => {
-                if(!server.players && !this.filter.empty) return false;
+                if(!server.players && this.filter.empty) return false;
                 if((server.players === server.maxPlayers) && this.filter.full) return false;
                 if(server.locked && this.filter.locked) return false;
                 if(!this.filter.name) return true;
