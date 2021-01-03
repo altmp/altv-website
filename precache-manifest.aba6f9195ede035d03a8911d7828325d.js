@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "ca6936c7b3c5a5f81ccc",
-    "url": "/css/app.df65eda4.css"
+    "revision": "fd4f1d917dc0e5911e7f",
+    "url": "/css/app.4b041e41.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -96,16 +96,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/favicon-32x32.png"
   },
   {
+    "revision": "cea1782099adec8177725248f9600706",
+    "url": "/img/iceline-hosting.cea17820.png"
+  },
+  {
     "revision": "5139557fd55e1a4fc513bf92e0da9aa1",
     "url": "/img/mstile-150x150.png"
   },
   {
     "revision": "44bfc041a94311edc4b64864a06b6b87",
     "url": "/img/og-image.png"
-  },
-  {
-    "revision": "fbd742a91c18b663ca4a8a6712317971",
-    "url": "/img/powerhost.fbd742a9.svg"
   },
   {
     "revision": "ec9efa4544c5bf7108446370d58ce81e",
@@ -116,6 +116,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/site.webmanifest"
   },
   {
+    "revision": "4e8fc5cff6e37c8b538690b948111faf",
+    "url": "/img/srkhost.4e8fc5cf.png"
+  },
+  {
     "revision": "b048d1c48f0328d69639d7764f57df20",
     "url": "/img/v_logo.b048d1c4.svg"
   },
@@ -124,12 +128,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/v_logo.svg"
   },
   {
-    "revision": "d40f5ca0ac973d2e7bef297ef447b705",
+    "revision": "9ce0c89a1b320c802aeae8cc5b43ed41",
     "url": "/index.html"
   },
   {
-    "revision": "ca6936c7b3c5a5f81ccc",
-    "url": "/js/app.8eeca764.js"
+    "revision": "fd4f1d917dc0e5911e7f",
+    "url": "/js/app.0edcc457.js"
   },
   {
     "revision": "3a547fa4d7b6b2cb28db",
