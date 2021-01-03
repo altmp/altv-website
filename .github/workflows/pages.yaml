@@ -20,6 +20,7 @@ jobs:
 
       - name: Build VUE Files
         run: |
+          git submodule update --init --recursive
           npm run build
           cp CNAME ./dist/CNAME
 
