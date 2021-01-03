@@ -76,7 +76,7 @@
 <script>
 import { getRequest } from '@/utility/fetch'
 // const requireFlag = require.context('@/locales/flags', false);
-// const requireLang = require.context('@/locales/langs', false);
+const requireLang = require.context('@/locales/langs', false);
 
 export default {
     data() {
@@ -103,15 +103,14 @@ export default {
             this.servers = data;
         },
         getLanguage(countryCode) {
-            // languageNames = new Intl.DisplayNames([countryCode], {type: 'language'});
-            // const fName = `./${countryCode}.json`;
-            // if (requireLang.keys().indexOf(fName) !== -1) {
-            //     return requireLang(fName).name;
-            // } else {
-            //     return countryCode;
-            // }
-            var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
-            return language.charAt(0).toUpperCase() + language.slice(1);
+            const fName = `./${countryCode}.json`;
+            if (requireLang.keys().indexOf(fName) !== -1) {
+                return requireLang(fName).name;
+            } else {
+                return countryCode;
+            }
+            // var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
+            // return language.charAt(0).toUpperCase() + language.slice(1);
         },
         // getFlagImage(countryCode) {
         //     const fName = `./${countryCode}.svg`;
