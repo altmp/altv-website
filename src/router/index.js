@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/components/home.vue';
 import Downloads from '@/components/downloads.vue';
+import Servers from '@/components/servers.vue';
 import ReportTos from '@/components/report-tos.vue';
 import HostingApplication from '@/components/hosting-application.vue';
 import Providers from '@/components/providers.vue';
@@ -24,6 +25,14 @@ const routes = [
         name: 'Downloads',
         props: {
             bodyClass: 'downloads'
+        }
+    },
+    {
+        path: '/servers/',
+        component: Servers,
+        name: 'Server List',
+        props: {
+            bodyClass: 'servers'
         }
     },
     {
