@@ -3,6 +3,15 @@
         <div class="wrapper">
             <div class="title">
                 <h1>Servers list</h1>
+                <div class="stats">
+                <!-- <a class="stats" href="https://altstats.net/" target="_blank"> -->
+                    <span class="players">
+                        Players online: <i>{{ servers.reduce((a, b) => a + (b.players || 0), 0) }}</i>
+                    </span>
+                    <span class="servers">
+                        Servers online: <i>{{ servers.length }}</i>
+                    </span>
+                </div>
             </div>
             <div class="container">
                 <div class="filters">
@@ -39,9 +48,7 @@
                             <td>
                                 <div class="serverName">{{ server.name }}</div>
                                 <div class="serverTags">
-                                    <span v-for="(tag, i) in server.tags" :key="i">
-                                    {{ tag }}
-                                    </span>
+                                    <span v-for="(tag, i) in server.tags" :key="i">{{ tag }}</span>
                                 </div>
                             </td>
                             <td class="center">
@@ -121,6 +128,7 @@ export default {
     mounted() {
         console.log("Servers is mounted");
         this.fetchServers();
+        setInterval(this.fetchServers, 10000);
     },
     computed: {
         getServerList: function() {
@@ -169,6 +177,33 @@ export default {
     align-items: center;
     flex-direction: column;
 } */
+
+.title .stats {
+    margin-bottom: 50px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.title .stats span {
+    display: inline-block;
+    margin-right: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 13px;
+    color: rgba(255, 255, 255, .35);
+    transition: color .2s;
+}
+
+.title .stats:hover span {
+    color: rgba(255, 255, 255, .5);
+}
+
+.title .stats span i {
+    color: rgba(255, 255, 255, .6);
+    margin-left: 3px;
+    font-weight: 600;
+    transition: color .2s;
+}
 
 .icons > * {
     margin-right: 15px;
@@ -306,14 +341,19 @@ export default {
 table.server {
     width: 100%;
     border: 5px solid #222222;
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
     margin-bottom: 40px;
+    backdrop-filter: blur(16px);
+    border-radius: 8px;
+    border-spacing: 0;
+    box-shadow: 0px 0px 30px -10px #000;
 }
 
 table.server thead {
     line-height: 40px;
     background-color: #222222;
     border-bottom: 3px solid #222222;
+    border-radius: 5px;
 }
 
 table.server thead th:first-child {
@@ -330,7 +370,8 @@ table.server tr {
 }
 
 table.server tr:nth-child(even) {
-    background-color: #1e1e1e;
+    background-color: rgba(30, 30, 30, 0.6);
+    
 }
 
 table.server tr:hover {
@@ -351,9 +392,9 @@ table.server tr .serverTags {
 
 table.server tr .serverTags span {
   font-size: .8em;
-  padding: 2px 5px;
+  padding: 6px 10px;
   background: rgba(240, 240, 240, 0.1);
-  border-radius: 3px;
+  border-radius: 5px;
   width: auto;
   margin-top: .3em;
   transition: background .2s, opacity .2s;
