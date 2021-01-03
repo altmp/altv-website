@@ -9,19 +9,19 @@
     },
     "dependencies": {
         "axios": "^0.19.2",
-        "file-saver": "^2.0.2",
+        "file-saver": "^2.0.5",
         "jszip": "^3.5.0",
-        "register-service-worker": "^1.7.1",
-        "vue": "^2.6.11",
-        "vue-router": "^3.3.4"
+        "register-service-worker": "^1.7.2",
+        "vue": "^2.6.12",
+        "vue-router": "^3.4.9"
     },
     "devDependencies": {
         "@vue/cli-plugin-pwa": "~4.3.0",
         "@vue/cli-plugin-router": "~4.3.0",
         "@vue/cli-service": "~4.3.0",
-        "less": "^3.12.2",
+        "less": "^3.13.1",
         "less-loader": "^5.0.0",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.12"
     },
     "browserslist": [
         "> 1%",
