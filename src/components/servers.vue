@@ -44,7 +44,7 @@
                             <td class="center"><b>{{ server.players }}</b> / {{ server.maxPlayers }}</td>
                             <td class="center">{{ server.gameMode }}</td>
                             <!-- <td class="center"><img :src="flagImage(server.language)" /></td> -->
-                            <td class="center">{{ getLanguage(server.language) }} <img :src="getFlagImage(server.language)" /></td>
+                            <td class="center">{{ getLanguage(server.language) }} <!-- <img :src="getFlagImage(server.language)" /> --></td>
                             <td class="center connect">
                                 <a :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
                             </td>
@@ -91,12 +91,16 @@ export default {
             });
         },
         getLanguage(countryCode) {
-            const fName = `./${countryCode}.json`;
-            if (requireLang.keys().indexOf(fName) !== -1) {
-                return requireLang(fName).name;
-            } else {
-                return countryCode;
-            }
+            // languageNames = new Intl.DisplayNames([countryCode], {type: 'language'});
+            // const fName = `./${countryCode}.json`;
+            // if (requireLang.keys().indexOf(fName) !== -1) {
+            //     return requireLang(fName).name;
+            // } else {
+            //     return countryCode;
+            // }
+            console.log("shit");
+            var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
+            return language.charAt(0).toUpperCase() + language.slice(1);
         },
         getFlagImage(countryCode) {
             const fName = `./${countryCode}.svg`;
