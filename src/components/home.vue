@@ -8,14 +8,15 @@
                     <br />Our client provides perfect synchronization on custom dedicated servers.
                     <br />Play with your friends and make your own gamemodes with JS, C# and much more.
                 </p>
-                <a class="stats" href="https://altstats.net/" target="_blank">
+                <router-link class="stats" to="/servers" v-on:click.native="closeMenuButton">
+                <!-- <a class="stats" href="https://altstats.net/" target="_blank"> -->
                     <span class="players">
                         Players online: <i>{{ playerCount }}</i>
                     </span>
                     <span class="servers">
                         Servers online: <i>{{ serverCount }}</i>
                     </span>
-                </a>
+                </router-link>
                 <div class="sep"></div>
                 <router-link class="btn" to="/downloads">download client</router-link>
                 <span class="launch">
