@@ -103,7 +103,6 @@ export default {
             // } else {
             //     return countryCode;
             // }
-            console.log("shit");
             var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
             return language.charAt(0).toUpperCase() + language.slice(1);
         },
