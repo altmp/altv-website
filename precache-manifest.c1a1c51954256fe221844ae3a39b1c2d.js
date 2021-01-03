@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "fd4f1d917dc0e5911e7f",
-    "url": "/css/app.4b041e41.css"
+    "revision": "3c1a3e04d95ed7105ff1",
+    "url": "/css/app.1690f11a.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -88,6 +88,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/browserconfig.xml"
   },
   {
+    "revision": "37f8b787b2ac77737c73e4807a26ef1e",
+    "url": "/img/deinserverhost.37f8b787.svg"
+  },
+  {
     "revision": "61202726bc8d16eb85d99778b7529219",
     "url": "/img/favicon-16x16.png"
   },
@@ -112,6 +116,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/safari-pinned-tab.svg"
   },
   {
+    "revision": "b57fdce8209cc8e8c0f432d48c514874",
+    "url": "/img/serverproject.b57fdce8.png"
+  },
+  {
     "revision": "41c51e2f859d89c8e7e4454eaeecf17a",
     "url": "/img/site.webmanifest"
   },
@@ -128,16 +136,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/v_logo.svg"
   },
   {
-    "revision": "9ce0c89a1b320c802aeae8cc5b43ed41",
+    "revision": "a4023e7cdb98373d0d2f4ef249e41de1",
     "url": "/index.html"
   },
   {
-    "revision": "fd4f1d917dc0e5911e7f",
-    "url": "/js/app.0edcc457.js"
+    "revision": "3c1a3e04d95ed7105ff1",
+    "url": "/js/app.642eec57.js"
   },
   {
-    "revision": "3a547fa4d7b6b2cb28db",
-    "url": "/js/chunk-vendors.9dbd710b.js"
+    "revision": "90ad48dc1aea147c4af4",
+    "url": "/js/chunk-vendors.723dd574.js"
   },
   {
     "revision": "e148a5134ea15f58bd898a9b7284ca8f",
