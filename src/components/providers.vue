@@ -9,8 +9,14 @@
                 </p>
             </div>
             <div class="container">
+		<a class="item" href="https://deinserverhost.de/altv-server-mieten">
+			<img src="@/assets/providers/deinserverhost.svg" alt="">
+                </a>
                 <a class="item" href="https://iceline-hosting.com/altv-hosting">
-                    <img src="@/assets/providers/iceline-hosting.png" alt="">
+			<img src="@/assets/providers/iceline-hosting.png" alt="">
+                </a>
+                <a class="item" href="https://admin.serverproject.eu/order/create">
+			<img src="@/assets/providers/serverproject.png" alt="">
                 </a>
 		<a class="item" href="https://www.srkhost.eu/services/altv">
 			<img src="@/assets/providers/srkhost.png" alt="">
