@@ -127,7 +127,9 @@
     }
 
     .container .item img {
-        width: 240px;
+        max-width: 80%;
+        height: auto;
+        object-fit: cover;
     }
 
     @media screen and (max-width: 1024px) {
