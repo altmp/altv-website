@@ -415,6 +415,9 @@ table.server tr:hover {
 
 table.server tbody tr td:first-child {
     padding-left: 10px;
+}
+
+table.server-mobile tbody tr td:first-child {
     line-height: initial;
 }
 
