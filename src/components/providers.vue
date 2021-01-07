@@ -5,7 +5,7 @@
                 <h1>verified hosting providers</h1>
                 <p>
 		Using one of our verified alt:V hosting providers is the easiest way to host your own server 
-		</br>without the need of any server administration knowledge.
+		<br />without the need of any server administration knowledge.
                 </p>
             </div>
             <div class="container">

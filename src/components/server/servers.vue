@@ -1,8 +1,40 @@
 <template>
     <div class="main">
+        <ServerModal ref="serverModal"></ServerModal>
+
         <div class="wrapper">
             <div class="title">
                 <h1>Servers list</h1>
+                <div class="filters">
+                    <div class="filter">
+                        <i>Show</i>
+                        <label>promoted on top
+                            <input v-model="filter.promoted" type="checkbox" id="promoted" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="filter">
+                        <i>Hide</i>
+                        <label>empty
+                            <input v-model="filter.empty" type="checkbox" id="empty">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label>full
+                            <input v-model="filter.full" type="checkbox" id="full">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label>locked
+                            <input v-model="filter.locked" type="checkbox" id="locked">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input v-model="filter.name" type="text" @keyup.esc="clearInput" placeholder="Search" />
+                </div>
+            </div>
+            <div class="container">
                 <div class="stats">
                 <!-- <a class="stats" href="https://altstats.net/" target="_blank"> -->
                     <span class="players">
@@ -12,42 +44,21 @@
                         Servers online: <i>{{ servers.length }}</i>
                     </span>
                 </div>
-            </div>
-            <div class="container">
-                <div class="filters">
-                    <input v-model="filter.name" type="text" @keyup.esc="clearInput" placeholder="Search servers by name, tags or language" />
-                    
-                    <label>Show promoted servers on top
-                        <input v-model="filter.promoted" type="checkbox" id="promoted" checked>
-                        <span class="checkmark"></span>
-                    </label>
-                    <label>Hide empty servers
-                        <input v-model="filter.empty" type="checkbox" id="empty">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label>Hide full servers
-                        <input v-model="filter.full" type="checkbox" id="full">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label>Hide locked servers
-                        <input v-model="filter.locked" type="checkbox" id="locked">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
-                <table class="server" :class="{ 'server-mobile' : isMobile()}">
+
+                <table class="server">
                     <thead>
                         <th>Server Name</th>
                         <th class="center">&nbsp;</th>
                         <th class="center">Players</th>
-                        <th v-if="!isMobile()" class="center">Gamemode</th>
-                        <th v-if="!isMobile()" class="center">Language</th>
-                        <td v-if="!isMobile()">&nbsp;</td>
+                        <th class="center optional">Gamemode</th>
+                        <th class="center optional">Language</th>
+                        <th class="optional">&nbsp;</th>
                     </thead>
                     <tbody>
-                        <tr v-for="(server, i) in getServerList" :key="i">
+                        <tr v-for="server in getServerList" :key="server.id" v-on:click="showServerInfo(server.id)">
                             <td>
                                 <div class="serverName">{{ server.name }}</div>
-                                <div v-if="!isMobile()" class="serverTags">
+                                <div class="serverTags optional">
                                     <span v-for="(tag, i) in server.tags" :key="i">{{ tag }}</span>
                                 </div>
                             </td>
@@ -58,12 +69,10 @@
                                     <i v-if="server.locked" class="fa fa-lock" title="Locked server"></i>
                                 </div>
                             </td>
-                            <td v-if="!isMobile()" class="center"><b>{{ server.players }}</b> / {{ server.maxPlayers }}</td>
-                            <td v-else class="center"><b>{{ server.players }}</b></td>
-                            <td v-if="!isMobile()" class="center">{{ server.gameMode }}</td>
-                            <!-- <td class="center"><img :src="flagImage(server.language)" /></td> -->
-                            <td v-if="!isMobile()" class="center">{{ getLanguage(server.language) }} <!-- <img :src="getFlagImage(server.language)" /> --></td>
-                            <td v-if="!isMobile()" class="center connect">
+                            <td class="center"><b>{{ server.players }}</b> <span class="optional">/ {{ server.maxPlayers }}</span></td>
+                            <td class="center optional">{{ server.gameMode }}</td>
+                            <td class="center optional">{{ getLanguage(server.language) }} <!-- <img :src="getFlagImage(server.language)" /> --></td>
+                            <td class="center optional connect">
                                 <a :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
                             </td>
                         </tr>
@@ -75,16 +84,22 @@
 </template>
 
 <script>
+import ServerModal from '@/components/server/server-modal.vue';
+
 import { getRequest } from '@/utility/fetch';
-import languages from '@/utility/locales';
+import getLanguage from '@/utility/locales';
 
 // const requireFlag = require.context('@/locales/flags', false);
 // const requireLang = require.context('@/locales/langs', false);
 
 export default {
+    components: {
+        ServerModal
+    },
     data() {
         return {
             servers: [],
+            serversInfo: {},
             filter: {
                 name: "",
                 promoted: true,
@@ -95,6 +110,7 @@ export default {
         }
     },
     methods: {
+        getLanguage: getLanguage,
         fetchServers: async function() {
             console.log("Fetch servers from the API...");
             const data = await getRequest('https://api.altv.mp/servers/list');
@@ -105,28 +121,28 @@ export default {
 
             this.servers = data;
         },
-        getLanguage(countryCode) {
-            for(var lang in languages) {
-                if(languages[lang]["1"] === countryCode)
-                    return languages[lang].local;
-            }
+        // getLanguage(countryCode) {
+        //     for(var lang in languages) {
+        //         if(languages[lang]["1"] === countryCode)
+        //             return languages[lang].local;
+        //     }
 
-            return countryCode;
-            // if(countryCode in isoLangs)
-            // {
-            //     return isoLangs[countryCode].nativeName;
-            // } else {
-            //     return countryCode;
-            // }
-            // const fName = `./${countryCode}.json`;
-            // if (requireLang.keys().indexOf(fName) !== -1) {
-            //     return requireLang(fName).name;
-            // } else {
-            //     return countryCode;
-            // }
-            // var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
-            // return language.charAt(0).toUpperCase() + language.slice(1);
-        },
+        //     return countryCode;
+        //     // if(countryCode in isoLangs)
+        //     // {
+        //     //     return isoLangs[countryCode].nativeName;
+        //     // } else {
+        //     //     return countryCode;
+        //     // }
+        //     // const fName = `./${countryCode}.json`;
+        //     // if (requireLang.keys().indexOf(fName) !== -1) {
+        //     //     return requireLang(fName).name;
+        //     // } else {
+        //     //     return countryCode;
+        //     // }
+        //     // var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
+        //     // return language.charAt(0).toUpperCase() + language.slice(1);
+        // },
         // getFlagImage(countryCode) {
         //     const fName = `./${countryCode}.svg`;
         //     if (requireFlag.keys().indexOf(fName) !== -1) {
@@ -138,13 +154,13 @@ export default {
         clearInput() {
             this.filter.name = "";
         },
-        isMobile() {
-            if( screen.width <= 760 ) {
-                return true;
-            }
-            else {
-                return false;
-            }
+        showServerInfo(id) {
+            var server = this.servers.find(server => {
+                return server.id === id;
+            });
+            this.$refs.serverModal.open(server);
+
+            console.log("Open shit: " + server.id);
         }
     },
     mounted() {
@@ -200,27 +216,69 @@ export default {
     flex-direction: column;
 } */
 
-.title .stats {
-    margin-bottom: 50px;
+::-webkit-scrollbar {
+    width: 10px;
+    scroll-margin-right: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #292929;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.main {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title h1 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+
+.container .stats {
+    margin-bottom: 10px;
     display: inline-block;
     text-decoration: none;
 }
 
-.title .stats span {
+.container .stats i {
+    font-style: normal !important;
+}
+
+.container .stats span {
     display: inline-block;
     margin-right: 15px;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 13px;
-    color: rgba(255, 255, 255, .35);
+    color: rgba(255, 255, 255, .5);
     transition: color .2s;
 }
 
-.title .stats:hover span {
-    color: rgba(255, 255, 255, .5);
+.container .stats:hover span {
+    color: rgba(255, 255, 255, .7);
 }
 
-.title .stats span i {
+.container .stats span i {
     color: rgba(255, 255, 255, .6);
     margin-left: 3px;
     font-weight: 600;
@@ -231,19 +289,17 @@ export default {
     margin-right: 15px;
 }
 
-.filters {
-    margin-bottom: 20px;
-}
-
 .container {
     padding-bottom: 30px;
 }
 
-.filters > * {
-    margin-bottom: 20px;
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: auto !important;
 }
 
-.filters input {
+.search input {
   background: none;
   font-size: 1em;
   font-family: inherit;
@@ -254,27 +310,33 @@ export default {
   letter-spacing: .5px;
 }
 
-.filters input::placeholder {
+.search input::placeholder {
   transition: opacity .3s;
   font-weight: 600;
   letter-spacing: 0;
 }
 
-.filters input:focus::placeholder {
+.search input:focus::placeholder {
   opacity: 0;
 }
 
-.filters i {
-  opacity: .3;
+.title .search {
+    padding: .7em;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
 }
 
-.filters input[type=text] {
+.filters i, .search i {
+  opacity: .5;
+}
+
+/* .filters input[type=text] {
   display: inline-block;
   padding: .7em;
   border: 2px solid rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   width: 330px;
-}
+} */
 
 .filters input[type=checkbox] {
     position: absolute;
@@ -288,12 +350,55 @@ export default {
     display: inline-block;
     position: relative;
     padding-left: 28px;
-    margin-bottom: 12px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.filters .filter {
+    display: flex;
+    align-items: center;
+}
+
+.filters .filter i {
+    text-transform: uppercase;
+    font-style: normal;
+}
+
+@media screen and (max-width: 768px) {
+    .title h1 {
+        font-size: 1em;
+    }
+
+    .filters .filter > * {
+        margin-bottom: 10px;
+    }
+
+    .optional {
+        display: none !important;
+    }
+
+    table.server {
+        font-size: 12px !important;
+    }
+
+    table.server thead th:not(.optional) {
+        padding-right: 10px !important;
+    }
+
+    table.server td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+    table.server tbody tr td:first-child {
+        line-height: initial;
+    }
+}
+
+.filter > * {
+    padding-right: 20px;
 }
 
 .checkmark {
@@ -309,6 +414,10 @@ export default {
 
 .filters label:hover input ~ .checkmark {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.filters label:hover input:checked ~ .checkmark {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* When the checkbox is checked, add a blue background */
@@ -340,6 +449,7 @@ export default {
   transform: rotate(45deg);
 }
 
+.title > *:not(:last-child),
 .filters > * {
     margin-right: 20px;
 }
@@ -375,14 +485,6 @@ table.server {
     box-shadow: 0px 0px 30px -10px #000;
 }
 
-table.server-mobile {
-    font-size: 12px !important;
-}
-
-table.server-mobile td:not(:first-child) {
-    white-space: nowrap;
-}
-
 table.server thead {
     line-height: 40px;
     background-color: #222222;
@@ -396,17 +498,28 @@ table.server thead th:first-child {
 }
 
 table.server thead th {
+    position: sticky;
+    top: -20px;
+    text-transform: uppercase;
+    font-size: .8em;
     text-align: left;
+    background-color: #222222;
+    border-bottom: 3px solid #222222;
+    z-index: 1000;
 }
 
 table.server tr {
     line-height: 40px;
     border-bottom: 3px solid #222222;
+    cursor: pointer;
+}
+
+table.server tr.info {
+    display: none;
 }
 
 table.server tr:nth-child(even) {
     background-color: rgba(30, 30, 30, 0.6);
-    
 }
 
 table.server tr:hover {
@@ -415,10 +528,6 @@ table.server tr:hover {
 
 table.server tbody tr td:first-child {
     padding-left: 10px;
-}
-
-table.server-mobile tbody tr td:first-child {
-    line-height: initial;
 }
 
 table.server tr .serverName {
