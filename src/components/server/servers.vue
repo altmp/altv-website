@@ -132,8 +132,6 @@ export default {
                 this.filter.orderBy.orderDesc = -1;
             } else
                 this.filter.orderBy.orderDesc = this.filter.orderBy.orderDesc === 1 ? -1 : 1;
-
-            console.log("Filter shit");
         },
         // getLanguage(countryCode) {
         //     for(var lang in languages) {
@@ -173,15 +171,12 @@ export default {
                 return server.id === id;
             });
             this.$refs.serverModal.open(server);
-
-            console.log("Open shit: " + server.id);
         }
     },
     beforeCreate() {
         document.body.className = 'servers';
     },
     mounted() {
-        console.log("Servers is mounted");
         this.fetchServers();
         setInterval(this.fetchServers, 10000);
     },
