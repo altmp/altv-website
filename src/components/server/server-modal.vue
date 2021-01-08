@@ -201,7 +201,7 @@ export default {
     methods: {
         getLanguage: getLanguage,
         getPlayerData: async function () {
-            const playerData = await getRequest(`http://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
+            const playerData = await getRequest(`https://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
 
             if (!playerData) {
                 return;
