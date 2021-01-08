@@ -47,9 +47,9 @@
 
                 <table class="server">
                     <thead>
-                        <th>Server Name</th>
+                        <th class="orderable" @click="sortBy('name')">Server Name <i v-if="this.filter.orderBy.column === 'name'" class="fa" :class="sortByClass"></i></th>
                         <th class="center">&nbsp;</th>
-                        <th class="center">Players</th>
+                        <th @click="sortBy('players')" class="orderable center">Players <i v-if="this.filter.orderBy.column === 'players'" class="fa" :class="sortByClass" ></i></th>
                         <th class="center optional">Gamemode</th>
                         <th class="center optional">Language</th>
                         <th class="optional">&nbsp;</th>
@@ -101,6 +101,10 @@ export default {
             servers: [],
             serversInfo: {},
             filter: {
+                orderBy: {
+                    column: "players",
+                    orderDesc: -1
+                },
                 name: "",
                 promoted: true,
                 empty: false,
@@ -120,6 +124,16 @@ export default {
             }
 
             this.servers = data;
+        },
+        sortBy(filterName) {
+            if(this.filter.orderBy.column !== filterName)
+            {
+                this.filter.orderBy.column = filterName;
+                this.filter.orderBy.orderDesc = -1;
+            } else
+                this.filter.orderBy.orderDesc = this.filter.orderBy.orderDesc === 1 ? -1 : 1;
+
+            console.log("Filter shit");
         },
         // getLanguage(countryCode) {
         //     for(var lang in languages) {
@@ -177,7 +191,23 @@ export default {
                     if(a.promoted < b.promoted) return 1;
                 }
 
-                return (a.players > b.players) ? -1 : 1
+                var leftSide = a[this.filter.orderBy.column];
+                var rightSide = b[this.filter.orderBy.column];
+
+                if(typeof leftSide === "string")
+                {
+                    leftSide = leftSide.toLowerCase();
+                    rightSide = rightSide.toLowerCase();
+                }
+
+                if(leftSide > rightSide) { return this.filter.orderBy.orderDesc; }
+                if(leftSide < rightSide) { return ((this.filter.orderBy.orderDesc === -1) ? 1 : -1); }
+
+                return 0;
+                // return (a.players > b.players) ? -1 : 1
+                // return (a[this.filter.orderBy.column] > b[this.filter.orderBy.column])
+                //         ? this.filter.orderBy.orderDesc
+                //         : ((this.filter.orderBy.orderDesc === -1) ? 1 : -1)
             });
 
             return this.servers.filter(server => {
@@ -194,6 +224,12 @@ export default {
                     // this.searchTags(server, filter)
                 );
             })
+        },
+        sortByClass: function() {
+            return {
+                'fa-chevron-down': this.filter.orderBy.orderDesc,
+                'rotate-up': this.filter.orderBy.orderDesc === 1,
+            };
         }
     }
 }
@@ -410,6 +446,7 @@ export default {
     background-color: transparent;
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 3px;
+    transition: background-color .3s;
 }
 
 .filters label:hover input ~ .checkmark {
@@ -505,7 +542,29 @@ table.server thead th {
     text-align: left;
     background-color: #222222;
     border-bottom: 3px solid #222222;
+    color: rgba(255, 255, 255, .5);
     z-index: 1000;
+    transition: color .3s;
+}
+
+table.server thead th.orderable {
+    cursor: pointer;
+}
+
+table.server thead th:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+table.server thead th i {
+    padding-left: 5px;
+    padding-right: 5px;
+    opacity: .4;
+    display: inline-block;
+    transition: transform .3s;
+}
+
+.rotate-up {
+    transform: rotate(180deg);
 }
 
 table.server tr {
