@@ -63,19 +63,31 @@
                                 <div class="charts">
                                     <div class="chart">
                                         <h2>Players Stat</h2>
-                                        <ServerChart :height="200" :data="testData"></ServerChart>
+                                        <ServerChart v-show="playerData !== null" ref="chartRef" :height="170" :data="playerStat"></ServerChart>
+                                        <div class="loading-chart" v-if="playerData === null" style="height: 170px">
+                                            <i>Loading...</i>
+                                        </div>
                                         <div class="filter">
-                                            <input id="1day" type="radio" name="time" checked />
-                                            <label for="1day">1 day</label>
+                                            <div class="radio-group">
+                                                <input v-model="period" id="1day" type="radio" name="time" value="1d" checked />
+                                                <label for="1day">1 day</label>
 
-                                            <input id="1week" type="radio" name="time" />
-                                            <label for="1week">1 week</label>
+                                                <input v-model="period" id="1week" type="radio" name="time" value="7d" />
+                                                <label for="1week">1 week</label>
 
-                                            <input id="1month" type="radio" name="time" />
-                                            <label for="1month">1 month</label>
+                                                <input v-model="period" id="1month" type="radio" name="time" value="31d" />
+                                                <label for="1month">1 month</label>
+                                            </div>
+                                            <div class="radio-group">
+                                                <input v-model="type" id="avg" type="radio" name="type" value="avg" checked />
+                                                <label for="avg">Average</label>
 
-                                            <input id="1year" type="radio" name="time" />
-                                            <label for="1year">1 year</label>
+                                                <input v-model="type" id="max" type="radio" name="type" value="max" />
+                                                <label for="max">Max</label>
+                                            </div>
+
+                                            <!-- <input id="1year" type="radio" name="time" />
+                                            <label for="1year">1 year</label> -->
                                         </div>
                                     </div>
                                 </div>
@@ -93,6 +105,8 @@
 
 <script>
 import ServerChart from '@/components/server/server-chart.vue';
+
+import { getRequest } from '@/utility/fetch';
 import getLanguage from '@/utility/locales';
 
 export default {
@@ -101,42 +115,78 @@ export default {
         return {
             show: false,
             server: {},
+            playerData: null,
+            period: '1d',
+            type: 'avg',
+            options: {
+                legend: {
+                    display: false
+                },
+                scales:{
+                    xAxes: [{
+                        display: false //this will remove all the x-axis grid lines
+                    }]
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            // testData: {
+            //     labels: [
+            //         "00:00",
+            //         "01:00",
+            //         "02:00",
+            //         "03:00",
+            //         "04:00",
+            //         "05:00",
+            //         "06:00",
+            //         "07:00",
+            //         "08:00",
+            //         "09:00",
+            //         "10:00",
+            //         "11:00",
+            //         "12:00",
+            //         "13:00",
+            //         "14:00",
+            //         "15:00",
+            //         "16:00",
+            //         "17:00",
+            //         "18:00",
+            //         "19:00",
+            //         "20:00",
+            //         "21:00",
+            //         "22:00",
+            //         "23:00",
+            //     ],
+            //     datasets: [
+            //         {
+            //             label: "Players",
+            //             borderColor: "rgba(255, 255, 255, 0.6)",
+            //             pointBackgroundColor: "white",
+            //             pointBorderColor: "white",
+            //             borderWidth: 1,
+            //             backgroundColor: "rgba(255, 255, 255, 0.03)",
+            //             data: [60, 55, 32, 10, 2, 12, 53, 100, 80, 94, 44, 64, 77, 84, 23, 89, 130, 300, 280, 290, 230, 170, 180, 190]
+            //         }
+            //     ]
+            // }
             testData: {
-                labels: [
-                    "00:00",
-                    "01:00",
-                    "02:00",
-                    "03:00",
-                    "04:00",
-                    "05:00",
-                    "06:00",
-                    "07:00",
-                    "08:00",
-                    "09:00",
-                    "10:00",
-                    "11:00",
-                    "12:00",
-                    "13:00",
-                    "14:00",
-                    "15:00",
-                    "16:00",
-                    "17:00",
-                    "18:00",
-                    "19:00",
-                    "20:00",
-                    "21:00",
-                    "22:00",
-                    "23:00",
-                ],
+                labels: [],
                 datasets: [
                     {
                         label: "Players",
                         borderColor: "rgba(255, 255, 255, 0.6)",
                         pointBackgroundColor: "white",
                         pointBorderColor: "white",
+                        pointRadius: 0,
                         borderWidth: 1,
                         backgroundColor: "rgba(255, 255, 255, 0.03)",
-                        data: [60, 55, 32, 10, 2, 12, 53, 100, 80, 94, 44, 64, 77, 84, 23, 89, 130, 300, 280, 290, 230, 170, 180, 190]
+                        data: []
                     }
                 ]
             }
@@ -145,14 +195,68 @@ export default {
     components: {
         ServerChart
     },
+    mounted() {
+        this.$refs.chartRef.renderChart();
+    },
     methods: {
         getLanguage: getLanguage,
-        open: function(server) {
+        getPlayerData: async function () {
+            const playerData = await getRequest(`http://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
+
+            if (!playerData) {
+                return;
+            }
+
+            this.playerData = playerData;
+        },
+        open: async function(server) {
             this.show = true;
             this.server = server;
+
+            this.period = '1d';
+            this.type = 'avg';
+
+            this.playerData = null;
+
+            await this.update();
         },
         close: function() {
             this.show = false;
+        },
+        update: async function() {
+            await this.getPlayerData();
+
+            this.testData.labels = [];
+            this.testData.datasets[0].data = [];
+
+            this.playerData.forEach(data => {
+                var date = new Date(data.t * 1000);
+                // var dateFormat = `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${("0" + date.getSeconds()).slice(-2)}`;
+
+                this.testData.labels.push(date.toLocaleString());
+                this.testData.datasets[0].data.push(data.c);
+            }, this);
+
+            if(this.$refs.chartRef.$data._chart)
+                this.$refs.chartRef.$data._chart.destroy();
+
+            this.$refs.chartRef.renderChart(this.testData, this.options);
+        }
+    },
+    computed: {
+        playerStat: function() {
+            return this.testData;
+        }
+    },
+    watch: {
+        playerData: function() {
+            //this.$refs.chartRef.renderChart(this.testData, this.options);
+        },
+        type: async function() {
+            await this.update();
+        },
+        period: async function() {
+            await this.update();
         }
     }
 };
@@ -178,6 +282,7 @@ div.connect a {
     border: 2px solid rgba(255, 255, 255, 0.1);
     background-color: rgba(150, 150, 150, 0.05) !important;
     border-radius: 10px;
+    transition: background-color .4s, border-color .4s;
 }
 
 div.connect a:hover {
@@ -191,16 +296,19 @@ div.connect a:active {
 }
 
 .filter {
+    display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
-.filter > * {
-    margin-right: 15px;
+.filter .radio-group {
+    margin-right: 20px;
 }
 
-.filter input {
+.filter .radio-group input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -208,25 +316,46 @@ div.connect a:active {
     width: 0;
 }
 
-.filter label {
+.filter .radio-group i {
+    text-transform: uppercase;
+    font-style: normal;
+    opacity: .5;
+    margin-right: 10px;
+}
+
+.filter .radio-group label {
     display: inline-block;
     margin-bottom: 5px;
     padding: 6px 10px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    margin-left: -1px;
+    margin-right: -1px;
+    font-size: .8em;
+    text-transform: uppercase;
+    transition: background-color .5s, border-color .5s;
+    /* border-radius: 10px; */
 }
 
-.filter label:hover {
+.filter .radio-group label:first-of-type {
+    border-radius: 10px 0 0 10px;
+}
+
+.filter .radio-group label:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.filter .radio-group label:hover {
     border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
-.filter input:checked + label:hover {
+.filter .radio-group input:checked + label:hover {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
-.filter input:checked + label {
+.filter .radio-group input:checked + label {
     border-color: rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .serverTags span {
@@ -393,7 +522,7 @@ div.connect a:active {
 .modal-container .charts {
     /* max-width: 50%; */
     padding-left: 20px;
-    max-height: 400px;
+    max-height: 300px;
     min-width: max-content;
 }
 
@@ -405,6 +534,26 @@ div.connect a:active {
     font-size: 1em;
     text-transform: uppercase;
     opacity: 1;
+}
+
+.modal-container .charts .chart .loading-chart {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes Pulsate {
+    from { opacity: .5; }
+    50% { opacity: 0; }
+    to { opacity: .5; }
+}
+
+.modal-container .charts .chart .loading-chart i {
+    text-transform: uppercase;
+    font-style: normal;
+    opacity: .5;
+    animation: Pulsate 2s linear infinite;
 }
 
 ::-webkit-scrollbar {

@@ -18,7 +18,12 @@ export default {
         this.gradient2.addColorStop(0.5, "rgba(0, 231, 255, 0.25)");
         this.gradient2.addColorStop(1, "rgba(0, 231, 255, 0)");
 
-        this.renderChart(this.data);
+        // this.renderChart(this.data);
+    },
+    watch: { 
+        data: function(newVal, oldVal) { // watch it
+            console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+        }
     }
 }
 </script>

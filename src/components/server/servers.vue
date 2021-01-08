@@ -177,6 +177,9 @@ export default {
             console.log("Open shit: " + server.id);
         }
     },
+    beforeCreate() {
+        document.body.className = 'servers';
+    },
     mounted() {
         console.log("Servers is mounted");
         this.fetchServers();
@@ -264,7 +267,7 @@ export default {
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #292929;
+    background: #202020;
     border-radius: 10px;
 }
 
@@ -464,26 +467,26 @@ export default {
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+    content: "";
+    position: absolute;
+    display: none;
 }
 
 /* Show the checkmark when checked */
 .filters label input:checked ~ .checkmark:after {
-  display: block;
+    display: block;
 }
 
 .filters label .checkmark:after {
-  left: 6px;
-  top: 3px;
-  width: 2px;
-  height: 5px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+    left: 6px;
+    top: 3px;
+    width: 2px;
+    height: 5px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .title > *:not(:last-child),
