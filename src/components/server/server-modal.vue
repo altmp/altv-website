@@ -204,17 +204,9 @@ export default {
     methods: {
         getLanguage: getLanguage,
         getPlayerData: async function () {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-            const playerData = await getRequest(`http://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
-=======
             this.playerData = null;
 
             const playerData = await getRequest(`https://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
->>>>>>> Stashed changes
-=======
-            const playerData = await getRequest(`https://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
->>>>>>> master
 
             if (!playerData) {
                 return;
