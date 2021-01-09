@@ -106,10 +106,10 @@ export default {
                     orderDesc: -1
                 },
                 name: "",
-                promoted: true,
-                empty: false,
-                full: false,
-                locked: false
+                promoted: ((localStorage.getItem("promoted") === null) ? true : (localStorage.getItem("promoted") === 'true')),
+                empty: ((localStorage.getItem("empty") === null) ? false : (localStorage.getItem("empty") === 'true')),
+                full: ((localStorage.getItem("full") === null) ? false : (localStorage.getItem("full") === 'true')),
+                locked: ((localStorage.getItem("locked") === null) ? false : (localStorage.getItem("locked") === 'true'))
             }
         }
     },
@@ -228,6 +228,23 @@ export default {
                 'fa-chevron-down': this.filter.orderBy.orderDesc,
                 'rotate-up': this.filter.orderBy.orderDesc === 1,
             };
+        }
+    },
+    watch: {
+        'filter.promoted': function(newValue) {
+            console.log("before promoted: " + localStorage.getItem("promoted"));
+            localStorage.setItem("promoted", newValue);
+            console.log("after promoted: " + localStorage.getItem("promoted"));
+        },
+        'filter.empty': function(newValue) {
+            localStorage.setItem("empty", newValue);
+        },
+        'filter.full': function(newValue) {
+            localStorage.setItem("full", newValue);
+            console.log("changing filter.full: " + newValue);
+        },
+        'filter.locked': function(newValue) {
+            localStorage.setItem("locked", newValue);
         }
     }
 }

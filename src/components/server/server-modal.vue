@@ -61,10 +61,10 @@
                                     </table>
                                 </div>
                                 <div class="charts">
+                                    <h2>Players Stat</h2>
                                     <div class="chart">
-                                        <h2>Players Stat</h2>
-                                        <ServerChart v-show="playerData !== null" ref="chartRef" :height="170" :data="playerStat"></ServerChart>
-                                        <div class="loading-chart" v-if="playerData === null" style="height: 170px">
+                                        <ServerChart v-show="false" ref="chartRef" :data="playerStat" :height="null" :width="null"></ServerChart>
+                                        <div class="loading-chart" v-if="true">
                                             <i>Loading...</i>
                                         </div>
                                         <div class="filter">
@@ -119,6 +119,9 @@ export default {
             period: '1d',
             type: 'avg',
             options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                // aspectRatio: 1,
                 legend: {
                     display: false
                 },
@@ -201,7 +204,13 @@ export default {
     methods: {
         getLanguage: getLanguage,
         getPlayerData: async function () {
+<<<<<<< Updated upstream
             const playerData = await getRequest(`http://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
+=======
+            this.playerData = null;
+
+            const playerData = await getRequest(`https://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
+>>>>>>> Stashed changes
 
             if (!playerData) {
                 return;
@@ -268,6 +277,7 @@ div.connect {
     text-align: center !important;
     text-transform: uppercase;
     padding-top: 10px;
+    margin-bottom: 10px;
 }
 
 div.connect a {
@@ -438,7 +448,7 @@ div.connect a:active {
     max-width: 100%;
     /* min-width: 70%; */
     width: min-content;
-    max-height: 400px;
+    /* max-height: 400px; */
     padding: 0 20px 0 0;
     background-color: rgba(30, 30, 30, 1);
     /* backdrop-filter: blur(5px); */
@@ -487,28 +497,31 @@ div.connect a:active {
     display: flex;
     padding-left: 10px;
     padding-right: 0px;
-    margin-bottom: 10px;
-    max-height: 70%;
+    align-items: center;
+    justify-content: center;
+    /* margin-bottom: 10px; */
+    /* max-height: 70%; */
 }
 
 .modal-container .server .container .information .server-information {
     overflow: scroll;
     overflow-x: hidden;
-    max-height: 400px;
+    /* max-height: 400px; */
     width: auto;
     min-width: 400px;
 }
 
 .modal-container .information table {
     border-collapse: separate;
-    border-spacing: 15px;
+    border-spacing: 10px;
 }
 
 .modal-container .information table tr td:first-child {
     /* display: block; */
     text-transform: uppercase;
+    font-size: .8em;
     text-align: right;
-    vertical-align: top;
+    vertical-align: middle;
     color: rgba(255, 255, 255, .4);
 }
 
@@ -521,8 +534,9 @@ div.connect a:active {
 
 .modal-container .charts {
     /* max-width: 50%; */
+    display: flex-root;
     padding-left: 20px;
-    max-height: 300px;
+    /* max-height: 300px; */
     min-width: max-content;
 }
 
@@ -530,7 +544,7 @@ div.connect a:active {
     padding-bottom: 10px;
 }
 
-.modal-container .charts .chart h2 {
+.modal-container .charts h2 {
     font-size: 1em;
     text-transform: uppercase;
     opacity: 1;
@@ -541,6 +555,8 @@ div.connect a:active {
     text-align: center;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    /* min-width: 400px; */
 }
 
 @keyframes Pulsate {
