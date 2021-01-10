@@ -62,32 +62,27 @@
                                 </div>
                                 <div class="charts">
                                     <h2>Players Stat</h2>
-                                    <div class="chart">
-                                        <ServerChart v-show="false" ref="chartRef" :data="playerStat" :height="null" :width="null"></ServerChart>
-                                        <div class="loading-chart" v-if="true">
-                                            <i>Loading...</i>
+                                    <div class="loading-chart">
+                                        <ServerChart class="chart" v-show="playerData !== null" ref="chartRef" :data="playerStat" :height="180"></ServerChart>
+                                        <i v-if="playerData === null">Loading...</i>
+                                    </div>
+                                    <div class="filter">
+                                        <div class="radio-group">
+                                            <input v-model="period" id="1day" type="radio" name="time" value="1d" checked />
+                                            <label for="1day">1 day</label>
+
+                                            <input v-model="period" id="1week" type="radio" name="time" value="7d" />
+                                            <label for="1week">1 week</label>
+
+                                            <input v-model="period" id="1month" type="radio" name="time" value="31d" />
+                                            <label for="1month">1 month</label>
                                         </div>
-                                        <div class="filter">
-                                            <div class="radio-group">
-                                                <input v-model="period" id="1day" type="radio" name="time" value="1d" checked />
-                                                <label for="1day">1 day</label>
+                                        <div class="radio-group">
+                                            <input v-model="type" id="avg" type="radio" name="type" value="avg" checked />
+                                            <label for="avg">Average</label>
 
-                                                <input v-model="period" id="1week" type="radio" name="time" value="7d" />
-                                                <label for="1week">1 week</label>
-
-                                                <input v-model="period" id="1month" type="radio" name="time" value="31d" />
-                                                <label for="1month">1 month</label>
-                                            </div>
-                                            <div class="radio-group">
-                                                <input v-model="type" id="avg" type="radio" name="type" value="avg" checked />
-                                                <label for="avg">Average</label>
-
-                                                <input v-model="type" id="max" type="radio" name="type" value="max" />
-                                                <label for="max">Max</label>
-                                            </div>
-
-                                            <!-- <input id="1year" type="radio" name="time" />
-                                            <label for="1year">1 year</label> -->
+                                            <input v-model="type" id="max" type="radio" name="type" value="max" />
+                                            <label for="max">Max</label>
                                         </div>
                                     </div>
                                 </div>
@@ -119,8 +114,8 @@ export default {
             period: '1d',
             type: 'avg',
             options: {
-                responsive: true,
-                maintainAspectRatio: true,
+                // responsive: true,
+                // maintainAspectRatio: true,
                 // aspectRatio: 1,
                 legend: {
                     display: false
@@ -304,7 +299,7 @@ div.connect a:active {
 .filter {
     display: flex;
     margin-top: 20px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -493,8 +488,8 @@ div.connect a:active {
     display: flex;
     padding-left: 10px;
     padding-right: 0px;
-    align-items: center;
     justify-content: center;
+    height: auto;
     /* margin-bottom: 10px; */
     /* max-height: 70%; */
 }
@@ -530,13 +525,14 @@ div.connect a:active {
 
 .modal-container .charts {
     /* max-width: 50%; */
-    display: flex-root;
+    display: flex;
+    flex-direction: column;
     padding-left: 20px;
     /* max-height: 300px; */
     min-width: max-content;
 }
 
-.modal-container .charts .chart {
+.modal-container .charts {
     padding-bottom: 10px;
 }
 
@@ -546,13 +542,19 @@ div.connect a:active {
     opacity: 1;
 }
 
-.modal-container .charts .chart .loading-chart {
+.modal-container .charts .loading-chart {
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
     height: 100%;
-    /* min-width: 400px; */
+    min-height: 180px;
+    min-width: 400px;
+}
+
+.modal-container .charts .loading-chart .chart {
+    height: 90%;
+    width: 100%;
 }
 
 @keyframes Pulsate {
@@ -561,7 +563,7 @@ div.connect a:active {
     to { opacity: .5; }
 }
 
-.modal-container .charts .chart .loading-chart i {
+.modal-container .charts .loading-chart i {
     text-transform: uppercase;
     font-style: normal;
     opacity: .5;
