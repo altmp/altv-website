@@ -385,7 +385,7 @@ div.connect a:active {
     background-color: rgba(0, 0, 0, .6);
     /* backdrop-filter: blur(1px); */
     display: table;
-    transition: opacity .4s ease;
+    transition: opacity .2s ease;
 }
 
 .modal-close {
@@ -394,8 +394,8 @@ div.connect a:active {
     position: absolute;
     top: 4em;
     right: 4em;
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     padding: 1em;
     justify-content: center;
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -445,7 +445,7 @@ div.connect a:active {
     /* backdrop-filter: blur(5px); */
     border-radius: 20px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
+    transition: all .2s ease;
 }
 
 .modal-container h1 {
@@ -469,19 +469,16 @@ div.connect a:active {
 
 .modal-container .server .container {
     display: block;
-}
-
-.modal-container .server .container .title {
-    max-width: 70%;
-    /* mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%); */
+    padding: 1em;
+    box-sizing: border-box;
 }
 
 .modal-container .server .container .title h1 {
-    font-size: 1.2em;
+    font-size: 2em;
     padding-left: 20px;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap; */
 }
 
 .modal-container .server .container .information {
