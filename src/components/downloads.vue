@@ -22,7 +22,7 @@
                         <a href="https://cdn.altv.mp/altv-release.zip" class="btn">
                             Download
                         </a>
-                        <a class="help" href="https://wiki.altv.mp/Troubleshooting" target="_blank">
+                        <a class="help" href="https://wiki.altv.mp/wiki/Tutorial:Troubleshoot_Client" target="_blank">
                             Need help?
                         </a>
                     </div>
