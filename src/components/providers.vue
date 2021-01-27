@@ -9,6 +9,9 @@
                 </p>
             </div>
             <div class="container">
+                <a class="item" href="https://citadelservers.com/game-servers/grand-theft-auto-alt-v-game-hosting">
+                        <img src="@/assets/providers/citadelservers.png" alt="">
+                </a>
                 <a class="item" href="https://clans.hu/jatekszerver-berles/altv">
                         <img src="@/assets/providers/clanshu.png" alt="">
                 </a>
