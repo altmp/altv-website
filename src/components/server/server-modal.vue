@@ -3,8 +3,10 @@
         <div v-show="show" class="modal-mask">
             <span class="modal-close" @click="close">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                    <path fill="white" d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z">
-                    </path>
+                    <path
+                        fill="white"
+                        d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"
+                    ></path>
                 </svg>
             </span>
             <div class="modal-wrapper" @click.self="close">
@@ -19,11 +21,13 @@
                             </div>
                             <div class="information">
                                 <div class="server-information">
-                                    <table style="width: 100%;">
+                                    <table style="width: 100%">
                                         <tbody>
                                             <tr>
                                                 <td>Players</td>
-                                                <td><b>{{ server.players }}</b> / {{ server.maxPlayers }}</td>
+                                                <td>
+                                                    <b>{{ server.players }}</b> / {{ server.maxPlayers }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Language</td>
@@ -63,23 +67,54 @@
                                 <div class="charts">
                                     <div class="chart">
                                         <h2>Players Stat</h2>
-                                        <ServerChart v-show="playerData !== null" ref="chartRef" :height="170" :data="playerStat"></ServerChart>
+                                        <ServerChart
+                                            v-show="playerData !== null"
+                                            ref="chartRef"
+                                            :height="170"
+                                            :data="playerStat"
+                                        ></ServerChart>
                                         <div class="loading-chart" v-if="playerData === null" style="height: 170px">
                                             <i>Loading...</i>
                                         </div>
                                         <div class="filter">
                                             <div class="radio-group">
-                                                <input v-model="period" id="1day" type="radio" name="time" value="1d" checked />
+                                                <input
+                                                    v-model="period"
+                                                    id="1day"
+                                                    type="radio"
+                                                    name="time"
+                                                    value="1d"
+                                                    checked
+                                                />
                                                 <label for="1day">1 day</label>
 
-                                                <input v-model="period" id="1week" type="radio" name="time" value="7d" />
+                                                <input
+                                                    v-model="period"
+                                                    id="1week"
+                                                    type="radio"
+                                                    name="time"
+                                                    value="7d"
+                                                />
                                                 <label for="1week">1 week</label>
 
-                                                <input v-model="period" id="1month" type="radio" name="time" value="31d" />
+                                                <input
+                                                    v-model="period"
+                                                    id="1month"
+                                                    type="radio"
+                                                    name="time"
+                                                    value="31d"
+                                                />
                                                 <label for="1month">1 month</label>
                                             </div>
                                             <div class="radio-group">
-                                                <input v-model="type" id="avg" type="radio" name="type" value="avg" checked />
+                                                <input
+                                                    v-model="type"
+                                                    id="avg"
+                                                    type="radio"
+                                                    name="type"
+                                                    value="avg"
+                                                    checked
+                                                />
                                                 <label for="avg">Average</label>
 
                                                 <input v-model="type" id="max" type="radio" name="type" value="max" />
@@ -111,7 +146,7 @@ import getLanguage from '@/utility/locales';
 
 export default {
     template: '#modal-template',
-    data: function() {
+    data: function () {
         return {
             show: false,
             server: {},
@@ -120,21 +155,23 @@ export default {
             type: 'avg',
             options: {
                 legend: {
-                    display: false
+                    display: false,
                 },
-                scales:{
-                    xAxes: [{
-                        display: false //this will remove all the x-axis grid lines
-                    }]
+                scales: {
+                    xAxes: [
+                        {
+                            display: false, //this will remove all the x-axis grid lines
+                        },
+                    ],
                 },
                 tooltips: {
                     mode: 'index',
-                    intersect: false
+                    intersect: false,
                 },
                 hover: {
                     mode: 'index',
-                    intersect: false
-                }
+                    intersect: false,
+                },
             },
             // testData: {
             //     labels: [
@@ -179,21 +216,21 @@ export default {
                 labels: [],
                 datasets: [
                     {
-                        label: "Players",
-                        borderColor: "rgba(255, 255, 255, 0.6)",
-                        pointBackgroundColor: "white",
-                        pointBorderColor: "white",
+                        label: 'Players',
+                        borderColor: 'rgba(255, 255, 255, 0.6)',
+                        pointBackgroundColor: 'white',
+                        pointBorderColor: 'white',
                         pointRadius: 0,
                         borderWidth: 1,
-                        backgroundColor: "rgba(255, 255, 255, 0.03)",
-                        data: []
-                    }
-                ]
-            }
+                        backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                        data: [],
+                    },
+                ],
+            },
         };
     },
     components: {
-        ServerChart
+        ServerChart,
     },
     mounted() {
         this.$refs.chartRef.renderChart();
@@ -209,7 +246,7 @@ export default {
 
             this.playerData = playerData;
         },
-        open: async function(server) {
+        open: async function (server) {
             this.show = true;
             this.server = server;
 
@@ -220,16 +257,16 @@ export default {
 
             await this.update();
         },
-        close: function() {
+        close: function () {
             this.show = false;
         },
-        update: async function() {
+        update: async function () {
             await this.getPlayerData();
 
             this.testData.labels = [];
             this.testData.datasets[0].data = [];
 
-            this.playerData.forEach(data => {
+            this.playerData.forEach((data) => {
                 var date = new Date(data.t * 1000);
                 // var dateFormat = `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${("0" + date.getSeconds()).slice(-2)}`;
 
@@ -237,33 +274,31 @@ export default {
                 this.testData.datasets[0].data.push(data.c);
             }, this);
 
-            if(this.$refs.chartRef.$data._chart)
-                this.$refs.chartRef.$data._chart.destroy();
+            if (this.$refs.chartRef.$data._chart) this.$refs.chartRef.$data._chart.destroy();
 
             this.$refs.chartRef.renderChart(this.testData, this.options);
-        }
+        },
     },
     computed: {
-        playerStat: function() {
+        playerStat: function () {
             return this.testData;
-        }
+        },
     },
     watch: {
-        playerData: function() {
+        playerData: function () {
             //this.$refs.chartRef.renderChart(this.testData, this.options);
         },
-        type: async function() {
+        type: async function () {
             await this.update();
         },
-        period: async function() {
+        period: async function () {
             await this.update();
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style scoped>
-
 div.connect {
     text-align: center !important;
     text-transform: uppercase;
@@ -274,7 +309,7 @@ div.connect a {
     width: 100px;
     text-decoration: none;
     font-weight: bold;
-    font-size: .9em;
+    font-size: 0.9em;
     color: white;
     display: inline-block;
     margin-bottom: 5px;
@@ -282,7 +317,7 @@ div.connect a {
     border: 2px solid rgba(255, 255, 255, 0.1);
     background-color: rgba(150, 150, 150, 0.05) !important;
     border-radius: 10px;
-    transition: background-color .4s, border-color .4s;
+    transition: background-color 0.4s, border-color 0.4s;
 }
 
 div.connect a:hover {
@@ -319,7 +354,7 @@ div.connect a:active {
 .filter .radio-group i {
     text-transform: uppercase;
     font-style: normal;
-    opacity: .5;
+    opacity: 0.5;
     margin-right: 10px;
 }
 
@@ -330,9 +365,9 @@ div.connect a:active {
     border: 2px solid rgba(255, 255, 255, 0.1);
     margin-left: -1px;
     margin-right: -1px;
-    font-size: .8em;
+    font-size: 0.8em;
     text-transform: uppercase;
-    transition: background-color .5s, border-color .5s;
+    transition: background-color 0.5s, border-color 0.5s;
     /* border-radius: 10px; */
 }
 
@@ -360,13 +395,13 @@ div.connect a:active {
 
 .serverTags span {
     display: inline-block;
-    font-size: .8em;
+    font-size: 0.8em;
     padding: 6px 10px;
     background: rgba(240, 240, 240, 0.1);
     border-radius: 5px;
     width: auto;
-    transition: opacity .2s;
-    margin-right: .5em;
+    transition: opacity 0.2s;
+    margin-right: 0.5em;
     margin-bottom: 5px;
 }
 
@@ -381,10 +416,10 @@ div.connect a:active {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(0, 0, 0, 0.6);
     /* backdrop-filter: blur(1px); */
     display: table;
-    transition: opacity .4s ease;
+    transition: opacity 0.4s ease;
 }
 
 .modal-close {
@@ -429,7 +464,7 @@ div.connect a:active {
 
 .modal-enter .modal-container,
 .modal-leave-to .modal-container {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .modal-container {
@@ -443,8 +478,8 @@ div.connect a:active {
     background-color: rgba(30, 30, 30, 1);
     /* backdrop-filter: blur(5px); */
     border-radius: 20px;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.33);
+    transition: all 0.3s ease;
 }
 
 .modal-container h1 {
@@ -509,7 +544,7 @@ div.connect a:active {
     text-transform: uppercase;
     text-align: right;
     vertical-align: top;
-    color: rgba(255, 255, 255, .4);
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .modal-container .information table tr td:last-child {
@@ -544,15 +579,21 @@ div.connect a:active {
 }
 
 @keyframes Pulsate {
-    from { opacity: .5; }
-    50% { opacity: 0; }
-    to { opacity: .5; }
+    from {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.5;
+    }
 }
 
 .modal-container .charts .chart .loading-chart i {
     text-transform: uppercase;
     font-style: normal;
-    opacity: .5;
+    opacity: 0.5;
     animation: Pulsate 2s linear infinite;
 }
 
@@ -563,9 +604,9 @@ div.connect a:active {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: transparent; 
+    background: transparent;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #292929;
@@ -574,6 +615,6 @@ div.connect a:active {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
 </style>
