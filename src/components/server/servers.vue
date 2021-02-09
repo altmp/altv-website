@@ -84,8 +84,7 @@
                             </td>
                             <td class="center optional">{{ server.gameMode }}</td>
                             <td class="center optional">
-                                {{ getLanguage(server.language) }}
-                                <!-- <img :src="getFlagImage(server.language)" /> -->
+                                <img width="30px" :src="require(`../../assets/flags/${server.language}.svg`)" />
                             </td>
                             <td class="center optional connect">
                                 <a :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
@@ -146,36 +145,6 @@ export default {
                 this.filter.orderBy.orderDesc = -1;
             } else this.filter.orderBy.orderDesc = this.filter.orderBy.orderDesc === 1 ? -1 : 1;
         },
-        // getLanguage(countryCode) {
-        //     for(var lang in languages) {
-        //         if(languages[lang]["1"] === countryCode)
-        //             return languages[lang].local;
-        //     }
-
-        //     return countryCode;
-        //     // if(countryCode in isoLangs)
-        //     // {
-        //     //     return isoLangs[countryCode].nativeName;
-        //     // } else {
-        //     //     return countryCode;
-        //     // }
-        //     // const fName = `./${countryCode}.json`;
-        //     // if (requireLang.keys().indexOf(fName) !== -1) {
-        //     //     return requireLang(fName).name;
-        //     // } else {
-        //     //     return countryCode;
-        //     // }
-        //     // var language = new Intl.DisplayNames([countryCode], {type: 'language'}).of(countryCode);
-        //     // return language.charAt(0).toUpperCase() + language.slice(1);
-        // },
-        // getFlagImage(countryCode) {
-        //     const fName = `./${countryCode}.svg`;
-        //     if (requireFlag.keys().indexOf(fName) !== -1) {
-        //         return requireFlag(fName);
-        //     } else {
-        //         return requireFlag(`./unk.svg`);
-        //     }
-        // },
         clearInput() {
             this.filter.name = '';
         },
@@ -244,6 +213,10 @@ export default {
                 'rotate-up': this.filter.orderBy.orderDesc === 1,
             };
         },
+
+        // getCountryFlag(code) {
+        //     return `../../assets/flags/${code}.svg` || null;
+        // },
     },
 };
 </script>
