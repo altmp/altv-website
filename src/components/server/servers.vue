@@ -314,7 +314,8 @@
     }
 
     .container .stats {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
         text-decoration: none;
     }
 
