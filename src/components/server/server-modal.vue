@@ -61,33 +61,28 @@
                                     </table>
                                 </div>
                                 <div class="charts">
-                                    <div class="chart">
-                                        <h2>Players Stat</h2>
-                                        <ServerChart v-show="playerData !== null" ref="chartRef" :height="170" :data="playerStat"></ServerChart>
-                                        <div class="loading-chart" v-if="playerData === null" style="height: 170px">
-                                            <i>Loading...</i>
+                                    <h2>Players Stat</h2>
+                                    <div class="loading-chart">
+                                        <ServerChart class="chart" v-show="playerData !== null" ref="chartRef" :data="playerStat" :height="180"></ServerChart>
+                                        <i v-if="playerData === null">Loading...</i>
+                                    </div>
+                                    <div class="filter">
+                                        <div class="radio-group">
+                                            <input v-model="period" id="1day" type="radio" name="time" value="1d" checked />
+                                            <label for="1day">1 day</label>
+
+                                            <input v-model="period" id="1week" type="radio" name="time" value="7d" />
+                                            <label for="1week">1 week</label>
+
+                                            <input v-model="period" id="1month" type="radio" name="time" value="31d" />
+                                            <label for="1month">1 month</label>
                                         </div>
-                                        <div class="filter">
-                                            <div class="radio-group">
-                                                <input v-model="period" id="1day" type="radio" name="time" value="1d" checked />
-                                                <label for="1day">1 day</label>
+                                        <div class="radio-group">
+                                            <input v-model="type" id="avg" type="radio" name="type" value="avg" checked />
+                                            <label for="avg">Average</label>
 
-                                                <input v-model="period" id="1week" type="radio" name="time" value="7d" />
-                                                <label for="1week">1 week</label>
-
-                                                <input v-model="period" id="1month" type="radio" name="time" value="31d" />
-                                                <label for="1month">1 month</label>
-                                            </div>
-                                            <div class="radio-group">
-                                                <input v-model="type" id="avg" type="radio" name="type" value="avg" checked />
-                                                <label for="avg">Average</label>
-
-                                                <input v-model="type" id="max" type="radio" name="type" value="max" />
-                                                <label for="max">Max</label>
-                                            </div>
-
-                                            <!-- <input id="1year" type="radio" name="time" />
-                                            <label for="1year">1 year</label> -->
+                                            <input v-model="type" id="max" type="radio" name="type" value="max" />
+                                            <label for="max">Max</label>
                                         </div>
                                     </div>
                                 </div>
@@ -119,6 +114,9 @@ export default {
             period: '1d',
             type: 'avg',
             options: {
+                // responsive: true,
+                // maintainAspectRatio: true,
+                // aspectRatio: 1,
                 legend: {
                     display: false
                 },
@@ -201,6 +199,8 @@ export default {
     methods: {
         getLanguage: getLanguage,
         getPlayerData: async function () {
+            this.playerData = null;
+
             const playerData = await getRequest(`https://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
 
             if (!playerData) {
@@ -268,6 +268,7 @@ div.connect {
     text-align: center !important;
     text-transform: uppercase;
     padding-top: 10px;
+    margin-bottom: 10px;
 }
 
 div.connect a {
@@ -298,7 +299,7 @@ div.connect a:active {
 .filter {
     display: flex;
     margin-top: 20px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -384,7 +385,7 @@ div.connect a:active {
     background-color: rgba(0, 0, 0, .6);
     /* backdrop-filter: blur(1px); */
     display: table;
-    transition: opacity .4s ease;
+    transition: opacity .2s ease;
 }
 
 .modal-close {
@@ -393,8 +394,8 @@ div.connect a:active {
     position: absolute;
     top: 4em;
     right: 4em;
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     padding: 1em;
     justify-content: center;
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -438,13 +439,13 @@ div.connect a:active {
     max-width: 100%;
     /* min-width: 70%; */
     width: min-content;
-    max-height: 400px;
+    /* max-height: 400px; */
     padding: 0 20px 0 0;
     background-color: rgba(30, 30, 30, 1);
     /* backdrop-filter: blur(5px); */
     border-radius: 20px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
+    transition: all .2s ease;
 }
 
 .modal-container h1 {
@@ -468,47 +469,47 @@ div.connect a:active {
 
 .modal-container .server .container {
     display: block;
-}
-
-.modal-container .server .container .title {
-    max-width: 70%;
-    /* mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%); */
+    padding: 1em;
+    box-sizing: border-box;
 }
 
 .modal-container .server .container .title h1 {
-    font-size: 1.2em;
+    font-size: 2em;
     padding-left: 20px;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap; */
 }
 
 .modal-container .server .container .information {
     display: flex;
     padding-left: 10px;
     padding-right: 0px;
-    margin-bottom: 10px;
-    max-height: 70%;
+    justify-content: center;
+    height: auto;
+    /* margin-bottom: 10px; */
+    /* max-height: 70%; */
 }
 
 .modal-container .server .container .information .server-information {
     overflow: scroll;
     overflow-x: hidden;
-    max-height: 400px;
+    /* max-height: 400px; */
     width: auto;
     min-width: 400px;
 }
 
 .modal-container .information table {
     border-collapse: separate;
-    border-spacing: 15px;
+    border-spacing: 10px;
 }
 
 .modal-container .information table tr td:first-child {
     /* display: block; */
     text-transform: uppercase;
+    font-size: .8em;
     text-align: right;
-    vertical-align: top;
+    vertical-align: middle;
     color: rgba(255, 255, 255, .4);
 }
 
@@ -521,26 +522,36 @@ div.connect a:active {
 
 .modal-container .charts {
     /* max-width: 50%; */
+    display: flex;
+    flex-direction: column;
     padding-left: 20px;
-    max-height: 300px;
+    /* max-height: 300px; */
     min-width: max-content;
 }
 
-.modal-container .charts .chart {
+.modal-container .charts {
     padding-bottom: 10px;
 }
 
-.modal-container .charts .chart h2 {
+.modal-container .charts h2 {
     font-size: 1em;
     text-transform: uppercase;
     opacity: 1;
 }
 
-.modal-container .charts .chart .loading-chart {
+.modal-container .charts .loading-chart {
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    min-height: 180px;
+    min-width: 400px;
+}
+
+.modal-container .charts .loading-chart .chart {
+    height: 90%;
+    width: 100%;
 }
 
 @keyframes Pulsate {
@@ -549,7 +560,7 @@ div.connect a:active {
     to { opacity: .5; }
 }
 
-.modal-container .charts .chart .loading-chart i {
+.modal-container .charts .loading-chart i {
     text-transform: uppercase;
     font-style: normal;
     opacity: .5;
