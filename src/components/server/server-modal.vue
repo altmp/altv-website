@@ -29,13 +29,17 @@
                                                 <td>Language</td>
                                                 <td>{{ this.getLanguage(server.language) }}</td>
                                             </tr>
-                                            <tr>
+                                            <tr v-if="!server.useCdn">
                                                 <td>IP</td>
                                                 <td>{{ server.host }}</td>
                                             </tr>
-                                            <tr>
+                                            <tr v-if="!server.useCdn">
                                                 <td>Port</td>
                                                 <td>{{ server.port }}</td>
+                                            </tr>
+                                            <tr v-if="server.useCdn">
+                                                <td>Host</td>
+                                                <td>{{ server.cdnUrl }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Gamemode</td>
@@ -88,7 +92,8 @@
                                 </div>
                             </div>
                             <div class="connect" colspan="2">
-                                <a :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
+                                <a v-if="server.useCdn" :href="'altv://connect/' + server.cdnUrl">Connect</a>
+                                <a v-else :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
                             </div>
                         </div>
                     </div>

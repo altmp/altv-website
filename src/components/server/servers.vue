@@ -78,7 +78,8 @@
                                 <!-- <img :src="getFlagImage(server.language)" /> -->
                             </td>
                             <td class="center optional connect">
-                                <a :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
+                                <a v-if="server.useCdn" :href="'altv://connect/' + server.cdnUrl">Connect</a>
+                                <a v-else :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
                             </td>
                         </tr>
                     </tbody>
