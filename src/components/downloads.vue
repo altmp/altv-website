@@ -200,9 +200,9 @@
 
                     files.push({
                         url: `https://cdn.altv.mp/js-module/${branch}/${target}/modules/js-module/` +
-                            (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : 'libnode.so.83'),
+                            (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : `libnode.so.${this.serverGeneratorForm.branch === "dev" ? "83" : "72"}`),
                         path: 'modules/js-module/' + (!this.serverGeneratorForm.isLinux ? 'libnode.dll' :
-                            'libnode.so.83')
+                            `libnode.so.${this.serverGeneratorForm.branch === "dev" ? "83" : "72"}`)
                     });
                 }
 
