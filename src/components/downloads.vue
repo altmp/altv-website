@@ -116,7 +116,6 @@
                     branch: 'release',
                     isLinux: false,
                     includeDataFiles: false,
-                    includeNodeJS: false,
                     includeJS: false,
                     includeCsharp: false,
                     includeSampleConfig: false,
@@ -139,7 +138,6 @@
                 const target = this.serverGeneratorForm.isLinux ? 'x64_linux' : 'x64_win32';
                 const branch = this.serverGeneratorForm.branch;
                 this.serverGeneratorForm.includeDataFiles = false;
-                this.serverGeneratorForm.includeNodeJS = false;
                 this.serverGeneratorForm.includeJS = false;
                 this.serverGeneratorForm.includeCsharp = false;
                 this.serverGeneratorForm.includeSampleConfig = false;
@@ -191,22 +189,6 @@
                     }
                 }
 
-                if (this.serverGeneratorForm.includeNodeJS) {
-                    modules.push('node-module');
-                    files.push({
-                        url: `https://cdn.altv.mp/node-module/${branch}/${target}/modules/` +
-                            (!this.serverGeneratorForm.isLinux ? 'node-module.dll' : 'libnode-module.so'),
-                        path: 'modules/' + (!this.serverGeneratorForm.isLinux ? 'node-module.dll' :
-                            'libnode-module.so')
-                    });
-
-                    files.push({
-                        url: `https://cdn.altv.mp/node-module/${branch}/${target}/` +
-                            (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : 'libnode.so.72'),
-                        path: !this.serverGeneratorForm.isLinux ? 'libnode.dll' : 'libnode.so.72'
-                    });
-                }
-
                 if (this.serverGeneratorForm.includeJS) {
                     modules.push('js-module');
                     files.push({
@@ -218,9 +200,9 @@
 
                     files.push({
                         url: `https://cdn.altv.mp/js-module/${branch}/${target}/modules/js-module/` +
-                            (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : 'libnode.so.72'),
+                            (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : `libnode.so.${this.serverGeneratorForm.branch === "dev" ? "83" : "72"}`),
                         path: 'modules/js-module/' + (!this.serverGeneratorForm.isLinux ? 'libnode.dll' :
-                            'libnode.so.72')
+                            `libnode.so.${this.serverGeneratorForm.branch === "dev" ? "83" : "72"}`)
                     });
                 }
 
