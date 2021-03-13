@@ -128,6 +128,11 @@ export default {
                 scales:{
                     xAxes: [{
                         display: false //this will remove all the x-axis grid lines
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            stepSize: 1
+                        }
                     }]
                 },
                 tooltips: {
@@ -139,7 +144,7 @@ export default {
                     intersect: false
                 }
             },
-            // testData: {
+            // chartData: {
             //     labels: [
             //         "00:00",
             //         "01:00",
@@ -178,7 +183,7 @@ export default {
             //         }
             //     ]
             // }
-            testData: {
+            chartData: {
                 labels: [],
                 datasets: [
                     {
@@ -231,31 +236,31 @@ export default {
         update: async function() {
             await this.getPlayerData();
 
-            this.testData.labels = [];
-            this.testData.datasets[0].data = [];
+            this.chartData.labels = [];
+            this.chartData.datasets[0].data = [];
 
             this.playerData.forEach(data => {
                 var date = new Date(data.t * 1000);
                 // var dateFormat = `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${("0" + date.getSeconds()).slice(-2)}`;
 
-                this.testData.labels.push(date.toLocaleString());
-                this.testData.datasets[0].data.push(data.c);
+                this.chartData.labels.push(date.toLocaleString());
+                this.chartData.datasets[0].data.push(data.c);
             }, this);
 
             if(this.$refs.chartRef.$data._chart)
                 this.$refs.chartRef.$data._chart.destroy();
 
-            this.$refs.chartRef.renderChart(this.testData, this.options);
+            this.$refs.chartRef.renderChart(this.chartData, this.options);
         }
     },
     computed: {
         playerStat: function() {
-            return this.testData;
+            return this.chartData;
         }
     },
     watch: {
         playerData: function() {
-            //this.$refs.chartRef.renderChart(this.testData, this.options);
+            //this.$refs.chartRef.renderChart(this.chartData, this.options);
         },
         type: async function() {
             await this.update();
