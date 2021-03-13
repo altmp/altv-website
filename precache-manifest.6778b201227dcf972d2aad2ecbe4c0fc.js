@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "3decb541ce8b8b194826",
-    "url": "/css/app.35ecd890.css"
+    "revision": "abf720f3c6e8957d2d2b",
+    "url": "/css/app.7779e2ac.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -108,8 +108,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/iceline-hosting.cea17820.png"
   },
   {
+    "revision": "fbb5985a6b60c36941f66dc2c06d372c",
+    "url": "/img/lordhosting.fbb5985a.png"
+  },
+  {
     "revision": "5139557fd55e1a4fc513bf92e0da9aa1",
     "url": "/img/mstile-150x150.png"
+  },
+  {
+    "revision": "2d261583845f668aea3b17f27c8b9529",
+    "url": "/img/nexus-games.2d261583.png"
   },
   {
     "revision": "44bfc041a94311edc4b64864a06b6b87",
@@ -140,12 +148,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/v_logo.svg"
   },
   {
-    "revision": "34c80821b9e43042e93f16bc25093bb1",
+    "revision": "e653024f4cc46bb7a9e081c7740a9354",
     "url": "/index.html"
   },
   {
-    "revision": "3decb541ce8b8b194826",
-    "url": "/js/app.6589027a.js"
+    "revision": "abf720f3c6e8957d2d2b",
+    "url": "/js/app.8688d63e.js"
   },
   {
     "revision": "54610219b869b0745d73",
