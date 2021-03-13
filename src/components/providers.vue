@@ -21,6 +21,12 @@
                 <a class="item" href="https://iceline-hosting.com/altv-hosting">
 			<img src="@/assets/providers/iceline-hosting.png" alt="">
                 </a>
+                <a class="item" href="https://lordhosting.fr/altv.php">
+			<img src="@/assets/providers/lordhosting.png" alt="">
+		</a>
+                <a class="item" href="https://www.nexus-games.com/">
+			<img src="@/assets/providers/nexus-games.png" alt="">
+		</a>
                 <a class="item" href="https://admin.serverproject.eu/order/create?product=altv">
 			<img src="@/assets/providers/serverproject.png" alt="">
                 </a>
