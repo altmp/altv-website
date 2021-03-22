@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "fa525f0c5722225b5884",
-    "url": "/css/app.d7a9d423.css"
+    "revision": "68f681131ed97409cedb",
+    "url": "/css/app.34b8b98d.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -108,6 +108,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/iceline-hosting.cea17820.png"
   },
   {
+    "revision": "8dbb4c8e14938d33d6b8df4500c79c54",
+    "url": "/img/ips-hosting.8dbb4c8e.png"
+  },
+  {
     "revision": "fbb5985a6b60c36941f66dc2c06d372c",
     "url": "/img/lordhosting.fbb5985a.png"
   },
@@ -148,12 +152,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/v_logo.svg"
   },
   {
-    "revision": "60ebf2ce76bf5658e5add0e5057a57a8",
+    "revision": "2d0833cd8a1313f0513270d68976d1d7",
     "url": "/index.html"
   },
   {
-    "revision": "fa525f0c5722225b5884",
-    "url": "/js/app.f1540583.js"
+    "revision": "68f681131ed97409cedb",
+    "url": "/js/app.8f3c1e90.js"
   },
   {
     "revision": "54610219b869b0745d73",
