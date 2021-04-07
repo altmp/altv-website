@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "68f681131ed97409cedb",
-    "url": "/css/app.34b8b98d.css"
+    "revision": "8b404b9692a7f196621d",
+    "url": "/css/app.9ca50375.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -66,6 +66,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "9937c52ecf1224033b83886cbfb10ae6",
     "url": "/fonts/u400.9937c52e.woff2"
+  },
+  {
+    "revision": "ca9a5807c873c0bd68d00cdd5bb69b5b",
+    "url": "/img/aksunucum.ca9a5807.png"
   },
   {
     "revision": "0eb43950c0afd2e9c7a553916979d44c",
@@ -152,12 +156,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/v_logo.svg"
   },
   {
-    "revision": "2d0833cd8a1313f0513270d68976d1d7",
+    "revision": "0c91f091c20e747c059f1090485a26eb",
     "url": "/index.html"
   },
   {
-    "revision": "68f681131ed97409cedb",
-    "url": "/js/app.8f3c1e90.js"
+    "revision": "8b404b9692a7f196621d",
+    "url": "/js/app.069a9ce2.js"
   },
   {
     "revision": "54610219b869b0745d73",
