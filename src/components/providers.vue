@@ -36,6 +36,9 @@
                 <a class="item" href="https://admin.serverproject.eu/order/create?product=altv">
 			<img src="@/assets/providers/serverproject.png" alt="">
                 </a>
+		<a class="item" href="https://www.slimmweb.com/gta5-altv-sunucu-kirala">
+                        <img src="@/assets/providers/slimmweb.png" alt="">
+                </a>
 		<a class="item" href="https://www.srkhost.eu/services/altv">
 			<img src="@/assets/providers/srkhost.png" alt="">
 		</a>
