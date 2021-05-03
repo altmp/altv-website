@@ -521,6 +521,7 @@ div.connect a:active {
     text-align: right;
     vertical-align: middle;
     color: rgba(255, 255, 255, .4);
+    user-select: text;
 }
 
 .modal-container .information table tr td:last-child {
