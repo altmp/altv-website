@@ -21,6 +21,9 @@
 		<a class="item" href="https://deinserverhost.de/altv-server-mieten">
 			<img src="@/assets/providers/deinserverhost.svg" alt="">
                 </a>
+		<a class="item" href="https://www.g-portal.com/altV">
+                        <img src="@/assets/providers/gportal.png" alt="">
+                </a>
                 <a class="item" href="https://iceline-hosting.com/altv-hosting">
 			<img src="@/assets/providers/iceline-hosting.png" alt="">
                 </a>
