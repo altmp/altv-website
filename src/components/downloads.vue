@@ -181,7 +181,7 @@
                         url: `https://cdn.altv.mp/server/${branch}/${target}/data/vehmods.bin`,
                         path: 'data/vehmods.bin'
                     });
-                    if (branch === 'dev') {
+                    if (branch === 'dev' || branch === 'rc) {
                         files.push({
                             url: `https://cdn.altv.mp/server/${branch}/${target}/data/clothes.bin`,
                             path: 'data/clothes.bin'
