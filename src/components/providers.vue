@@ -45,6 +45,9 @@
 		<a class="item" href="https://www.srkhost.eu/services/altv">
 			<img src="@/assets/providers/srkhost.png" alt="">
 		</a>
+		<a class="item" href="https://vibegames.net/game-hosting/altv">
+                        <img src="@/assets/providers/vibegames.png" alt="">
+                </a>
 		<a class="item" href="https://zap-hosting.com/de/shop/product/cloud-gameserver/five-altv-linux/">
 			<img src="@/assets/providers/zap-hosting.png" alt="">
 		</a>
