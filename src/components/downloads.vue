@@ -38,8 +38,7 @@
                                     type="checkbox"
                                     name="os"
                                     :checked="options.arch === 'x64_linux'"
-                                    @change="updateServerVersion"
-                                    @input="options.arch = $event ? 'x64_linux' : 'x64_windows'"
+                                    @change="onChangeOs"
                                 />
 
                                 <!-- if checked – linux! !-->
@@ -121,6 +120,10 @@
             document.body.className = 'downloads';
         },
         methods: {
+            onChangeOs(e) {
+                this.options.arch = e.target.checked ? 'x64_linux' : 'x64_win32'
+                this.updateServerVersion()
+            },
             async updateServerVersion() {
                 this.version = '...';
 
