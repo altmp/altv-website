@@ -200,10 +200,10 @@
                 if (this.hasModule('sample-config')) {
                     this.addFiles({
                         'server.cfg': 'https://cdn.altv.mp/others/server.cfg'
-                    })
+                    });
                 }
 
-                // console.log(this.files)
+                // console.log(this.files);
 
                 const files = Object.entries(this.files);
                 const progressPerFile = !this.hasModule('example-resources')
@@ -243,13 +243,13 @@
                     tasks.push(fetch('https://cdn.altv.mp/samples/resources.zip')
                         .then(res => res.arrayBuffer())
                         .then(data => new Promise((resolve, reject) => {
-                            this.progress += 5
+                            this.progress += 5;
                             
                             unzip(new Uint8Array(data), (err, files) => {
-                                this.progress += 5
+                                this.progress += 5;
 
                                 if (err) {
-                                    return reject(err)
+                                    return reject(err);
                                 }
 
                                 Object.keys(files)
@@ -257,10 +257,10 @@
                                         const fStream = new AsyncZipDeflate(path, { level: 1 });
                                         zip.add(fStream);
 
-                                        fStream.push(files[path], true)
-                                    })
+                                        fStream.push(files[path], true);
+                                    });
                                 
-                                resolve()
+                                resolve();
                             })
                         })))
                 }
@@ -278,9 +278,9 @@
                 this.isBundling = true;
 
                 try {
-                    await this.bundleServer()
+                    await this.bundleServer();
                 } catch (e) {
-                    alert(`Failed to bundle server! Please, contact us on Discord!\nError: ${e.message}`)
+                    alert(`Failed to bundle server! Please, contact us on Discord!\nError: ${e.message}`);
                 }
 
                 this.progress = 0;
