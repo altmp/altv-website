@@ -34,15 +34,21 @@
                         <div class="os">
                             <label>
                                 Windows
-                                <input @change="updateServerVersion" type="checkbox"
-                                    v-model="serverGeneratorForm.isLinux" name="os" />
+                                <input
+                                    type="checkbox"
+                                    name="os"
+                                    :checked="options.arch === 'x64_linux'"
+                                    @change="updateServerVersion"
+                                    @input="options.arch = $event ? 'x64_linux' : 'x64_windows'"
+                                />
+
                                 <!-- if checked – linux! !-->
                                 <div class="switch"></div>
                                 Linux
                             </label>
                         </div>
                         <div class="branch">
-                            <select @change="updateServerVersion" v-model="serverGeneratorForm.branch" name="branch">
+                            <select @change="updateServerVersion" v-model="options.branch" name="branch">
                                 <option value="release" selected>Release</option>
                                 <option value="rc">Release candidate</option>
                                 <option value="dev">Development</option>
@@ -50,37 +56,37 @@
                         </div>
                         <div class="addons">
                             <label>
-                                <input v-model="serverGeneratorForm.includeDataFiles" type="checkbox" name="" />
+                                <input type="checkbox" name="" :checked="hasModule('data-files')" @input="updateModule('data-files', $event)" />
                                 <div class="check"></div>
                                 Data files
                             </label>
                             <label>
-                                <input v-model="serverGeneratorForm.includeJS" type="checkbox" name="" />
+                                <input type="checkbox" name="" :checked="hasModule('js-module')" @input="updateModule('js-module', $event)" />
                                 <div class="check"></div>
                                 JS Module
                             </label>
                             <label>
-                                <input v-model="serverGeneratorForm.includeCsharp" type="checkbox" name="" />
+                                <input type="checkbox" name="" :checked="hasModule('csharp-module')" @input="updateModule('csharp-module', $event)" />
                                 <div class="check"></div>
                                 C# Module
                             </label>
                             <label>
-                                <input type="checkbox" v-model="serverGeneratorForm.includeSampleConfig" name="" />
+                                <input type="checkbox" name="" :checked="hasModule('sample-config')" @input="updateModule('sample-config', $event)" />
                                 <div class="check"></div>
                                 Sample config file
                             </label>
                             <label>
-                                <input type="checkbox" v-model="serverGeneratorForm.includeSampleResources" name="" />
+                                <input type="checkbox" name="" :checked="hasModule('example-resources')" @input="updateModule('example-resources', $event)" />
                                 <div class="check"></div>
                                 Example resource pack
                             </label>
                         </div>
                     </div>
-                    <a href="#" @click="bundleServer()" :disabled="serverGeneratorForm.isBundling" class="btn">
-                        <span v-if="!serverGeneratorForm.isBundling">
-                            Download <i>Build #{{ latestServerBuild < 0 ? version : latestServerBuild }}</i>
+                    <a href="#" @click="tryBundleServe" :disabled="isBundling" class="btn">
+                        <span v-if="!isBundling">
+                            Download <i>Build #{{ version }}</i>
                         </span>
-                        <span v-else> {{ serverGeneratorForm.progress }}% </span>
+                        <span v-else> {{ progress }}% </span>
                     </a>
                     <p class="dlMobile">
                         Downloads are unavailable on mobile devices, please visit this page from a desktop.
@@ -93,35 +99,20 @@
 
 <script>
     import axios from 'axios';
-    import JSZip from 'jszip';
-    import {
-        saveAs
-    } from 'file-saver';
-
-    /* axios.defaults.params = {
-      salt: Math.random().toString(36).substring(7)
-    } */
-
-    let Promise = window.Promise;
-    if (!Promise) {
-        Promise = JSZip.external.Promise;
-    }
+    import { Zip, AsyncZipDeflate, unzip } from 'fflate';
+    import { saveAs } from 'file-saver';
 
     export default {
         data() {
             return {
-                latestServerBuild: '...',
                 version: '...',
-                serverGeneratorForm: {
+                isBundling: false,
+                progress: 0.0,
+                files: {},
+                options: {
                     branch: 'release',
-                    isLinux: false,
-                    includeDataFiles: false,
-                    includeJS: false,
-                    includeCsharp: false,
-                    includeSampleConfig: false,
-                    includeSampleResources: false,
-                    isBundling: false,
-                    progress: 0.0
+                    arch: 'x64_win32',
+                    include: []
                 }
             };
         },
@@ -132,165 +123,170 @@
             document.body.className = 'downloads';
         },
         methods: {
-            updateServerVersion() {
-                this.latestServerBuild = '...';
+            async updateServerVersion() {
                 this.version = '...';
-                const target = this.serverGeneratorForm.isLinux ? 'x64_linux' : 'x64_win32';
-                const branch = this.serverGeneratorForm.branch;
-                this.serverGeneratorForm.includeDataFiles = false;
-                this.serverGeneratorForm.includeJS = false;
-                this.serverGeneratorForm.includeCsharp = false;
-                this.serverGeneratorForm.includeSampleConfig = false;
-                this.serverGeneratorForm.includeSampleResources = false;
-                return axios.get(`https://cdn.altv.mp/server/${branch}/${target}/update.json`).then(serverInfo => {
-                    this.latestServerBuild = serverInfo.data.latestBuildNumber;
-                    this.version = serverInfo.data.version;
-                });
+
+                this.options.include = [];
+
+                const res = await axios.get(`https://cdn.altv.mp/server/${this.options.branch}/${this.options.arch}/update.json`);
+                this.version = res.data.version;
             },
-            bundleServer: function () {
-                this.serverGeneratorForm.isBundling = true;
-                const zip = new JSZip();
-                const target = this.serverGeneratorForm.isLinux ? 'x64_linux' : 'x64_win32';
-                const branch = this.serverGeneratorForm.branch;
+            hasModule(name) {
+                return this.options.include.includes(name);
+            },
+            updateModule(name, e) {
+                const add = e.target.checked
 
-                const downloadFile = function (url) {
-                    return new Promise((resolve, reject) => {
-                        return axios
-                            .get(url, {
-                                responseType: 'blob'
-                            })
-                            .then(res => resolve(res.data))
-                            .catch(err => reject(err));
-                    });
-                };
-
-                let modules = [];
-                let files = [];
-                files.push({
-                    url: `https://cdn.altv.mp/server/${branch}/${target}/altv-server` +
-                        (!this.serverGeneratorForm.isLinux ? '.exe' : ''),
-                    path: 'altv-server' + (!this.serverGeneratorForm.isLinux ? '.exe' : '')
-                });
-
-                if (this.serverGeneratorForm.includeDataFiles) {
-                    files.push({
-                        url: `https://cdn.altv.mp/server/${branch}/${target}/data/vehmodels.bin`,
-                        path: 'data/vehmodels.bin'
-                    });
-                    files.push({
-                        url: `https://cdn.altv.mp/server/${branch}/${target}/data/vehmods.bin`,
-                        path: 'data/vehmods.bin'
-                    });
-                    if (branch === 'dev' || branch === 'rc') {
-                        files.push({
-                            url: `https://cdn.altv.mp/server/${branch}/${target}/data/clothes.bin`,
-                            path: 'data/clothes.bin'
-                        });
+                if (add) {
+                    this.options.include.push(name);
+                } else {
+                    const idx = this.options.include.indexOf(name);
+                    if (idx !== -1) {
+                        this.options.include.splice(idx, 1);
                     }
                 }
+            },
+            addFiles(files) {
+                Object.assign(this.files, files);
+            },
+            async addFolder(path, prefix) {
+                try {
+                    const manifest = await (await fetch(`${path}/update.json`)).json();
 
-                if (this.serverGeneratorForm.includeJS) {
-                    modules.push('js-module');
-                    files.push({
-                        url: `https://cdn.altv.mp/js-module/${branch}/${target}/modules/js-module/` +
-                            (!this.serverGeneratorForm.isLinux ? 'js-module.dll' : 'libjs-module.so'),
-                        path: 'modules/js-module/' + (!this.serverGeneratorForm.isLinux ? 'js-module.dll' :
-                            'libjs-module.so')
-                    });
+                    Object.keys(manifest.hashList)
+                        .forEach((fPath) => {
+                            if (prefix !== undefined) {
+                                fPath = `${prefix}/${fPath}`
+                            }
 
-                    files.push({
-                        url: `https://cdn.altv.mp/js-module/${branch}/${target}/modules/js-module/` +
-                            (!this.serverGeneratorForm.isLinux ? 'libnode.dll' : `libnode.so.${this.serverGeneratorForm.branch !== "release" ? "83" : "72"}`),
-                        path: 'modules/js-module/' + (!this.serverGeneratorForm.isLinux ? 'libnode.dll' :
-                            `libnode.so.${this.serverGeneratorForm.branch === "dev" ? "83" : "72"}`)
-                    });
-                }
-
-                if (this.serverGeneratorForm.includeCsharp) {
-                    modules.push('csharp-module');
-                    files.push({
-                        url: `https://cdn.altv.mp/coreclr-module/${branch}/${target}/modules/` +
-                            (!this.serverGeneratorForm.isLinux ? 'csharp-module.dll' :
-                                'libcsharp-module.so'),
-                        path: 'modules/' + (!this.serverGeneratorForm.isLinux ? 'csharp-module.dll' :
-                            'libcsharp-module.so')
-                    });
-
-                    files.push({
-                        url: `https://cdn.altv.mp/coreclr-module/${branch}/${target}/AltV.Net.Host.dll`,
-                        path: 'AltV.Net.Host.dll'
-                    });
-
-                    files.push({
-                        url: `https://cdn.altv.mp/coreclr-module/${branch}/${target}/AltV.Net.Host.runtimeconfig.json`,
-                        path: 'AltV.Net.Host.runtimeconfig.json'
-                    });
-                }
-
-                if (this.serverGeneratorForm.isLinux) {
-                    files.push({
-                        url: 'https://cdn.altv.mp/others/start.sh',
-                        path: 'start.sh'
-                    });
-                }
-
-                if (this.serverGeneratorForm.includeSampleConfig) {
-                    files.push({
-                        url: 'https://cdn.altv.mp/others/server.cfg',
-                        path: 'server.cfg'
-                    });
-                }
-
-                for (const file of files) {
-                    let content;
-                    if (file.path === 'server.cfg') {
-                        content = downloadFile('https://cdn.altv.mp/others/server.cfg')
-                            .then(r => new Blob([r]).text().then(file => file.replace(/modules:\s*\[[\s\S]*?\]/gm, `modules: [\n${modules.join('\n')}\n]`)));
-                    } else {
-                        content = downloadFile(file.url);
-                    }
-
-                    zip.file(file.path, content, {
-                        binary: true
-                    });
-                }
-
-                new Promise((resolve, reject) => {
-                    if (this.serverGeneratorForm.includeSampleResources) {
-                        return downloadFile('https://cdn.altv.mp/samples/resources.zip')
-                            .then(JSZip.loadAsync)
-                            .then(resourceZip => {
-                                // eslint-disable-next-line no-debugger
-                                debugger;
-                                resourceZip.forEach((relativePath, file) => {
-                                    if (!file.dir) {
-                                        zip.file(relativePath, file.async('blob'), {
-                                            binary: true
-                                        });
-                                    }
-                                });
-                                resolve();
+                            this.addFiles({
+                                [fPath]: `${path}/${fPath}`
                             });
+                        });
+                } catch (e) {
+                    alert(`Failed to download ${path}. ${e.message}`)
+                }
+            },
+            async bundleServer() {
+                const branch = this.options.branch;
+                const arch = this.options.arch;
+
+                const serverBinName = arch === 'x64_win32' ? 'altv-server.exe' : 'altv-server';
+                this.addFiles({
+                    [serverBinName]: `https://cdn.altv.mp/server/${branch}/${arch}/${serverBinName}`
+                });
+
+                if (this.hasModule('data-files')) {
+                    this.addFiles({
+                        'data/vehmodels.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/vehmodels.bin`,
+                        'data/vehmods.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/vehmods.bin`
+                    });
+
+                    if (branch !== 'release') {
+                        this.addFiles({
+                            'data/clothes.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/clothes.bin`
+                        });
                     }
-                    return resolve();
-                }).then(() => {
-                    return zip
-                        .generateAsync({
-                            type: 'blob'
-                        }, metadata => {
-                            this.serverGeneratorForm.progress = Math.round(metadata.percent);
-                        })
-                        .then(blob => {
-                            this.serverGeneratorForm.isBundling = false;
-                            this.serverGeneratorForm.progress = 0;
-                            saveAs(blob, 'altv-server.zip');
-                        })
-                        .catch(e => {
-                            this.serverGeneratorForm.isBundling = false;
-                            alert('Failed to bundle server! Please, contact us on Discord! Error: ' + e
-                                .message);
+                }
+
+                if (this.hasModule('js-module')) {
+                    await this.addFolder(`https://cdn.altv.mp/js-module/${branch}/${arch}`);
+                }
+
+                if (this.hasModule('csharp-module')) {
+                    await this.addFolder(`https://cdn.altv.mp/coreclr-module/${branch}/${arch}`);
+                }
+
+                if (this.hasModule('sample-config')) {
+                    this.addFiles({
+                        'server.cfg': 'https://cdn.altv.mp/others/server.cfg'
+                    })
+                }
+
+                // console.log(this.files)
+
+                const files = Object.entries(this.files);
+                const progressPerFile = !this.hasModule('example-resources')
+                    ? 90 / files.length // 10% for zipping
+                    : 80 / files.length // 10% for zipping, 10% for example resources
+
+                const zip = new Zip();
+                const stream = new ReadableStream({
+                    start(controller) {
+                        zip.ondata = (err, chunk, final) => {
+                            if (err) {
+                                writable.abort(err.message);
+                            }
+
+                            controller.enqueue(chunk);
+
+                            if (final) {
+                                controller.close();
+                            }
+                        }
+                    }
+                });
+
+                const tasks = files.map(([path, url]) => {
+                    const fStream = new AsyncZipDeflate(path, { level: 1 });
+                    zip.add(fStream);
+
+                    return fetch(url)
+                        .then(res => res.arrayBuffer())
+                        .then(data => {
+                            this.progress += progressPerFile;
+                            fStream.push(new Uint8Array(data), true);
                         });
                 });
+
+                if (this.hasModule('example-resources')) {
+                    tasks.push(fetch('https://cdn.altv.mp/samples/resources.zip')
+                        .then(res => res.arrayBuffer())
+                        .then(data => new Promise((resolve, reject) => {
+                            this.progress += 5
+                            
+                            unzip(new Uint8Array(data), (err, files) => {
+                                this.progress += 5
+
+                                if (err) {
+                                    return reject(err)
+                                }
+
+                                Object.keys(files)
+                                    .forEach(path => {
+                                        const fStream = new AsyncZipDeflate(path, { level: 1 });
+                                        zip.add(fStream);
+
+                                        fStream.push(files[path], true)
+                                    })
+                                
+                                resolve()
+                            })
+                        })))
+                }
+
+                await Promise.all(tasks);
+                zip.end();
+
+                const blob = await (new Response(stream).blob());
+                this.progress = 100;
+                
+                saveAs(blob, 'alv-server.zip');
+            },
+            async tryBundleServe() {
+                if (this.isBundling) return;
+                this.isBundling = true;
+
+                try {
+                    await this.bundleServer()
+                } catch (e) {
+                    alert(`Failed to bundle server! Please, contact us on Discord!\nError: ${e.message}`)
+                }
+
+                this.progress = 0;
+                this.files = {};
+
+                this.isBundling = false;
             }
         }
     };
