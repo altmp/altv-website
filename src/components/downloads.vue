@@ -38,8 +38,7 @@
                                     type="checkbox"
                                     name="os"
                                     :checked="options.arch === 'x64_linux'"
-                                    @change="updateServerVersion"
-                                    @input="options.arch = $event ? 'x64_linux' : 'x64_windows'"
+                                    @change="onChangeOs"
                                 />
 
                                 <!-- if checked – linux! !-->
@@ -55,38 +54,32 @@
                             </select>
                         </div>
                         <div class="addons">
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('data-files')" @input="updateModule('data-files', $event)" />
-                                <div class="check"></div>
+                            <DownloadCheckbox name="data-files" v-model="options.include">
                                 Data files
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('js-module')" @input="updateModule('js-module', $event)" />
-                                <div class="check"></div>
+                            </DownloadCheckbox>
+
+                            <DownloadCheckbox name="js-module" v-model="options.include">
                                 JS Module
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('csharp-module')" @input="updateModule('csharp-module', $event)" />
-                                <div class="check"></div>
+                            </DownloadCheckbox>
+
+                            <DownloadCheckbox name="csharp-module" v-model="options.include">
                                 C# Module
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('sample-config')" @input="updateModule('sample-config', $event)" />
-                                <div class="check"></div>
+                            </DownloadCheckbox>
+
+                            <DownloadCheckbox name="sample-config" v-model="options.include">
                                 Sample config file
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('example-resources')" @input="updateModule('example-resources', $event)" />
-                                <div class="check"></div>
+                            </DownloadCheckbox>
+
+                            <DownloadCheckbox name="example-resources" v-model="options.include">
                                 Example resource pack
-                            </label>
+                            </DownloadCheckbox>
                         </div>
                     </div>
                     <a href="#" @click="tryBundleServe" :disabled="isBundling" class="btn">
                         <span v-if="!isBundling">
                             Download <i>Build #{{ version }}</i>
                         </span>
-                        <span v-else> {{ progress }}% </span>
+                        <span v-else> {{ progress.toFixed(1) }}% </span>
                     </a>
                     <p class="dlMobile">
                         Downloads are unavailable on mobile devices, please visit this page from a desktop.
@@ -98,11 +91,15 @@
 </template>
 
 <script>
+    import DownloadCheckbox from './download-checkbox.vue'
     import axios from 'axios';
     import { Zip, AsyncZipDeflate, unzip } from 'fflate';
     import { saveAs } from 'file-saver';
 
     export default {
+        components: {
+            DownloadCheckbox
+        },
         data() {
             return {
                 version: '...',
@@ -123,6 +120,10 @@
             document.body.className = 'downloads';
         },
         methods: {
+            onChangeOs(e) {
+                this.options.arch = e.target.checked ? 'x64_linux' : 'x64_win32'
+                this.updateServerVersion()
+            },
             async updateServerVersion() {
                 this.version = '...';
 
@@ -133,18 +134,6 @@
             },
             hasModule(name) {
                 return this.options.include.includes(name);
-            },
-            updateModule(name, e) {
-                const add = e.target.checked
-
-                if (add) {
-                    this.options.include.push(name);
-                } else {
-                    const idx = this.options.include.indexOf(name);
-                    if (idx !== -1) {
-                        this.options.include.splice(idx, 1);
-                    }
-                }
             },
             addFiles(files) {
                 Object.assign(this.files, files);
@@ -490,46 +479,6 @@
 
     .options .branch select option {
         background: #1a1a1a;
-    }
-
-    .options .addons label {
-        display: block;
-        margin: 10px 0;
-    }
-
-    .options .addons input {
-        position: absolute;
-        visibility: hidden;
-        opacity: 0;
-    }
-
-    .options .addons .check {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 3px;
-        margin-right: 10px;
-        transition: all 0.2s;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .options .addons label:hover .check {
-        background: rgba(255, 255, 255, 0.15);
-    }
-
-    .options .addons .check::before {
-        font-family: 'Font Awesome 5 Free';
-        content: '\f00c';
-        font-size: 10px;
-        vertical-align: middle;
-        opacity: 0;
-        transition: all 0.2s;
-    }
-
-    .options .addons input:checked+.check::before {
-        opacity: 1;
     }
 
     .options .addons .notice {
