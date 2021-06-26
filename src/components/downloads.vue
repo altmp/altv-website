@@ -55,31 +55,25 @@
                             </select>
                         </div>
                         <div class="addons">
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('data-files')" @input="updateModule('data-files', $event)" />
-                                <div class="check"></div>
+                            <DownloadCheckbox name="data-files" @change="updateModule($event.name, $event.value)">
                                 Data files
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('js-module')" @input="updateModule('js-module', $event)" />
-                                <div class="check"></div>
+                            </DownloadCheckbox>
+
+                            <DownloadCheckbox name="js-module" @change="updateModule($event.name, $event.value)">
                                 JS Module
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('csharp-module')" @input="updateModule('csharp-module', $event)" />
-                                <div class="check"></div>
+                            </DownloadCheckbox>
+
+                            <DownloadCheckbox name="csharp-module" @change="updateModule($event.name, $event.value)">
                                 C# Module
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('sample-config')" @input="updateModule('sample-config', $event)" />
-                                <div class="check"></div>
+                            </DownloadCheckbox>
+
+                            <DownloadCheckbox name="sample-config" @change="updateModule($event.name, $event.value)">
                                 Sample config file
-                            </label>
-                            <label>
-                                <input type="checkbox" name="" :checked="hasModule('example-resources')" @input="updateModule('example-resources', $event)" />
-                                <div class="check"></div>
+                            </DownloadCheckbox>
+
+                            <DownloadCheckbox name="example-resources" @change="updateModule($event.name, $event.value)">
                                 Example resource pack
-                            </label>
+                            </DownloadCheckbox>
                         </div>
                     </div>
                     <a href="#" @click="tryBundleServe" :disabled="isBundling" class="btn">
@@ -98,11 +92,15 @@
 </template>
 
 <script>
+    import DownloadCheckbox from './download-checkbox.vue'
     import axios from 'axios';
     import { Zip, AsyncZipDeflate, unzip } from 'fflate';
     import { saveAs } from 'file-saver';
 
     export default {
+        components: {
+            DownloadCheckbox
+        },
         data() {
             return {
                 version: '...',
@@ -134,9 +132,7 @@
             hasModule(name) {
                 return this.options.include.includes(name);
             },
-            updateModule(name, e) {
-                const add = e.target.checked
-
+            updateModule(name, add) {
                 if (add) {
                     this.options.include.push(name);
                 } else {
@@ -490,46 +486,6 @@
 
     .options .branch select option {
         background: #1a1a1a;
-    }
-
-    .options .addons label {
-        display: block;
-        margin: 10px 0;
-    }
-
-    .options .addons input {
-        position: absolute;
-        visibility: hidden;
-        opacity: 0;
-    }
-
-    .options .addons .check {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 3px;
-        margin-right: 10px;
-        transition: all 0.2s;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .options .addons label:hover .check {
-        background: rgba(255, 255, 255, 0.15);
-    }
-
-    .options .addons .check::before {
-        font-family: 'Font Awesome 5 Free';
-        content: '\f00c';
-        font-size: 10px;
-        vertical-align: middle;
-        opacity: 0;
-        transition: all 0.2s;
-    }
-
-    .options .addons input:checked+.check::before {
-        opacity: 1;
     }
 
     .options .addons .notice {
