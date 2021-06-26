@@ -86,7 +86,7 @@
                         <span v-if="!isBundling">
                             Download <i>Build #{{ version }}</i>
                         </span>
-                        <span v-else> {{ progress }}% </span>
+                        <span v-else> {{ progress.toFixed(1) }}% </span>
                     </a>
                     <p class="dlMobile">
                         Downloads are unavailable on mobile devices, please visit this page from a desktop.
