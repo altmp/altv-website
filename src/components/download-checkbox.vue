@@ -1,6 +1,6 @@
 <template>
     <label>
-        <input type="checkbox" name="" v-model="checked" />
+        <input type="checkbox" name="" :checked="isChecked" @input="onInput" />
         <div class="check"></div>
 
         <slot></slot>
@@ -10,17 +10,24 @@
 <script>
 export default {
     props: {
-        name: String
+        name: String,
+        value: Array
     },
     data: () => ({
         checked: false
     }),
-    watch: {
-        checked(val) {
-            this.$emit('change', {
-                name: this.name,
-                value: val
-            })
+    computed: {
+        isChecked() {
+            return this.value.includes(this.name)
+        }
+    },
+    methods: {
+        onInput($event) {
+            const newValue = $event.target.checked
+                ? [...this.value, this.name]
+                : this.value.filter(v => v !== this.name)
+            
+            this.$emit('input', newValue)
         }
     }
 }

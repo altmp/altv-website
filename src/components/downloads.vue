@@ -54,23 +54,23 @@
                             </select>
                         </div>
                         <div class="addons">
-                            <DownloadCheckbox name="data-files" @change="updateModule($event.name, $event.value)">
+                            <DownloadCheckbox name="data-files" v-model="options.include">
                                 Data files
                             </DownloadCheckbox>
 
-                            <DownloadCheckbox name="js-module" @change="updateModule($event.name, $event.value)">
+                            <DownloadCheckbox name="js-module" v-model="options.include">
                                 JS Module
                             </DownloadCheckbox>
 
-                            <DownloadCheckbox name="csharp-module" @change="updateModule($event.name, $event.value)">
+                            <DownloadCheckbox name="csharp-module" v-model="options.include">
                                 C# Module
                             </DownloadCheckbox>
 
-                            <DownloadCheckbox name="sample-config" @change="updateModule($event.name, $event.value)">
+                            <DownloadCheckbox name="sample-config" v-model="options.include">
                                 Sample config file
                             </DownloadCheckbox>
 
-                            <DownloadCheckbox name="example-resources" @change="updateModule($event.name, $event.value)">
+                            <DownloadCheckbox name="example-resources" v-model="options.include">
                                 Example resource pack
                             </DownloadCheckbox>
                         </div>
@@ -134,16 +134,6 @@
             },
             hasModule(name) {
                 return this.options.include.includes(name);
-            },
-            updateModule(name, add) {
-                if (add) {
-                    this.options.include.push(name);
-                } else {
-                    const idx = this.options.include.indexOf(name);
-                    if (idx !== -1) {
-                        this.options.include.splice(idx, 1);
-                    }
-                }
             },
             addFiles(files) {
                 Object.assign(this.files, files);
