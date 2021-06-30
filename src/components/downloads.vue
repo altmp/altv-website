@@ -243,7 +243,7 @@
 
                                 Object.keys(files)
                                     .forEach(path => {
-                                        const fStream = new AsyncZipDeflate(path, { level: 1 });
+                                        const fStream = new AsyncZipDeflate(`resources/${path}`, { level: 1 });
                                         zip.add(fStream);
 
                                         fStream.push(files[path], true);
