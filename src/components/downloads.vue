@@ -229,7 +229,7 @@
                 });
 
                 if (this.hasModule('example-resources')) {
-                    tasks.push(fetch('https://cdn.altv.mp/samples/resources.zip')
+                    tasks.push(fetch('https://cdn.altv.mp/example-resources/resources.zip')
                         .then(res => res.arrayBuffer())
                         .then(data => new Promise((resolve, reject) => {
                             this.progress += 5;
