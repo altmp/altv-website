@@ -260,7 +260,7 @@
                 const blob = await (new Response(stream).blob());
                 this.progress = 100;
                 
-                saveAs(blob, 'alv-server.zip');
+                saveAs(blob, 'altv-server.zip');
             },
             async tryBundleServe() {
                 if (this.isBundling) return;
