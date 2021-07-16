@@ -171,11 +171,9 @@
                         'data/vehmods.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/vehmods.bin`
                     });
 
-                    if (branch !== 'release') {
-                        this.addFiles({
-                            'data/clothes.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/clothes.bin`
-                        });
-                    }
+                    this.addFiles({
+                        'data/clothes.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/clothes.bin`
+                    });
                 }
 
                 if (this.hasModule('js-module')) {
