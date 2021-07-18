@@ -207,7 +207,7 @@
                     start(controller) {
                         zip.ondata = (err, chunk, final) => {
                             if (err) {
-                                writable.abort(err.message);
+                                controller.error(err);
                             }
 
                             controller.enqueue(chunk);
