@@ -192,7 +192,8 @@
                 if (this.hasModule('sample-config')) {
                     this.addFiles({
                         'server.cfg': 'https://cdn.altv.mp/others/server.cfg'
-                    });
+                    }, async (resp) => Buffer.from((await resp.text()).replace(/modules:\s*\[[\s\S]*?\]/gm, `modules: [${this.options.include.filter(opt => opt.endsWith('module')).map(opt => `'${opt}'`).join(', ')}]`)
+                        .replace(/resources:\s*\[[\s\S]*?\]/gm, `resources: [${this.hasModule('example-resources') ? "'chat', 'freeroam'" : ''}]`)));
                 }
 
                 // console.log(this.files);
