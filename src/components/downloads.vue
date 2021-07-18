@@ -106,6 +106,7 @@
                 isBundling: false,
                 progress: 0.0,
                 files: {},
+                filesCb: {},
                 options: {
                     branch: 'release',
                     arch: 'x64_win32',
@@ -135,10 +136,14 @@
             hasModule(name) {
                 return this.options.include.includes(name);
             },
-            addFiles(files) {
+            addFiles(files, callback=null) {
                 Object.assign(this.files, files);
+                Object.keys(files)
+                    .forEach((fPath) => {
+                        this.filesCb[fPath] = callback ? callback : (resp) => resp.arrayBuffer();
+                    });
             },
-            async addFolder(path, prefix) {
+            async addFolder(path, cb, prefix) {
                 try {
                     const manifest = await (await fetch(`${path}/update.json`)).json();
 
@@ -219,20 +224,20 @@
                     zip.add(fStream);
 
                     return fetch(url)
-                        .then(res => res.arrayBuffer())
-                        .then(data => {
+                        .then(resp => this.filesCb[path](resp))
+                        .then(buff => {
                             this.progress += progressPerFile;
-                            fStream.push(new Uint8Array(data), true);
+                            fStream.push(new Uint8Array(buff), true);
                         });
                 });
 
                 if (this.hasModule('example-resources')) {
                     tasks.push(fetch('https://cdn.altv.mp/example-resources/resources.zip')
-                        .then(res => res.arrayBuffer())
-                        .then(data => new Promise((resolve, reject) => {
+                        .then(resp => resp.arrayBuffer())
+                        .then(buff => new Promise((resolve, reject) => {
                             this.progress += 5;
-                            
-                            unzip(new Uint8Array(data), (err, files) => {
+
+                            unzip(new Uint8Array(buff), (err, files) => {
                                 this.progress += 5;
 
                                 if (err) {
@@ -243,10 +248,9 @@
                                     .forEach(path => {
                                         const fStream = new AsyncZipDeflate(`resources/${path}`, { level: 1 });
                                         zip.add(fStream);
-
                                         fStream.push(files[path], true);
                                     });
-                                
+
                                 resolve();
                             })
                         })))
@@ -272,6 +276,7 @@
 
                 this.progress = 0;
                 this.files = {};
+                this.filesCb = {};
 
                 this.isBundling = false;
             }
