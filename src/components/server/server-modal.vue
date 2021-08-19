@@ -529,6 +529,7 @@ div.connect a:active {
     font-style: normal;
     color: #fff;
     padding-left: 5px;
+    user-select: all;
 }
 
 .modal-container .charts {
