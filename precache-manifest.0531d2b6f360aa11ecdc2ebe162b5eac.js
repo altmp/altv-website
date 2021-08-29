@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "c5416b8b72457735c46d",
-    "url": "/css/app.6c124dd0.css"
+    "revision": "59998f894a1eccbea449",
+    "url": "/css/app.ee9c670c.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -152,6 +152,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/srkhost.4e8fc5cf.png"
   },
   {
+    "revision": "729b5189a94da2cdb4c06479987d1fbf",
+    "url": "/img/techkings.729b5189.png"
+  },
+  {
     "revision": "b048d1c48f0328d69639d7764f57df20",
     "url": "/img/v_logo.b048d1c4.svg"
   },
@@ -164,12 +168,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/vibegames.76427600.png"
   },
   {
-    "revision": "5638aa02c60b2040c35c49e3f6c41c80",
+    "revision": "cc0ef09894a5d559b7297d63c03a8996",
     "url": "/index.html"
   },
   {
-    "revision": "c5416b8b72457735c46d",
-    "url": "/js/app.314a01a6.js"
+    "revision": "59998f894a1eccbea449",
+    "url": "/js/app.5db165b6.js"
   },
   {
     "revision": "fc1a038160265698402e",
