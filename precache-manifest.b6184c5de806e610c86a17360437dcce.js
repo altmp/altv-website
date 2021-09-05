@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "59998f894a1eccbea449",
-    "url": "/css/app.ee9c670c.css"
+    "revision": "edf939a63fd5a0a6acca",
+    "url": "/css/app.13c7190f.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -132,6 +132,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/og-image.png"
   },
   {
+    "revision": "b0fce206b3c12e485e5b47742990f6c5",
+    "url": "/img/prepaid-host.b0fce206.svg"
+  },
+  {
     "revision": "ec9efa4544c5bf7108446370d58ce81e",
     "url": "/img/safari-pinned-tab.svg"
   },
@@ -168,12 +172,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/vibegames.76427600.png"
   },
   {
-    "revision": "cc0ef09894a5d559b7297d63c03a8996",
+    "revision": "6038eff154e4807b59faf2ecc5f195fc",
     "url": "/index.html"
   },
   {
-    "revision": "59998f894a1eccbea449",
-    "url": "/js/app.5db165b6.js"
+    "revision": "edf939a63fd5a0a6acca",
+    "url": "/js/app.e9db945e.js"
   },
   {
     "revision": "fc1a038160265698402e",
