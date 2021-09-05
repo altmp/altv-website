@@ -36,6 +36,9 @@
                 <a class="item" href="https://www.nexus-games.com/">
 			<img src="@/assets/providers/nexus-games.png" alt="">
 		</a>
+                <a class="item" href="https://prepaid-host.com/gameserver/altV/order">
+                        <img src="@/assets/providers/prepaid-host.svg" alt="">
+                </a>
                 <a class="item" href="https://admin.serverproject.eu/order/create?product=altv">
 			<img src="@/assets/providers/serverproject.png" alt="">
                 </a>
