@@ -48,9 +48,6 @@
 		<a class="item" href="https://www.srkhost.eu/services/altv">
 			<img src="@/assets/providers/srkhost.png" alt="">
 		</a>
-		<a class="item" href="https://techkings.de/spiele/gta-5?mtm_campaign=altv">
-                        <img src="@/assets/providers/techkings.png" alt="">
-                </a>
 		<a class="item" href="https://vibegames.net/game-hosting/altv">
                         <img src="@/assets/providers/vibegames.png" alt="">
                 </a>
