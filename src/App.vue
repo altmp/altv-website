@@ -14,7 +14,7 @@
                 <router-link to="/downloads" v-on:click.native="closeMenuButton">downloads</router-link>
 		<router-link to="/providers" v-on:click.native="closeMenuButton">providers</router-link>
                 <a href="https://discord.altv.mp/">discord</a>
-                <a href="https://wiki.altv.mp/">wiki</a>
+                <a href="https://docs.altv.mp/">documentation</a>
                 <a href="https://hub.altv.mp/">resources</a>
                 <button id="closebutton" @click="closeMenuButton">&times;</button>
             </div>
