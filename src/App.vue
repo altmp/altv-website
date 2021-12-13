@@ -12,7 +12,7 @@
                 <router-link to="/" v-on:click.native="closeMenuButton">home</router-link>
                 <router-link to="/servers" v-on:click.native="closeMenuButton">servers</router-link>
                 <router-link to="/downloads" v-on:click.native="closeMenuButton">downloads</router-link>
-		<router-link to="/providers" v-on:click.native="closeMenuButton">providers</router-link>
+		        <router-link to="/providers" v-on:click.native="closeMenuButton">providers</router-link>
                 <a href="https://discord.altv.mp/">discord</a>
                 <a href="https://docs.altv.mp/">documentation</a>
                 <a href="https://hub.altv.mp/">resources</a>
@@ -22,20 +22,17 @@
                 <a target="_blank" href="https://twitter.com/altVMP">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a target="_blank" href="https://instagram.com/altvmp/">
-                    <i class="fab fa-instagram"></i>
-                </a>
                 <a target="_blank" href="https://vk.com/altvmp">
                     <i class="fab fa-vk"></i>
                 </a>
                 <a target="_blank" href="https://www.youtube.com/c/altVMP">
                     <i class="fab fa-youtube"></i>
                 </a>
+                <a target="_blank" href="https://www.twitch.tv/altvmultiplayer">
+                    <i class="fab fa-twitch"></i>
+                </a>
                 <a target="_blank" href="https://github.com/altmp">
                     <i class="fab fa-github"></i>
-                </a>
-                <a target="_blank" href="https://facebook.com/altvmp/">
-                    <i class="fab fa-facebook"></i>
                 </a>
                 <a target="_blank" href="https://www.patreon.com/altVMP">
                     <i class="fab fa-patreon"></i>
