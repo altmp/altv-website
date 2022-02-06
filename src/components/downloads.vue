@@ -62,6 +62,10 @@
                                 JS Module
                             </DownloadCheckbox>
 
+                            <DownloadCheckbox name="js-bytecode-module" v-model="options.include">
+                                JS Bytecode Module
+                            </DownloadCheckbox>
+
                             <DownloadCheckbox name="csharp-module" v-model="options.include">
                                 C# Module
                             </DownloadCheckbox>
@@ -187,6 +191,10 @@
 
                 if (this.hasModule('csharp-module')) {
                     await this.addFolder(`https://cdn.altv.mp/coreclr-module/${branch}/${arch}`);
+                }
+
+                if (this.hasModule('js-bytecode-module')) {
+                    await this.addFolder(`https://cdn.altv.mp/js-bytecode-module/${branch}/${arch}`);
                 }
 
                 if (this.hasModule('sample-config')) {
