@@ -194,7 +194,11 @@
                 }
 
                 if (this.hasModule('js-bytecode-module')) {
-                    await this.addFolder(`https://cdn.altv.mp/js-bytecode-module/${branch}/${arch}`);
+                    const bytecodeModule = arch === 'x64_win32' ? 'js-bytecode-module.dll' : 'libjs-bytecode-module.so';
+                    const bytecodePath = "modules/" + bytecodeModule;
+                    this.addFiles({
+                        [bytecodePath]:  `https://cdn.altv.mp/js-bytecode-module/${branch}/${arch}/${bytecodeModule}`
+                    });
                 }
 
                 if (this.hasModule('sample-config')) {
