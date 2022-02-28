@@ -166,44 +166,31 @@
                 }
             },
             async bundleServer() {
+                const cdnUrl = 'https://cdn.altv.mp'
                 const branch = this.options.branch;
                 const arch = this.options.arch;
 
                 const serverBinName = arch === 'x64_win32' ? 'altv-server.exe' : 'altv-server';
                 this.addFiles({
-                    [serverBinName]: `https://cdn.altv.mp/server/${branch}/${arch}/${serverBinName}`
+                    [serverBinName]: `${cdnUrl}/server/${branch}/${arch}/${serverBinName}`
                 });
 
-                if (this.hasModule('data-files')) {
-                    this.addFiles({
-                        'data/vehmodels.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/vehmodels.bin`,
-                        'data/vehmods.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/vehmods.bin`
-                    });
-
-                    this.addFiles({
-                        'data/clothes.bin': `https://cdn.altv.mp/server/${branch}/${arch}/data/clothes.bin`
-                    });
+                const modules = {
+                    'data-files': `data/${branch}`,
+                    'js-module': `js-module/${branch}/${arch}`,
+                    'csharp-module': `coreclr-module/${branch}/${arch}`,
+                    'js-bytecode-module': `js-bytecode-module/${branch}/${arch}`,
                 }
 
-                if (this.hasModule('js-module')) {
-                    await this.addFolder(`https://cdn.altv.mp/js-module/${branch}/${arch}`);
-                }
-
-                if (this.hasModule('csharp-module')) {
-                    await this.addFolder(`https://cdn.altv.mp/coreclr-module/${branch}/${arch}`);
-                }
-
-                if (this.hasModule('js-bytecode-module')) {
-                    const bytecodeModule = arch === 'x64_win32' ? 'js-bytecode-module.dll' : 'libjs-bytecode-module.so';
-                    const bytecodePath = "modules/" + bytecodeModule;
-                    this.addFiles({
-                        [bytecodePath]:  `https://cdn.altv.mp/js-bytecode-module/${branch}/${arch}/${bytecodeModule}`
-                    });
-                }
+                await Promise.all(
+                    Object.entries(modules)
+                        .filter(([name]) => this.hasModule(name))
+                        .map(([,path]) => this.addFolder(`${cdnUrl}/${path}`))
+                )
 
                 if (this.hasModule('sample-config')) {
                     this.addFiles({
-                        'server.cfg': 'https://cdn.altv.mp/others/server.cfg'
+                        'server.cfg': `${cdnUrl}/others/server.cfg`
                     }, async (resp) => Buffer.from((await resp.text()).replace(/modules:\s*\[[\s\S]*?\]/gm, `modules: [${this.options.include.filter(opt => opt.endsWith('module')).map(opt => `'${opt}'`).join(', ')}]`)
                         .replace(/resources:\s*\[[\s\S]*?\]/gm, `resources: [${this.hasModule('example-resources') ? "'chat', 'freeroam'" : ''}]`)));
                 }
@@ -245,7 +232,7 @@
                 });
 
                 if (this.hasModule('example-resources')) {
-                    tasks.push(fetch('https://cdn.altv.mp/example-resources/resources.zip')
+                    tasks.push(fetch(`${cdnUrl}/example-resources/resources.zip`)
                         .then(resp => resp.arrayBuffer())
                         .then(buff => new Promise((resolve, reject) => {
                             this.progress += 5;
