@@ -429,7 +429,8 @@ export default {
 }
 
 .min-requirements {
-    margin-top: 0px;
+    margin-top: 35px;
+    margin-bottom: 25px;
     text-transform: uppercase;
     font-family: 'Inter';
     opacity: 0.7;
