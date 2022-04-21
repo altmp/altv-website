@@ -160,7 +160,7 @@ export default {
                 { key: 'HDD Space', value: '65GB' }
             ],
             serverRequirements: [
-                { key: 'OS', value: 'Latest Windows Server / Ubuntu 18.04+ / Debian 10' },
+                { key: 'OS', value: 'Latest Windows Server / Ubuntu 22.04 / Debian 11' },
                 { key: 'CPU', value: '3.2ghz (4 Core)' },
                 { key: 'RAM', value: 'Varies by Script / Gamemode' },
                 { key: 'DISK', value: 'Varies by Script / Gamemode' }
