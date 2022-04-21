@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.c292c844d073468a613688426aa7aecc.js"
+  "/precache-manifest.4953ea27a6f045025ee3d3464f9b410a.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "altv-website"});
