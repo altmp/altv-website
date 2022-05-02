@@ -25,7 +25,7 @@
                 <a target="_blank" href="https://vk.com/altvmp">
                     <i class="fab fa-vk"></i>
                 </a>
-                <a target="_blank" href="https://www.youtube.com/c/altVMP">
+                <a target="_blank" href="https://www.youtube.com/channel/UCynLUh5sXjU2NWIILQ3uwLg">
                     <i class="fab fa-youtube"></i>
                 </a>
                 <a target="_blank" href="https://www.twitch.tv/altvmultiplayer">
