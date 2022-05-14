@@ -1,6 +1,6 @@
 <template>
-    <label>
-        <input type="checkbox" name="" :checked="isChecked" @input="onInput" />
+    <label :class="{ 'disabled-label': disabled }">
+        <input type="checkbox" name="" :checked="isChecked" @input="onInput" :disabled="disabled" />
         <div class="check"></div>
 
         <slot></slot>
@@ -11,18 +11,23 @@
 export default {
     props: {
         name: String,
-        value: Array
+        value: Array,
+        disabled: {
+            default: false,
+            type: Boolean
+        }
     },
     data: () => ({
         checked: false
     }),
     computed: {
         isChecked() {
-            return this.value.includes(this.name)
-        }
+            return this.value.includes(this.name) && !this.disabled
+        },
     },
     methods: {
         onInput($event) {
+            if(this.disabled) return;
             const newValue = $event.target.checked
                 ? [...this.value, this.name]
                 : this.value.filter(v => v !== this.name)
@@ -59,6 +64,10 @@ input {
 
 label:hover .check {
     background: rgba(255, 255, 255, 0.15);
+}
+
+.disabled-label {
+    opacity: 0.4;
 }
 
 .check::before {
