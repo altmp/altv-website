@@ -63,7 +63,7 @@
                                 JS Module
                             </DownloadCheckbox>
 
-                            <DownloadCheckbox name="js-bytecode-module" v-model="options.include">
+                            <DownloadCheckbox name="js-bytecode-module" v-model="options.include" :disabled="options.branch !== 'release'">
                                 JS Bytecode Module
                             </DownloadCheckbox>
 
