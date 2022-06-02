@@ -80,6 +80,9 @@
                             </DownloadCheckbox>
                         </div>
                     </div>
+                    <p style="margin-top: 0">
+                        Looking for a roleplay script?<br>Try out <a href="https://github.com/Stuyk/altv-athena">Athena Roleplay Framework</a>.
+                    </p>
                     <p class="dlMobile">
                         Downloads are unavailable on mobile devices, please visit this page from a desktop.
                     </p>
