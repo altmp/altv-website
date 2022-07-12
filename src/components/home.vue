@@ -18,7 +18,7 @@
                     </span>
                 </router-link>
                 <div class="sep"></div>
-                <router-link class="btn" to="/downloads">download client</router-link>
+                <router-link class="btn" to="/downloads">download</router-link>
                 <span class="launch">
                     Before starting, unpack
                     <i>altv.exe</i> to an empty folder.
