@@ -1,129 +1,181 @@
 <template>
     <div class="main">
         <div class="wrapper">
-            <div class="title">
-                <h1>Downloads</h1>
-                <p>
-                    By downloading you accept our<br />
-                    <a href="terms-of-service.pdf">Terms Of Service</a> and <a href="#">Privacy Policy</a>
-                </p>
-                <p class="dlMobile">
-                    Downloads are unavailable on mobile devices, please visit this page from a desktop.
-                </p>
-            </div>
-            <div class="container">
-                <div class="dl client">
-                    <h2>Client</h2>
-                    <p>
-                        Installer / Updater: <b>~2MB</b><br />
-                        Full Client: <b>~170MB</b>
-                    </p>
-                    <div class="action">
-                        <a
-                            class="help"
-                            href="https://docs.altv.mp/articles/troubleshooting/client.html"
-                            target="_blank"
-                        >
-                            Help & Troubleshooting
-                        </a>
-                    </div>
-                </div>
-                <!-- <div class="separator"></div> -->
-                <div class="dl server">
-                    <h2>Server</h2>
-                    <div class="options">
-                        <div class="os">
-                            <label>
-                                Windows
-                                <input
-                                    type="checkbox"
-                                    name="os"
-                                    :checked="options.arch === 'x64_linux'"
-                                    @change="onChangeOs"
-                                />
 
-                                <!-- if checked – linux! !-->
-                                <div class="switch"></div>
-                                Linux
-                            </label>
-                        </div>
-                        <div class="branch">
-                            <select @change="updateServerVersion" v-model="options.branch" name="branch">
-                                <option value="release" selected>Release</option>
-                                <option value="rc">Release candidate</option>
-                                <option value="dev">Development</option>
-                            </select>
-                        </div>
-                        <div class="addons">
-                            <DownloadCheckbox name="data-files" v-model="options.include">
-                                Data files
-                            </DownloadCheckbox>
+			
+			<p class="dlMobile">
+				Downloads are unavailable on mobile devices, please visit this page from a desktop.
+			</p>
 
-                            <DownloadCheckbox name="js-module" v-model="options.include">
-                                JS Module
-                            </DownloadCheckbox>
+			<div class="split hide-mobile">
 
-                            <DownloadCheckbox name="js-bytecode-module" v-model="options.include" :disabled="options.branch !== 'release'">
-                                JS Bytecode Module
-                            </DownloadCheckbox>
+				<!-- Downloads column -->
+				<div>
 
-                            <DownloadCheckbox name="csharp-module" v-model="options.include">
-                                C# Module
-                            </DownloadCheckbox>
+					<div class="title">
+						<h1>Downloads</h1>
+						<p>
+							By downloading you accept our<br />
+							<a href="terms-of-service.pdf">Terms Of Service</a> and <a href="#">Privacy Policy</a>
+						</p>
+						<p class="dlMobile">
+							Downloads are unavailable on mobile devices, please visit this page from a desktop.
+						</p>
+					</div>
 
-                            <DownloadCheckbox name="sample-config" v-model="options.include">
-                                Sample config file
-                            </DownloadCheckbox>
+					<div class="">
+						<div class="dl client">
+							<div class="hide-mobile" style="width: 100%">
+								<a href="https://cdn.altv.mp/launcher/release/x64_win32/altv.zip" class="btn btn-client">
+									Download altV:MP
+								</a>
+							</div>
+							<p  class="text-center">
+								Installer: <b>~2MB</b> | Full Client: <b>~170MB</b> <br>
+								<a
+									class="help"
+									href="https://docs.altv.mp/articles/troubleshooting/client.html"
+									target="_blank"
+								>
+									Help & Troubleshooting
+								</a>
+							</p>
+							
+						</div>
+					</div>
+				</div>
 
-                            <DownloadCheckbox name="example-resources" v-model="options.include">
-                                Example resource pack
-                            </DownloadCheckbox>
-                        </div>
-                    </div>
-                    <p style="margin-top: 0">
-                        Looking for a roleplay script?<br>Try out <a href="https://athenaframework.com">Athena Roleplay Framework</a>.
-                    </p>
-                    <p class="dlMobile">
-                        Downloads are unavailable on mobile devices, please visit this page from a desktop.
-                    </p>
-                </div>
-            </div>
-            <div class="split hide-mobile">
-                <a href="https://cdn.altv.mp/launcher/release/x64_win32/altv.zip" class="btn btn-client">
-                    Download Client
-                </a>
-                <a href="#" @click="tryBundleServe" :disabled="isBundling" class="btn btn-server">
-                    <span v-if="!isBundling">
-                        Download Server <br /><i>Build #{{ version }}</i>
-                    </span>
-                    <span v-else> {{ progress.toFixed(1) }}% </span>
-                </a>
-            </div>
+				
+				<!-- Requirements column -->
+				<div>
+					<div class="title">
+						<h1>Requirements</h1>
+					</div>
+					<div class="client-recommendations">
+						<div class="requirement" v-for="(requirement, index) in requirements" :key="index">
+							<div class="key">
+								{{ requirement.key }}
+							</div>
+							<div class="value">
+								{{ requirement.value }}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+            
+
+            
+
+			<details style="" class="hide-mobile">
+				<summary style="width: 100%; text-align: center; padding: 2rem 0rem;">
+					Options for developers
+				</summary>
+
+				<div class="split">
+
+					<!-- Downloads column -->
+					<div>
+
+						<div class="title">
+							<h1>Downloads</h1>
+							<p>
+								Looking for a roleplay script?<br>Try out <a href="https://athenaframework.com">Athena Roleplay Framework</a>.
+							</p>
+						</div>
+
+						<div class="dl server">
+							<div class="options">
+								<div class="os">
+									<label>
+										Windows
+										<input
+											type="checkbox"
+											name="os"
+											:checked="options.arch === 'x64_linux'"
+											@change="onChangeOs"
+										/>
+
+										<!-- if checked – linux! !-->
+										<div class="switch"></div>
+										Linux
+									</label>
+								</div>
+								<div class="branch">
+									<select @change="updateServerVersion" v-model="options.branch" name="branch">
+										<option value="release" selected>Release</option>
+										<option value="rc">Release candidate</option>
+										<option value="dev">Development</option>
+									</select>
+								</div>
+								<div class="addons">
+									<DownloadCheckbox name="data-files" v-model="options.include">
+										Data files
+									</DownloadCheckbox>
+
+									<DownloadCheckbox name="js-module" v-model="options.include">
+										JS Module
+									</DownloadCheckbox>
+
+									<DownloadCheckbox name="js-bytecode-module" v-model="options.include" :disabled="options.branch !== 'release'">
+										JS Bytecode Module
+									</DownloadCheckbox>
+
+									<DownloadCheckbox name="csharp-module" v-model="options.include">
+										C# Module
+									</DownloadCheckbox>
+
+									<DownloadCheckbox name="sample-config" v-model="options.include">
+										Sample config file
+									</DownloadCheckbox>
+
+									<DownloadCheckbox name="example-resources" v-model="options.include">
+										Example resource pack
+									</DownloadCheckbox>
+								</div>
+							</div>
+						</div>
+
+						<div class="hide-mobile">
+							<a href="#" @click="tryBundleServe" :disabled="isBundling" class="btn btn-server">
+								<span v-if="!isBundling">
+									Download Server <br /><i>Build #{{ version }}</i>
+								</span>
+								<span v-else> {{ progress.toFixed(1) }}% </span>
+							</a>
+						</div>
+					</div>
+
+
+					<!-- Requirements column -->
+					<div>
+						<div class="title">
+							<h1>Requirements</h1>
+						</div>
+						<div class="server-recommendations">
+							<div class="requirement" v-for="(requirement, index) in serverRequirements" :key="index">
+								<div class="key">
+									{{ requirement.key }}
+								</div>
+								<div class="value">
+									{{ requirement.value }}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					</div>
+
+			
+
+			
+
+			
+			</details>
+            
             <br />
-            <div class="split hide-mobile">
-                <div class="client-recommendations">
-                    <h4 class="min-requirements" style="text-align: center">Client Requirements</h4>
-                    <div class="requirement" v-for="(requirement, index) in requirements" :key="index">
-                        <div class="key">
-                            {{ requirement.key }}
-                        </div>
-                        <div class="value">
-                            {{ requirement.value }}
-                        </div>
-                    </div>
-                </div>
-                <div class="server-recommendations">
-                    <h4 class="min-requirements" style="text-align: center">Server Requirements</h4>
-                    <div class="requirement" v-for="(requirement, index) in serverRequirements" :key="index">
-                        <div class="key">
-                            {{ requirement.key }}
-                        </div>
-                        <div class="value">
-                            {{ requirement.value }}
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -357,6 +409,7 @@ export default {
 </script>
 
 <style scoped>
+
 .main {
     display: flex;
     flex-direction: column;
@@ -378,11 +431,9 @@ export default {
     display: flex;
     justify-content: space-between;
     min-width: 650px;
-    max-width: 650px;
 }
 
 .title {
-    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -466,8 +517,11 @@ export default {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    width: 50%;
     max-width: 1024px;
+}
+
+.text-center {
+	text-align: center;
 }
 
 .separator {
@@ -482,10 +536,9 @@ export default {
 }
 
 .dl {
-    min-width: 240px;
-    padding: 0 30px;
     display: flex;
     flex-direction: column;
+	align-items: center;
 }
 
 .dl h2 {
@@ -498,17 +551,6 @@ export default {
 .dl p b,
 .dl p a {
     color: #eee;
-}
-
-.dl.client {
-    text-align: right;
-    align-items: flex-end;
-}
-
-.dl.client .action {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
 }
 
 .dl.client .help {
@@ -527,23 +569,14 @@ export default {
     color: rgba(255, 255, 255, 0.7);
 }
 
-.dl.server {
-    align-items: flex-start;
-}
-
 .btn-client,
 .btn-server {
     display: flex;
     justify-content: center;
     align-content: center;
     align-items: center;
-    min-width: 250px;
-    max-width: 250px;
     text-align: center;
-}
-
-.options {
-    margin: 30px 0;
+	margin-top: 16px;
 }
 
 .options .os label {
