@@ -24,7 +24,7 @@
                 <div class="dl client">
                   <div class="hide-mobile" style="width: 100%">
                     <a href="https://cdn.altv.mp/launcher/release/x64_win32/altv.zip" class="btn btn-client">
-                      Download altV:MP
+                      Download alt:V
                     </a>
                   </div>
                   <p  class="text-center">
