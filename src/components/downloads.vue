@@ -343,7 +343,7 @@ export default {
             try {
                 await this.bundleServer();
             } catch (e) {
-                alert(`Failed to bundle files!\n\n1.) Disable your adblocker\n2.) Whitelist domain in Antivirus (does not apply to Windows Defender)\n3.) Try another browser\n4.) Contact us on Discord\n\nDetailed error: ${e.message}`);
+                alert(`Failed to bundle files!\n\n1.) Disable your adblocker\n2.) Whitelist domain in Antivirus (not with Windows Defender)\n3.) Try another browser\n4.) Contact us on Discord\n\nDetailed error: ${e.message}`);
             }
 
             this.progress = 0;
