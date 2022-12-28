@@ -242,8 +242,7 @@ export default {
             this.playerData.forEach(data => {
                 var date = new Date(data.t * 1000);
                 // var dateFormat = `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${("0" + date.getSeconds()).slice(-2)}`;
-
-                this.chartData.labels.push(date.toLocaleString());
+                this.chartData.labels.push(this.period === '31d' ? date.toLocaleDateString() : date.toLocaleString())
                 this.chartData.datasets[0].data.push(data.c);
             }, this);
 
