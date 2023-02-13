@@ -211,7 +211,7 @@ export default {
         getPlayerData: async function () {
             this.playerData = null;
 
-            const playerData = await getRequest(`https://api.altv.mp/${this.type}/${this.server.id}/${this.period}`);
+            const playerData = await getRequest(`https://api.alt-mp.com/${this.type}/${this.server.id}/${this.period}`);
 
             if (!playerData) {
                 return;
