@@ -202,7 +202,7 @@ export default {
         },
         async addFolder(path, cb, prefix) {
             try {
-                const manifest = await (await fetch(`${path}/update.json`)).json();
+                const manifest = await (await fetch(`${path}/update.json`, {cache: "no-store"})).json();
 
                 Object.keys(manifest.hashList).forEach(fPath => {
                     if (prefix !== undefined) {
@@ -291,7 +291,7 @@ export default {
                 const fStream = new AsyncZipDeflate(path, { level: 1 });
                 zip.add(fStream);
 
-                return fetch(url)
+                return fetch(url, {cache: "no-store"})
                     .then(resp => this.filesCb[path](resp))
                     .then(buff => {
                         this.progress += progressPerFile;
@@ -301,7 +301,7 @@ export default {
 
             if (this.hasModule('example-resources')) {
                 tasks.push(
-                    fetch(`${cdnUrl}/example-resources/resources.zip`)
+                    fetch(`${cdnUrl}/example-resources/resources.zip`, {cache: "no-store"})
                         .then(resp => resp.arrayBuffer())
                         .then(
                             buff =>
