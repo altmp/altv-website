@@ -21,7 +21,7 @@
                     <div class="action">
                         <a
                             class="help"
-                            href="https://docs.alt-mp.com/articles/troubleshooting/client.html"
+                            href="https://docs.altv.mp/articles/troubleshooting/client.html"
                             target="_blank"
                         >
                             Help & Troubleshooting
@@ -187,7 +187,7 @@ export default {
             this.options.include = [];
 
             const res = await axios.get(
-                `https://cdn.altv.mp/server/${this.options.branch}/${this.options.arch}/update.json`
+                `https://cdn.alt-mp.com/server/${this.options.branch}/${this.options.arch}/update.json`
             );
             this.version = res.data.version;
         },
@@ -218,7 +218,7 @@ export default {
             }
         },
         async bundleServer() {
-            const cdnUrl = 'https://cdn.altv.mp';
+            const cdnUrl = 'https://cdn.alt-mp.com';
             const branch = this.options.branch;
             const arch = this.options.arch;
 
