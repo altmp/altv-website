@@ -21,7 +21,7 @@
                     <div class="action">
                         <a
                             class="help"
-                            href="https://docs.alt-mp.com/articles/troubleshooting/client.html"
+                            href="https://docs.altv.mp/articles/troubleshooting/client.html"
                             target="_blank"
                         >
                             Help & Troubleshooting
