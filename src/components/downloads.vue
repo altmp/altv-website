@@ -21,7 +21,7 @@
                     <div class="action">
                         <a
                             class="help"
-                            href="https://docs.altv.mp/articles/troubleshooting/client.html"
+                            href="https://docs.alt-mp.com/articles/troubleshooting/client.html"
                             target="_blank"
                         >
                             Help & Troubleshooting
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="split hide-mobile">
-                <a href="https://cdn.altv.mp/launcher/release/x64_win32/altv.zip" class="btn btn-client">
+                <a href="https://cdn.alt-mp.com/launcher/release/x64_win32/altv.zip" class="btn btn-client">
                     Download Client
                 </a>
                 <a href="#" @click="tryBundleServe" :disabled="isBundling" class="btn btn-server">
