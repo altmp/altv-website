@@ -187,7 +187,7 @@ export default {
             this.options.include = [];
 
             const res = await axios.get(
-                `https://cdn.altv.mp/server/${this.options.branch}/${this.options.arch}/update.json`
+                `https://cdn.alt-mp.com/server/${this.options.branch}/${this.options.arch}/update.json`
             );
             this.version = res.data.version;
         },
@@ -218,7 +218,7 @@ export default {
             }
         },
         async bundleServer() {
-            const cdnUrl = 'https://cdn.altv.mp';
+            const cdnUrl = 'https://cdn.alt-mp.com';
             const branch = this.options.branch;
             const arch = this.options.arch;
 
