@@ -128,7 +128,7 @@
             getLanguage: getLanguage,
             fetchServers: async function () {
                 console.log("Fetch servers from the API...");
-                const data = await getRequest('https://api.altv.mp/servers/list');
+                const data = await getRequest('https://api.alt-mp.com/servers/list');
 
                 if (!data) {
                     return;
