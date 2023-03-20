@@ -185,11 +185,8 @@ export default {
             this.version = '...';
 
             this.options.include = [];
-
-            const res = await axios.get(
-                `https://cdn.alt-mp.com/server/${this.options.branch}/${this.options.arch}/update.json`
-            );
-            this.version = res.data.version;
+            const res = await (await fetch(`https://cdn.alt-mp.com/server/${this.options.branch}/${this.options.arch}/update.json`, {cache: "no-store"})).json();
+            this.version = res.version;
         },
         hasModule(name) {
             return this.options.include.includes(name);
