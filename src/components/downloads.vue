@@ -305,19 +305,15 @@ export default {
                 const fStream = new AsyncZipDeflate(path, { level: 1 });
                 zip.add(fStream);
 
-                const handleFileBuffer = (buff) => {
-                    this.progress += progressPerFile;
-                    fStream.push(new Uint8Array(buff), true);
-                };
-
-                // used for server config
-                if (url === DO_NOT_FETCH_ME) {
-                    return Promise.resolve(handleFileBuffer(this.filesCb[path]()));
-                } else {
-                    return fetch(url, {cache: "no-store"})
-                        .then(resp => this.filesCb[path](resp))
-                        .then(handleFileBuffer);
-                }
+                return (url === DO_NOT_FETCH_ME
+                    ? Promise.resolve(null)
+                    : fetch(url, {cache: "no-store"})
+                )
+                    .then(resp => this.filesCb[path](resp))
+                    .then(buff => {
+                        this.progress += progressPerFile;
+                        fStream.push(new Uint8Array(buff), true);
+                    });
             });
 
             if (this.hasModule('example-resources')) {
