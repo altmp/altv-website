@@ -72,7 +72,7 @@
                             </DownloadCheckbox>
 
                             <DownloadCheckbox name="sample-config" v-model="options.include">
-                                Sample config file
+                                Sample server config
                             </DownloadCheckbox>
 
                             <DownloadCheckbox name="example-resources" v-model="options.include">
@@ -133,6 +133,22 @@ import DownloadCheckbox from './download-checkbox.vue';
 import axios from 'axios';
 import { Zip, AsyncZipDeflate, unzip } from 'fflate';
 import { saveAs } from 'file-saver';
+
+const DO_NOT_FETCH_ME = "DO_NOT_FETCH_ME";
+const SERVER_CONFIG = `name = 'alt:V Server'
+    host = '0.0.0.0'
+    port = 7788
+    players = 128
+    # password = 'ultra-password'
+    announce = false
+    # token = 'YOUR_TOKEN'
+    gamemode = 'Freeroam'
+    website = 'example.com'
+    language = 'en'
+    description = 'alt:V Sample Server'
+    modules = []
+    resources = []
+`.replace(/  +/g, '');
 
 export default {
     components: {
@@ -238,23 +254,24 @@ export default {
             );
 
             if (this.hasModule('sample-config')) {
+                // cursed shit
                 this.addFiles(
                     {
-                        'server.cfg': `${cdnUrl}/others/server.cfg`
+                        'server.toml': DO_NOT_FETCH_ME
                     },
-                    async resp =>
+                    () =>
                         Buffer.from(
-                            (await resp.text())
+                            SERVER_CONFIG
                                 .replace(
-                                    /modules:\s*\[[\s\S]*?\]/gm,
-                                    `modules: [${this.options.include
+                                    /modules =\s*\[[\s\S]*?\]/gm,
+                                    `modules = [${this.options.include
                                         .filter(opt => opt.endsWith('module'))
                                         .map(opt => `'${opt}'`)
                                         .join(', ')}]`
                                 )
                                 .replace(
-                                    /resources:\s*\[[\s\S]*?\]/gm,
-                                    `resources: [${this.hasModule('example-resources') ? "'chat', 'freeroam'" : ''}]`
+                                    /resources =\s*\[[\s\S]*?\]/gm,
+                                    `resources = [${this.hasModule('example-resources') ? "'chat', 'freeroam'" : ''}]`
                                 )
                         )
                 );
@@ -288,7 +305,10 @@ export default {
                 const fStream = new AsyncZipDeflate(path, { level: 1 });
                 zip.add(fStream);
 
-                return fetch(url, {cache: "no-store"})
+                return (url === DO_NOT_FETCH_ME
+                    ? Promise.resolve(null)
+                    : fetch(url, {cache: "no-store"})
+                )
                     .then(resp => this.filesCb[path](resp))
                     .then(buff => {
                         this.progress += progressPerFile;
