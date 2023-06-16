@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="split hide-mobile">
-                <a href="https://cdn.alt-mp.com/launcher/release/x64_win32/altv.zip" class="btn btn-client">
+                <a href="https://cdn.alt-mp.com/launcher/release/x64_win32/altv.exe" class="btn btn-client">
                     Download Client
                 </a>
                 <a href="#" @click="tryBundleServe" :disabled="isBundling" class="btn btn-server">
