@@ -235,10 +235,7 @@ export default {
             const branch = this.options.branch;
             const arch = this.options.arch;
 
-            const serverBinName = arch === 'x64_win32' ? 'altv-server.exe' : 'altv-server';
-            this.addFiles({
-                [serverBinName]: `${cdnUrl}/server/${branch}/${arch}/${serverBinName}`
-            });
+            await this.addFolder(`${cdnUrl}/server/${branch}/${arch}`);
 
             const modules = {
                 'data-files': `data/${branch}`,
