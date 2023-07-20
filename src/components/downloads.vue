@@ -15,8 +15,8 @@
                 <div class="dl client">
                     <h2>Client</h2>
                     <p>
-                        Installer / Updater: <b>~2MB</b><br />
-                        Full Client: <b>~170MB</b>
+                        Installer / Updater: <b>~6MB</b><br />
+                        Full Client: <b>~320MB</b>
                     </p>
                     <div class="action">
                         <a
