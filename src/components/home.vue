@@ -54,9 +54,6 @@
             <a target="_blank" href="https://instagram.com/altvmp/">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a target="_blank" href="https://vk.com/altvmp">
-                <i class="fab fa-vk"></i>
-            </a>
             <a target="_blank" href="https://www.youtube.com/c/altVMP">
                 <i class="fab fa-youtube"></i>
             </a>
