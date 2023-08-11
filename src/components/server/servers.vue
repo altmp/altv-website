@@ -85,6 +85,17 @@
                     </tbody>
                 </table>
             </div>
+            <div class="copyright">
+                <p>
+                    Grand Theft Auto and Grand Theft Auto: V are registered trademarks of Take-Two Interactive Software.
+                    <br />Any trademarks used belong to their respective owners. alt:V Multiplayer and altMP Project are not
+                    affiliated with or endorsed by Take-Two Interactive Software.
+                    <br />alt:V Multiplayer and altMP Project do not host any user-made servers and is not responsible for
+                    user-made content. All user-made content are the property of their respective owners.
+                    <br />
+                    &copy; 2023 AMC Alternative Multiplayer Solutions LTD
+                </p>
+            </div>
         </div>
     </div>
 </template>
@@ -643,5 +654,14 @@
 
     table.server tr .fa-bolt {
         color: #FFB900
+    }
+
+    .copyright {
+        text-align: center;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        line-height: 20px;
+        opacity: 0.2;
+        margin-top: 40px;
     }
 </style>

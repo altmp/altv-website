@@ -39,6 +39,7 @@
                 <br />alt:V Multiplayer and altMP Project do not host any user-made servers and is not responsible for
                 user-made content. All user-made content are the property of their respective owners.
                 <br />
+                &copy; 2023 AMC Alternative Multiplayer Solutions LTD
             </p>
         </div>
         <div class="socialMobile">
