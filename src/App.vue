@@ -22,7 +22,7 @@
                 <a target="_blank" href="https://twitter.com/altVMP">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a target="_blank" href="https://www.youtube.com/channel/UCynLUh5sXjU2NWIILQ3uwLg">
+                <a target="_blank" href="https://www.youtube.com/@altvmultiplayer">
                     <i class="fab fa-youtube"></i>
                 </a>
                 <a target="_blank" href="https://www.twitch.tv/altvmultiplayer">
