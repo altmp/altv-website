@@ -147,7 +147,6 @@ import { saveAs } from 'file-saver';
 
 const DO_NOT_FETCH_ME = "DO_NOT_FETCH_ME";
 const SERVER_CONFIG = `name = 'alt:V Server'
-    host = '0.0.0.0'
     port = 7788
     players = 128
     # password = 'ultra-password'
