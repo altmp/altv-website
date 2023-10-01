@@ -37,7 +37,7 @@
                 <div class="stats">
                     <!-- <a class="stats" href="https://altstats.net/" target="_blank"> -->
                     <span class="players">
-                        Players online: <i>{{ servers.reduce((a, b) => a + (b.players || 0), 0) }}</i>
+                        Players online: <i>{{ servers.reduce((a, b) => a + (b.playersCount || 0), 0) }}</i>
                     </span>
                     <span class="servers">
                         Servers online: <i>{{ servers.length }}</i>
@@ -68,18 +68,17 @@
                                 <div class="icons">
                                     <i v-if="server.verified" class="fa fa-check" title="Verified server"></i>
                                     <i v-if="server.promoted" class="fa fa-bolt" title="Promoted server"></i>
-                                    <i v-if="server.locked" class="fa fa-lock" title="Locked server"></i>
+                                    <i v-if="server.passworded" class="fa fa-lock" title="Locked server"></i>
                                 </div>
                             </td>
-                            <td class="center players"><b>{{ server.players }}</b> <span class="optional">/
-                                    {{ server.maxPlayers }}</span></td>
+                            <td class="center players"><b>{{ server.playersCount }}</b> <span class="optional">/
+                                    {{ server.maxPlayersCount }}</span></td>
                             <td class="center optional">{{ server.gameMode }}</td>
                             <td class="center optional">{{ getLanguage(server.language) }}
                                 <!-- <img :src="getFlagImage(server.language)" /> -->
                             </td>
                             <td class="center optional connect">
-                                <a v-if="server.useCdn" :href="'altv://connect/' + server.cdnUrl">Connect</a>
-                                <a v-else :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
+                                <a :href="'altv://connect/' + server.address">Connect</a>
                             </td>
                         </tr>
                     </tbody>
@@ -139,7 +138,7 @@
             getLanguage: getLanguage,
             fetchServers: async function () {
                 console.log("Fetch servers from the API...");
-                const data = await getRequest('https://api.alt-mp.com/servers/list');
+                const data = await getRequest('https://api.alt-mp.com/servers');
 
                 if (!data) {
                     return;
@@ -234,7 +233,7 @@
                 return this.servers.filter(server => {
                     if (!server.players && this.filter.empty) return false;
                     if ((server.players === server.maxPlayers) && this.filter.full) return false;
-                    if (server.locked && this.filter.locked) return false;
+                    if (server.passworded && this.filter.locked) return false;
                     if (!this.filter.name) return true;
 
                     var filter = this.filter.name.toLowerCase();

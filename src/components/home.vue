@@ -85,7 +85,7 @@
         },
         methods: {
             async fetchPlayers() {
-                const data = await getRequest('https://api.altv.mp/servers/');
+                const data = await getRequest('https://api.alt-mp.com/servers/info');
 
                 if (!data) {
                     return;

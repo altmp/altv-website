@@ -23,23 +23,15 @@
                                         <tbody>
                                             <tr>
                                                 <td>Players</td>
-                                                <td><b>{{ server.players }}</b> / {{ server.maxPlayers }}</td>
+                                                <td><b>{{ server.playersCount }}</b> / {{ server.maxPlayersCount }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Language</td>
                                                 <td>{{ this.getLanguage(server.language) }}</td>
                                             </tr>
-                                            <tr v-if="!server.useCdn">
-                                                <td>IP</td>
-                                                <td>{{ server.host }}</td>
-                                            </tr>
-                                            <tr v-if="!server.useCdn">
-                                                <td>Port</td>
-                                                <td>{{ server.port }}</td>
-                                            </tr>
-                                            <tr v-if="server.useCdn">
-                                                <td>Host</td>
-                                                <td>{{ server.cdnUrl }}</td>
+                                            <tr>
+                                                <td>Address</td>
+                                                <td>{{ server.address }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Gamemode</td>
@@ -47,7 +39,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Website</td>
-                                                <td>{{ server.website }}</td>
+                                                <a :href="server.website">{{ server.website }}</a>
                                             </tr>
                                             <tr>
                                                 <td>Description</td>
@@ -92,8 +84,7 @@
                                 </div>
                             </div>
                             <div class="connect" colspan="2">
-                                <a v-if="server.useCdn" :href="'altv://connect/' + server.cdnUrl">Connect</a>
-                                <a v-else :href="'altv://connect/' + server.host + ':' + server.port">Connect</a>
+                                <a :href="`altv://connect/${encodeURIComponent(server.address)}?name=${server.name}&id=${server.publicId}`">Connect</a>
                             </div>
                         </div>
                     </div>
@@ -211,7 +202,7 @@ export default {
         getPlayerData: async function () {
             this.playerData = null;
 
-            const playerData = await getRequest(`https://api.alt-mp.com/${this.type}/${this.server.id}/${this.period}`);
+            const playerData = await getRequest(`https://api.alt-mp.com/servers/${this.server.publicId}/${this.type}/${this.period}`);
 
             if (!playerData) {
                 return;
@@ -511,6 +502,10 @@ div.connect a:active {
 .modal-container .information table {
     border-collapse: separate;
     border-spacing: 10px;
+}
+
+.modal-container .information table a {
+    color: white !important;
 }
 
 .modal-container .information table tr td:first-child {
