@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/branding/svg/logo_black.svg"
   },
   {
-    "revision": "d963712b901fece89db6",
-    "url": "/css/app.e76ee404.css"
+    "revision": "dd16f4b0346b5198ce35",
+    "url": "/css/app.7d14da3e.css"
   },
   {
     "revision": "b5dc0c807c348e87ddb0a3a0db163d39",
@@ -168,12 +168,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/vibegames.76427600.png"
   },
   {
-    "revision": "fa57c83b007e6e2921ef9e53a2c5c076",
+    "revision": "d25c0b73999c509900f18fb7517676c9",
     "url": "/index.html"
   },
   {
-    "revision": "d963712b901fece89db6",
-    "url": "/js/app.60e00915.js"
+    "revision": "dd16f4b0346b5198ce35",
+    "url": "/js/app.aba9888a.js"
   },
   {
     "revision": "c76865c336159052be6b",
