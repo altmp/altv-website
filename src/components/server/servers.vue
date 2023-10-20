@@ -49,8 +49,8 @@
                         <th class="orderable" @click="sortBy('name')">Server Name <i
                                 v-if="this.filter.orderBy.column === 'name'" class="fa" :class="sortByClass"></i></th>
                         <th class="center">&nbsp;</th>
-                        <th @click="sortBy('players')" class="orderable center">Players <i
-                                v-if="this.filter.orderBy.column === 'players'" class="fa" :class="sortByClass"></i>
+                        <th @click="sortBy('playersCount')" class="orderable center">Players <i
+                                v-if="this.filter.orderBy.column === 'playersCount'" class="fa" :class="sortByClass"></i>
                         </th>
                         <th class="center optional">Gamemode</th>
                         <th class="center optional">Language</th>
