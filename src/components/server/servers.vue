@@ -57,7 +57,7 @@
                         <th class="optional">&nbsp;</th>
                     </thead>
                     <tbody>
-                        <tr v-for="server in getServerList" :key="server.id" v-on:click="showServerInfo(server.id)">
+                        <tr v-for="server in getServerList" :key="server.id" v-on:click="showServerInfo(server.publicId)">
                             <td>
                                 <div class="serverName">{{ server.name }}</div>
                                 <div class="serverTags optional">
@@ -120,7 +120,7 @@
                 serversInfo: {},
                 filter: {
                     orderBy: {
-                        column: "players",
+                        column: "playersCount",
                         orderDesc: -1
                     },
                     name: "",
@@ -186,9 +186,9 @@
             clearInput() {
                 this.filter.name = "";
             },
-            showServerInfo(id) {
+            showServerInfo(publicId) {
                 var server = this.servers.find(server => {
-                    return server.id === id;
+                    return server.publicId === publicId;
                 });
                 this.$refs.serverModal.open(server);
             }
@@ -231,8 +231,8 @@
                 });
 
                 return this.servers.filter(server => {
-                    if (!server.players && this.filter.empty) return false;
-                    if ((server.players === server.maxPlayers) && this.filter.full) return false;
+                    if (!server.playersCount && this.filter.empty) return false;
+                    if ((server.playersCount === server.maxPlayersCount) && this.filter.full) return false;
                     if (server.passworded && this.filter.locked) return false;
                     if (!this.filter.name) return true;
 
