@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <div class="connect" colspan="2">
-                                <a :href="`altv://connect/${encodeURIComponent(server.address)}?name=${server.name}&id=${server.publicId}`">Connect</a>
+                                <a :href="`altv://connect/${encodeURIComponent(server.address)}?name=${encodeURIComponent(server.name)}&id=${encodeURIComponent(server.publicId)}`">Connect</a>
                             </div>
                         </div>
                     </div>
