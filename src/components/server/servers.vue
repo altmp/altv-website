@@ -78,7 +78,7 @@
                                 <!-- <img :src="getFlagImage(server.language)" /> -->
                             </td>
                             <td class="center optional connect">
-                                <a :href="'altv://connect/' + server.address">Connect</a>
+                                <a :href="`altv://connect/${encodeURIComponent(server.address)}?name=${encodeURIComponent(server.name)}&id=${encodeURIComponent(server.publicId)}`">Connect</a>
                             </td>
                         </tr>
                     </tbody>
