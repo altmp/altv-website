@@ -494,7 +494,7 @@ div.connect a:active {
 .modal-container .server .container .information .server-information {
     overflow: scroll;
     overflow-x: hidden;
-    /* max-height: 400px; */
+    max-height: 290px;
     width: auto;
     min-width: 400px;
 }
